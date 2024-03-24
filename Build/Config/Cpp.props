@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?> 
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Globals">
     <DefaultLanguage>en-GB</DefaultLanguage>
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -8,7 +8,7 @@
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
 
-  <PropertyGroup Label="Configuration">
+  <PropertyGroup>
     <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
     <UseDebugLibraries Condition="'$(Configuration)' == 'Debug'">true</UseDebugLibraries>
     <UseDebugLibraries Condition="'$(Configuration)' != 'Debug'">false</UseDebugLibraries>
@@ -17,20 +17,17 @@
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
 
+  <Import Project="$(PlatformSettings)" Condition="'$(PlatformSettings)' != ''" />
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
 
   <PropertyGroup>
+    <TargetName>$(ProjectName)</TargetName>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
 
   <ItemDefinitionGroup>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding Condition="'$(Configuration)' == 'Release'">true</EnableCOMDATFolding>
-      <OptimizeReferences Condition="'$(Configuration)' == 'Release'">true</OptimizeReferences>
-    </Link>
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
 
@@ -53,14 +50,14 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
 
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat Condition="'$(Configuration)' == 'Debug'">ProgramDatabase</DebugInformationFormat>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
+    <Link>
+      <GenerateDebugInformation Condition="'$(Configuration)' == 'Debug'">true</GenerateDebugInformation>
+      <GenerateDebugInformation Condition="'$(Configuration)' == 'Release'">false</GenerateDebugInformation>
+      <EnableCOMDATFolding Condition="'$(Configuration)' == 'Release'">true</EnableCOMDATFolding>
+      <OptimizeReferences Condition="'$(Configuration)' == 'Release'">true</OptimizeReferences>
+    </Link>
   </ItemDefinitionGroup>
-
-  <Import Condition="'$(PathPropsImported)' != 'true'" Project="Path.Props" />
-
-  <PropertyGroup>
-    <TargetName>$(ProjectName)</TargetName>
-  </PropertyGroup>
 </Project>

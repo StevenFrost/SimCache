@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="Environment">
+    <Import Project="$(SolutionDir)..\Root.props" />
+    <Import Project="$(ConfigDirectory)Configurations.props" />
+  </ImportGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A5468B35-BBBD-4C55-97ED-81BFE343B0E4}</ProjectGuid>
     <RootNamespace>Module</RootNamespace>
+    <PlatformSettings>$(ConfigDirectory)Platform.MSFS.props</PlatformSettings>
+    <MSFSConfigurationType>Application</MSFSConfigurationType>
   </PropertyGroup>
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(SolutionDir)..\Root.props" />
-    <Import Project="$(ConfigDirectory)Configurations.props" />
+  <ImportGroup>
     <Import Project="$(ConfigDirectory)Cpp.props" />
-    <Import Project="$(ConfigDirectory)MSFSWASM.props"/>
+    <Import Project="$(ConfigDirectory)Cpp.MSFS.props" />
+    <Import Project="$(ConfigDirectory)Cpp.MSFS.WASM.props" />
+    <Import Project="$(ConfigDirectory)Cpp.MSFS.WASM.Module.props" />
+    <Import Project="$(ConfigDirectory)Path.props" />
   </ImportGroup>
-  <PropertyGroup Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
+  <PropertyGroup Label="Configuration" />
   <ItemGroup>
     <ClCompile Include="..\Source\SimCacheModule.cpp" />
   </ItemGroup>
