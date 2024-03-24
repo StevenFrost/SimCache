@@ -32,7 +32,7 @@
       <OptimizeReferences Condition="'$(Configuration)' == 'Release'">true</OptimizeReferences>
     </Link>
     <ClCompile>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
 
       <UseFullPaths>true</UseFullPaths>
       <MinimalRebuild>false</MinimalRebuild>
