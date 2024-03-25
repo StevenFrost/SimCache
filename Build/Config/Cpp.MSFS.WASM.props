@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?> 
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Label="Configuration">
-    <PlatformToolset>MSFS</PlatformToolset>
-  </PropertyGroup>
-
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TargetExt>.wasm</TargetExt>
-    <IncludePath>$(MSFS_IncludePath);%(IncludePath)</IncludePath>
     <PreprocessorDefinitions>__wasi__;_STRING_H_CPLUSPLUS_98_CONFORMANCE_;_WCHAR_H_CPLUSPLUS_98_CONFORMANCE_;_LIBCPP_HAS_NO_THREADS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
   </PropertyGroup>
 
   <ItemDefinitionGroup>
-    <Link>
-      <NoEntryPoint>true</NoEntryPoint>
-      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
-    </Link>
     <ClCompile>
       <ExceptionHandling>false</ExceptionHandling>
     </ClCompile>
+    <Link>
+      <NoEntryPoint>true</NoEntryPoint>
+    </Link>
   </ItemDefinitionGroup>
 </Project>
