@@ -7,3 +7,6 @@
 
 # Output
 Built/
+
+# WASM output
+*.wasm
