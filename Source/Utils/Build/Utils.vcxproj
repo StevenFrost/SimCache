@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="Environment">
+    <Import Project="$(SolutionDir)..\Root.props" />
+    <Import Project="$(ConfigDirectory)Configurations.props" />
+  </ImportGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{19C75473-A13D-4875-BD78-70AEA73DD237}</ProjectGuid>
+    <RootNamespace>Utils</RootNamespace>
+    <PlatformSettings>$(ConfigDirectory)Platform.MSFS.props</PlatformSettings>
+    <MSFSConfigurationType>Application</MSFSConfigurationType>
+  </PropertyGroup>
+  <ImportGroup>
+    <Import Project="$(ConfigDirectory)Cpp.props" />
+    <Import Project="$(ConfigDirectory)Cpp.MSFS.props" />
+    <Import Project="$(ConfigDirectory)Cpp.MSFS.WASM.props" />
+    <Import Project="$(ConfigDirectory)Cpp.MSFS.WASM.StaticLibrary.props" />
+    <Import Project="$(ConfigDirectory)Path.props" />
+    <Import Project="$(SourceDirectory)Utils\Build\Utils.vcxproj.projimport" />
+  </ImportGroup>
+  <PropertyGroup Label="Configuration" />
+  <ItemGroup>
+    <ClInclude Include="..\Inc\Utils\WASM\Macros.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

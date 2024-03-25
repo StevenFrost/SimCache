@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\Inc\Utils\WASM\Macros.h">
+      <Filter>Include\Utils\WASM</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{b330bea3-e1dc-41ca-bd3f-f1fbdd6392ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{27cd5817-5370-4986-97dd-659c2edf0133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Utils">
+      <UniqueIdentifier>{92da9119-581b-4bf7-851d-dcd633cf3de7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Utils\WASM">
+      <UniqueIdentifier>{cb01bcf9-015b-44ab-9a23-708a486eb471}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

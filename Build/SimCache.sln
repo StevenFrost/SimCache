@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimCacheModule", "..\Source\SimCacheModule\Build\SimCacheModule.vcxproj", "{A5468B35-BBBD-4C55-97ED-81BFE343B0E4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utils", "..\Source\Utils\Build\Utils.vcxproj", "{19C75473-A13D-4875-BD78-70AEA73DD237}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|MSFS = Debug|MSFS
@@ -15,6 +17,10 @@ Global
 		{A5468B35-BBBD-4C55-97ED-81BFE343B0E4}.Debug|MSFS.Build.0 = Debug|MSFS
 		{A5468B35-BBBD-4C55-97ED-81BFE343B0E4}.Release|MSFS.ActiveCfg = Release|MSFS
 		{A5468B35-BBBD-4C55-97ED-81BFE343B0E4}.Release|MSFS.Build.0 = Release|MSFS
+		{19C75473-A13D-4875-BD78-70AEA73DD237}.Debug|MSFS.ActiveCfg = Debug|MSFS
+		{19C75473-A13D-4875-BD78-70AEA73DD237}.Debug|MSFS.Build.0 = Debug|MSFS
+		{19C75473-A13D-4875-BD78-70AEA73DD237}.Release|MSFS.ActiveCfg = Release|MSFS
+		{19C75473-A13D-4875-BD78-70AEA73DD237}.Release|MSFS.Build.0 = Release|MSFS
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
