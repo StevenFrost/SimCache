@@ -6,4 +6,7 @@
 *.user
 
 # Output
-Built/
+Built
+
+# WASM output
+*.wasm

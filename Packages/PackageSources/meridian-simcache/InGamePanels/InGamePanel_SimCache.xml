@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SimBase.Document Type="InGamePanels" version="1.0">
+    <Filename>InGamePanel_SimCache.spb</Filename>
+    <InGamePanels.InGamePanelDefinition
+        id="PANEL_SIMCACHE"
+        Name="SimCache"
+        url="html_ui/InGamePanels/SimCache/SimCache.html"
+        resizeDirections="None"
+        HAnchor="RIGHT"
+        minWidth="55"
+        minHeight="20"
+        Order="3"
+        defaultWidth="55"
+        defaultHeight="20"
+        defaultTop="3"
+        defaultLeft="-55"
+        collapsible="false"
+        headerVisible="false"
+        noBackground="true"
+        icon="ICON_TOOLBAR_SIMCACHE"
+        buttonVisible="true">
+    </InGamePanels.InGamePanelDefinition>
+</SimBase.Document>
