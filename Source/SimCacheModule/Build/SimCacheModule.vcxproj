@@ -17,6 +17,9 @@
     <Import Project="$(ConfigDirectory)Cpp.MSFS.WASM.Module.props" />
     <Import Project="$(ConfigDirectory)Path.props" />
   </ImportGroup>
+  <ImportGroup Label="Dependencies">
+    <Import Project="$(SourceDirectory)Utils\Build\Utils.vcxproj.projimport" Condition="'$(UtilsImported)' != 'true'" />
+  </ImportGroup>
   <PropertyGroup Label="Configuration" />
   <ItemDefinitionGroup>
     <PostBuildEvent>
@@ -27,10 +30,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\SimCacheModule.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Source\SimCacheModule.h" />
+    <ClCompile Include="..\Source\Module.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
