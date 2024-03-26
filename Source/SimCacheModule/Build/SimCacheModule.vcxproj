@@ -18,6 +18,14 @@
     <Import Project="$(ConfigDirectory)Path.props" />
   </ImportGroup>
   <PropertyGroup Label="Configuration" />
+  <ItemDefinitionGroup>
+    <PostBuildEvent>
+      <Command>
+        md "$(PackagesDirectory)PackageSources\meridian-simcache\modules\"
+        copy /Y "$(TargetPath)" "$(PackagesDirectory)PackageSources\meridian-simcache\modules\$(TargetFileName)"
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\SimCacheModule.cpp" />
   </ItemGroup>
