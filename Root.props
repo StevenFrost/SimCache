@@ -6,5 +6,6 @@
     <ConfigDirectory Condition="'$(ConfigDirectory)' == ''">$(SolutionDir)Config\</ConfigDirectory>
     <BuiltDirectory Condition="'$(BuiltDirectory)' == ''">$(RootDirectory)Built\</BuiltDirectory>
     <SourceDirectory Condition="'$(SourceDirectory)' == ''">$(RootDirectory)Source\</SourceDirectory>
+    <PackagesDirectory Condition="'$(PackagesDirectory)' == ''">$(RootDirectory)Packages\</PackagesDirectory>
   </PropertyGroup>
 </Project>
