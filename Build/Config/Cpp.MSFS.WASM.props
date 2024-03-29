@@ -7,6 +7,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <ExceptionHandling>false</ExceptionHandling>
+      <AdditionalOptions>-Wno-unused-parameter -Wno-unused-variable %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <NoEntryPoint>true</NoEntryPoint>
