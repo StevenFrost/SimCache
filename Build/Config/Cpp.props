@@ -30,6 +30,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
 
       <UseFullPaths>true</UseFullPaths>
       <MinimalRebuild>false</MinimalRebuild>
