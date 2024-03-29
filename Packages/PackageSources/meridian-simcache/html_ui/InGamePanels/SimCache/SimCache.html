@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title></title>
     <meta charset="utf-8" />
@@ -9,11 +10,8 @@
     <script type="text/javascript" src="/JS/coherent.js"></script>
     <script type="text/javascript" src="/JS/common.js"></script>
     <script type="text/javascript" src="/JS/dataStorage.js"></script>
-    <script type="text/javascript" src="/JS/buttons.js"></script>
     <script type="text/javascript" src="/JS/Services/ToolBarPanels.js"></script>
-    <script type="text/javascript" src="/JS/SimVar.js"></script>
 
-    <link rel="import" href="/templates/NewPushButton/NewPushButton.html" />
     <link rel="import" href="/templates/ingameUi/ingameUi.html" />
     <link rel="import" href="/templates/ingameUiHeader/ingameUiHeader.html" />
 
@@ -22,14 +20,31 @@
 
 <body id="SimCache" class="border-box">
     <ingamepanel-simcache>
-        <ingame-ui id="SimCache_Frame" panel-id="PANEL_SIMCACHE" class="ingameUiFrame panelInvisible" title="SimCache" content-fit="true" min-width="40" resize="x">
-            <ui-element style="display: flex">
-                <div id="simcache-placeholder">
-                    <h1>SimCache Title Placeholder</h1>
-                    <p>This paragraph is placeholder.</p>
+        <ingame-ui id="SimCache_Frame" panel-id="PANEL_SIMCACHE" class="ingameUiFrame panelInvisible" title="SimCache"
+            content-fit="true" min-width="40" resize="x">
+            <ui-element style="display: flex; justify-content: right;">
+                <div id="simcache-container" class="shadow">
+                    <hgroup>
+                        <h2 id="cache-title"></h2>
+                        <p id="cache-subtitle"></p>
+                    </hgroup>
+                    <div class="annuli-container">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50%" cy="50%" r="49" fill="#ffdc67" fill-opacity="0.8" />
+                            <circle id="inner-annulus" cx="50%" cy="50%" r="49" fill="#33353c" fill-opacity="0.8" />
+                            <circle cx="50%" cy="50%" r="49" stroke="#f8f8f8" stroke-width="2" fill="none" />
+                            <circle cx="50%" cy="50%" r="40" stroke="#f8f8f8" stroke-width="2" fill="none" />
+                            <circle cx="50%" cy="50%" r="31" stroke="#f8f8f8" stroke-width="2" fill="none" />
+                            <circle cx="50%" cy="50%" r="22" stroke="#f8f8f8" stroke-width="2" fill="none" />
+                        </svg>
+                        <div id="airplane-shadow">
+                            <div id="airplane"></div>
+                        </div>
+                    </div>
                 </div>
             </ui-element>
         </ingame-ui>
     </ingamepanel-simcache>
 </body>
+
 </html>
