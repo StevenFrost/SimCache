@@ -41,11 +41,6 @@ void WASMEventDispatcher::FireEvent( const std::string& EventId, const std::stri
 
 // -----------------------------------------------------------------------------
 
-void foo( int i )
-{
-
-}
-
 EventHandle WASMEventDispatcher::RegisterEventListener( const std::string& EventId, std::function< void( const std::string& ) >&& Callback )
 {
 	EventHandle Handle( NextHandleId++ );
