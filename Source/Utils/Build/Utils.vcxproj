@@ -8,7 +8,7 @@
     <ProjectGuid>{19C75473-A13D-4875-BD78-70AEA73DD237}</ProjectGuid>
     <RootNamespace>Utils</RootNamespace>
     <PlatformSettings>$(ConfigDirectory)Platform.MSFS.props</PlatformSettings>
-    <MSFSConfigurationType>Application</MSFSConfigurationType>
+    <MSFSConfigurationType>StaticLibrary</MSFSConfigurationType>
   </PropertyGroup>
   <ImportGroup>
     <Import Project="$(ConfigDirectory)Cpp.props" />
