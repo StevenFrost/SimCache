@@ -18,8 +18,39 @@ namespace Utils
 
 // -----------------------------------------------------------------------------
 
-WASMEventDispatcher::WASMEventDispatcher( const EWASMEventContext EventContext )
-	: BroadcastFlags( EventContextToBroadcastFlags( EventContext ) )
+namespace WASMEventDispatcherPrivate
+{
+
+// -----------------------------------------------------------------------------
+
+FsCommBusBroadcastFlags DispatcherTargetToBroadcastFlags( const EWASMEventDispatcherTarget Target )
+{
+	std::underlying_type< FsCommBusBroadcastFlags >::type Flags = 0;
+
+	if ( HasFlag( Target, EWASMEventDispatcherTarget::JavaScript ) )
+	{
+		Flags |= FsCommBusBroadcastFlags::FsCommBusBroadcast_JS;
+	}
+	if ( HasFlag( Target, EWASMEventDispatcherTarget::WASM ) )
+	{
+		Flags |= FsCommBusBroadcastFlags::FsCommBusBroadcast_Wasm;
+	}
+	if ( HasFlag( Target, EWASMEventDispatcherTarget::Self ) )
+	{
+		Flags |= FsCommBusBroadcastFlags::FsCommBusBroadcast_WasmSelfCall;
+	}
+
+	return static_cast< FsCommBusBroadcastFlags >( Flags );
+}
+
+// -----------------------------------------------------------------------------
+
+} // namespace WASMEventDispatcherPrivate
+
+// -----------------------------------------------------------------------------
+
+WASMEventDispatcher::WASMEventDispatcher( const EWASMEventDispatcherTarget Target )
+	: BroadcastFlags( WASMEventDispatcherPrivate::DispatcherTargetToBroadcastFlags( Target ) )
 	, RegisteredEvents()
 {
 }
@@ -83,28 +114,6 @@ void WASMEventDispatcher::UnregisterAllEventListeners()
 
 // -----------------------------------------------------------------------------
 
-FsCommBusBroadcastFlags WASMEventDispatcher::EventContextToBroadcastFlags( const EWASMEventContext EventContext ) const
-{
-	std::underlying_type< FsCommBusBroadcastFlags >::type Flags = 0;
-
-	if ( HasFlag( EventContext, EWASMEventContext::JavaScript ) )
-	{
-		Flags |= FsCommBusBroadcastFlags::FsCommBusBroadcast_JS;
-	}
-	if ( HasFlag( EventContext, EWASMEventContext::WASM ) )
-	{
-		Flags |= FsCommBusBroadcastFlags::FsCommBusBroadcast_Wasm;
-	}
-	if ( HasFlag( EventContext, EWASMEventContext::Self ) )
-	{
-		Flags |= FsCommBusBroadcastFlags::FsCommBusBroadcast_WasmSelfCall;
-	}
-
-	return static_cast< FsCommBusBroadcastFlags >( Flags );
-}
-
-// -----------------------------------------------------------------------------
-
 void WASMEventDispatcher::ReceiveEvent( const char* Buffer, unsigned int BufferSize, void* Context )
 {
 	std::string Data( Buffer, BufferSize );
@@ -113,9 +122,9 @@ void WASMEventDispatcher::ReceiveEvent( const char* Buffer, unsigned int BufferS
 
 // -----------------------------------------------------------------------------
 
-std::shared_ptr< EventDispatcher > MakeWASMEventDispatcher( const EWASMEventContext Context )
+std::shared_ptr< EventDispatcher > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target )
 {
-	return std::make_shared< WASMEventDispatcher >( Context );
+	return std::make_shared< WASMEventDispatcher >( Target );
 }
 
 // -----------------------------------------------------------------------------

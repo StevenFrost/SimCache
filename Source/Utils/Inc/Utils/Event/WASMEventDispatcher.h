@@ -13,17 +13,18 @@ namespace Utils
 
 // -----------------------------------------------------------------------------
 
-enum class EWASMEventContext : int8_t
+enum class EWASMEventDispatcherTarget : int8_t
 {
 	JavaScript = 0x1,
 	WASM = 0x2,
 	Self = 0x4 | WASM,
+	JavaScriptAndWASM = JavaScript | WASM,
 	All = JavaScript | WASM | Self
 };
 
 // -----------------------------------------------------------------------------
 
-std::shared_ptr< EventDispatcher > MakeWASMEventDispatcher( const EWASMEventContext Context );
+std::shared_ptr< EventDispatcher > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target );
 
 // -----------------------------------------------------------------------------
 

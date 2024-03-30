@@ -32,7 +32,7 @@ class WASMEventDispatcher
 {
 public:
 
-	WASMEventDispatcher( const EWASMEventContext EventContext );
+	WASMEventDispatcher( const EWASMEventDispatcherTarget Target );
 	virtual ~WASMEventDispatcher();
 
 private:
@@ -45,8 +45,6 @@ private:
 private:
 
 	void UnregisterAllEventListeners();
-
-	FsCommBusBroadcastFlags EventContextToBroadcastFlags( const EWASMEventContext EventContext ) const;
 
 	static void ReceiveEvent( const char* Buffer, unsigned int BufferSize, void* Context );
 
