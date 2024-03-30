@@ -4,6 +4,27 @@
     <ClInclude Include="..\Inc\Utils\WASM\Macros.h">
       <Filter>Include\Utils\WASM</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Serialisation\Serialisable.h">
+      <Filter>Include\Utils\Serialisation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Event\EventHandle.h">
+      <Filter>Include\Utils\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Event\EventDispatcher.h">
+      <Filter>Include\Utils\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Event\WASMEventDispatcher.h">
+      <Filter>Source\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Event\Event.h">
+      <Filter>Include\Utils\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Event\WASMEventDispatcher.h">
+      <Filter>Include\Utils\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Enum\EnumUtils.h">
+      <Filter>Include\Utils\Enum</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -18,5 +39,25 @@
     <Filter Include="Include\Utils\WASM">
       <UniqueIdentifier>{cb01bcf9-015b-44ab-9a23-708a486eb471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Utils\Serialisation">
+      <UniqueIdentifier>{13073294-1bab-4881-a484-e82947c3ed2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Utils\Event">
+      <UniqueIdentifier>{088707da-c145-4953-ada0-897682e82741}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Event">
+      <UniqueIdentifier>{b4ab7a1b-11ee-4f39-a32e-084a2af7c334}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Utils\Enum">
+      <UniqueIdentifier>{c3d5c6a9-9f8d-4ffd-ba98-5797f060b24e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Source\Event\EventHandle.cpp">
+      <Filter>Source\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Event\WASMEventDispatcher.cpp">
+      <Filter>Source\Event</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
