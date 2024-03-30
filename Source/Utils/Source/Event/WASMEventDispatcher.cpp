@@ -19,7 +19,8 @@ namespace Utils
 // -----------------------------------------------------------------------------
 
 WASMEventDispatcher::WASMEventDispatcher( const EWASMEventContext EventContext )
-	: BroadcastFlags( EventContextToBroadcastFlags( EventContext ) )
+	: NextHandleId( 0 )
+	, BroadcastFlags( EventContextToBroadcastFlags( EventContext ) )
 	, RegisteredEvents()
 {
 }
@@ -42,7 +43,7 @@ void WASMEventDispatcher::FireEvent( const std::string& EventId, const std::stri
 
 EventHandle WASMEventDispatcher::RegisterEventListener( const std::string& EventId, std::function< void( const std::string& ) >&& Callback )
 {
-	auto Handle = EventHandle::Make();
+	EventHandle Handle( NextHandleId++ );
 
 	auto Context = std::make_unique< WASMEventContext >();
 	Context->EventId = EventId;

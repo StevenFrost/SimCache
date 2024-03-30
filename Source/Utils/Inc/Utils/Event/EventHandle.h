@@ -15,9 +15,8 @@ class EventHandle
 {
 public:
 
-	static EventHandle Make();
-
 	EventHandle();
+	EventHandle( const int32_t Id );
 
 	EventHandle( const EventHandle& Other ) = default;
 	EventHandle( EventHandle&& Other ) = default;
@@ -34,12 +33,8 @@ public:
 
 private:
 
-	EventHandle( const int32_t Id );
-
-	static const int32_t	InvalidId;
-	static int32_t			NextId;
-
-	int32_t					Id;
+	static const int32_t InvalidId;
+	int32_t Id;
 
 	friend struct EventHandleHasher;
 };
