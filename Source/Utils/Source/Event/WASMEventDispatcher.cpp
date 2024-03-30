@@ -45,13 +45,13 @@ EventHandle WASMEventDispatcher::RegisterEventListener( const std::string& Event
 {
 	EventHandle Handle( NextHandleId++ );
 
-	auto Context = std::make_shared< WASMEventContext >();
+	auto Context = std::make_unique< WASMEventContext >();
 	Context->EventId = EventId;
 	Context->Callback = Callback;
 
-	RegisteredEvents.insert( std::make_pair( Handle, Context ) );
-
 	fsCommBusRegister( EventId.c_str(), WASMEventDispatcher::ReceiveEvent, Context.get() );
+
+	RegisteredEvents.insert( std::make_pair( Handle, std::move( Context ) ) );
 
 	return Handle;
 }

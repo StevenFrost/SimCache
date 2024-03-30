@@ -52,7 +52,7 @@ private:
 
 private:
 
-	typedef std::unordered_map< EventHandle, std::shared_ptr< WASMEventContext >, EventHandleHasher > EventContextMap;
+	typedef std::unordered_map< EventHandle, std::unique_ptr< WASMEventContext >, EventHandleHasher > EventContextMap;
 
 	int32_t					NextHandleId;
 
