@@ -81,7 +81,7 @@ EventHandle WASMEventDispatcher::RegisterEventListener( const std::string& Event
 
 	fsCommBusRegister( EventId.c_str(), WASMEventDispatcher::ReceiveEvent, Context.get() );
 
-	RegisteredEvents.insert( std::make_pair( Handle, std::move( Context ) ) );
+	RegisteredEvents.emplace( Handle, std::move( Context ) );
 
 	return Handle;
 }
