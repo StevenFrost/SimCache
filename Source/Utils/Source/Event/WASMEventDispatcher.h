@@ -54,8 +54,6 @@ private:
 
 	typedef std::unordered_map< EventHandle, std::unique_ptr< WASMEventContext >, EventHandleHasher > EventContextMap;
 
-	int32_t					NextHandleId;
-
 	FsCommBusBroadcastFlags	BroadcastFlags;
 	EventContextMap			RegisteredEvents;
 
