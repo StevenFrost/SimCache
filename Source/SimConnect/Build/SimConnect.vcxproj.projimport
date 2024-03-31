@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup>
+    <Import Condition="'$(SimConnectImported)' == 'true'" Project="Error attempting to import SimConnect, imported twice." />
+  </ImportGroup>
+  
+  <PropertyGroup Condition="'$(ProjectName)' != 'SimConnect'">
+    <SimConnectImported>true</SimConnectImported>
+  </PropertyGroup>
+  
+  <ImportGroup Label="Dependencies">
+    <Import Project="$(SourceDirectory)Utils\Build\Utils.vcxproj.projimport" Condition="'$(UtilsImported)' != 'true'" />
+  </ImportGroup>
+  
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        $(SourceDirectory)SimConnect\Inc;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  
+  <ItemGroup Condition="'$(ProjectName)' != 'SimConnect'">
+    <ProjectReference Include="$(SourceDirectory)SimConnect\Build\SimConnect.vcxproj">
+      <Project>{2EF53C49-AAD2-40EE-975B-EF1851D69400}</Project>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemDefinitionGroup Condition="'$(ProjectName)' != 'SimConnect'">
+    <Link>
+      <AdditionalLibraryDirectories>$(LibPath)SimConnect\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

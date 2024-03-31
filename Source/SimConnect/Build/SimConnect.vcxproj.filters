@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Include">
+      <UniqueIdentifier>{67a84a2a-bbb4-4709-b1dd-60a0eaa5c92d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{1a665b50-63fc-4add-9c2b-716f07ef6d6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\SimConnect">
+      <UniqueIdentifier>{e8e0a3e7-faba-453e-ad54-b1525603efdd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Inc\SimConnect\SimConnectClient.h">
+      <Filter>Include\SimConnect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\SimConnectClient.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Source\SimConnectClient.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

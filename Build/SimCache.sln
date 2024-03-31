@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimCacheModule", "..\Source
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utils", "..\Source\Utils\Build\Utils.vcxproj", "{19C75473-A13D-4875-BD78-70AEA73DD237}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimConnect", "..\Source\SimConnect\Build\SimConnect.vcxproj", "{2EF53C49-AAD2-40EE-975B-EF1851D69400}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|MSFS = Debug|MSFS
@@ -21,6 +23,10 @@ Global
 		{19C75473-A13D-4875-BD78-70AEA73DD237}.Debug|MSFS.Build.0 = Debug|MSFS
 		{19C75473-A13D-4875-BD78-70AEA73DD237}.Release|MSFS.ActiveCfg = Release|MSFS
 		{19C75473-A13D-4875-BD78-70AEA73DD237}.Release|MSFS.Build.0 = Release|MSFS
+		{2EF53C49-AAD2-40EE-975B-EF1851D69400}.Debug|MSFS.ActiveCfg = Debug|MSFS
+		{2EF53C49-AAD2-40EE-975B-EF1851D69400}.Debug|MSFS.Build.0 = Debug|MSFS
+		{2EF53C49-AAD2-40EE-975B-EF1851D69400}.Release|MSFS.ActiveCfg = Release|MSFS
+		{2EF53C49-AAD2-40EE-975B-EF1851D69400}.Release|MSFS.Build.0 = Release|MSFS
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
