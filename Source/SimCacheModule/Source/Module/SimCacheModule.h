@@ -14,15 +14,15 @@ public:
 	SimCacheModule();
 	~SimCacheModule();
 
-	void Initialize();
+	bool Initialize();
 	void Uninitialize();
 
 private:
 
-	void InitializeSimConnectClient();
+	bool InitializeSimConnectClient();
 	void UninitializeSimConnectClient();
 
-	void InitializeEventDispatchers();
+	bool InitializeEventDispatchers();
 	void UninitializeEventDispatchers();
 
 private:

@@ -20,10 +20,21 @@ SimCacheModule::~SimCacheModule()
 
 // -----------------------------------------------------------------------------
 
-void SimCacheModule::Initialize()
+bool SimCacheModule::Initialize()
 {
-	InitializeSimConnectClient();
-	InitializeEventDispatchers();
+	const bool InitializeSimConnectClientSucceeded = InitializeSimConnectClient();
+	if ( !InitializeSimConnectClientSucceeded )
+	{
+		return false;
+	}
+
+	const bool InitializeEventDispatchersSucceeded = InitializeEventDispatchers();
+	if ( !InitializeEventDispatchersSucceeded )
+	{
+		return false;
+	}
+
+	return true;
 }
 
 // -----------------------------------------------------------------------------
@@ -36,9 +47,15 @@ void SimCacheModule::Uninitialize()
 
 // -----------------------------------------------------------------------------
 
-void SimCacheModule::InitializeSimConnectClient()
+bool SimCacheModule::InitializeSimConnectClient()
 {
 	SimConnectClient = SimConnect::MakeSimConnectClient( "SimCache" );
+	if ( !SimConnectClient )
+	{
+		return false;
+	}
+
+	return SimConnectClient->Initialize();
 }
 
 // -----------------------------------------------------------------------------
@@ -56,9 +73,15 @@ void SimCacheModule::UninitializeSimConnectClient()
 
 // -----------------------------------------------------------------------------
 
-void SimCacheModule::InitializeEventDispatchers()
+bool SimCacheModule::InitializeEventDispatchers()
 {
 	JavaScriptEventDispatcher = Utils::MakeWASMEventDispatcher( Utils::EWASMEventDispatcherTarget::JavaScript );
+	if ( !JavaScriptEventDispatcher )
+	{
+		return false;
+	}
+
+	return true;
 }
 
 // -----------------------------------------------------------------------------

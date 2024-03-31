@@ -16,13 +16,26 @@ static std::unique_ptr< SimCacheModule > Module = nullptr;
 extern "C" MSFS_CALLBACK void module_init()
 {
 	Module = std::make_unique< SimCacheModule >();
-	Module->Initialize();
+
+	const bool InitializeSucceeded = Module->Initialize();
+	if ( !InitializeSucceeded )
+	{
+		Module->Uninitialize();
+		Module = nullptr;
+
+		return;
+	}
 }
 
 // -----------------------------------------------------------------------------
 
 extern "C" MSFS_CALLBACK void module_deinit()
 {
+	if ( !Module )
+	{
+		return;
+	}
+
 	Module->Uninitialize();
 	Module = nullptr;
 }
