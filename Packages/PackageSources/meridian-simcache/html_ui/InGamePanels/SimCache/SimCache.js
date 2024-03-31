@@ -9,12 +9,17 @@ class SimCachePanel extends UIElement {
     connectedCallback() {
         this.m_connected = true;
 
-        this.m_ingameUI = this.querySelector("ingame-ui");
-        this.m_ingameUI.addEventListener("panelActive", () => this.onPanelActive());
-
         this.m_titleElement = document.getElementById("cache-title");
         this.m_subtitleElement = document.getElementById("cache-subtitle");
         this.m_annulusElement = document.getElementById("inner-annulus");
+
+        Promise.all([
+            this.registerCommBusListenerAsync()
+        ]).then((values) => this.onSubsystemsInitialized());
+
+        // TODO: remove placeholder when CacheDataChangedEvent is set up
+        this.updateCacheTitle("Cache Title Placeholder");
+        this.updateRange(100000);
 
         let updateLoop = () => {
             if (!this.m_connected) {
@@ -30,6 +35,16 @@ class SimCachePanel extends UIElement {
             requestAnimationFrame(updateLoop);
         };
         requestAnimationFrame(updateLoop);
+    }
+
+    registerCommBusListenerAsync() {
+        return new Promise((resolve) => {
+            this.CommBusListener = RegisterCommBusListener(resolve)
+        });
+    }
+
+    onSubsystemsInitialized() {
+        this.CommBusListener.callWasm("SimCache.TrackerLoadedEvent", "");
     }
 
     updateCacheTitle(title) {
@@ -83,11 +98,6 @@ class SimCachePanel extends UIElement {
             default:
                 return 49;
         }
-    }
-
-    onPanelActive() {
-        this.updateCacheTitle("Cache Title Placeholder");
-        this.updateRange(100000);
     }
 
     UpdatePanel() {
