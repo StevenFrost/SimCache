@@ -5,33 +5,31 @@
     <Import Project="$(ConfigDirectory)Configurations.props" />
   </ImportGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A5468B35-BBBD-4C55-97ED-81BFE343B0E4}</ProjectGuid>
-    <RootNamespace>Module</RootNamespace>
+    <ProjectGuid>{2EF53C49-AAD2-40EE-975B-EF1851D69400}</ProjectGuid>
+    <RootNamespace>SimConnect</RootNamespace>
     <PlatformSettings>$(ConfigDirectory)Platform.MSFS.props</PlatformSettings>
-    <MSFSConfigurationType>Application</MSFSConfigurationType>
+    <MSFSConfigurationType>StaticLibrary</MSFSConfigurationType>
   </PropertyGroup>
   <ImportGroup>
     <Import Project="$(ConfigDirectory)Cpp.props" />
     <Import Project="$(ConfigDirectory)Cpp.MSFS.props" />
     <Import Project="$(ConfigDirectory)Cpp.MSFS.WASM.props" />
-    <Import Project="$(ConfigDirectory)Cpp.MSFS.WASM.Module.props" />
+    <Import Project="$(ConfigDirectory)Cpp.MSFS.WASM.StaticLibrary.props" />
     <Import Project="$(ConfigDirectory)Path.props" />
+    <Import Project="$(SourceDirectory)SimConnect\Build\SimConnect.vcxproj.projimport" />
   </ImportGroup>
-  <ImportGroup Label="Dependencies">
-    <Import Project="$(SourceDirectory)Utils\Build\Utils.vcxproj.projimport" Condition="'$(UtilsImported)' != 'true'" />
-    <Import Project="$(SourceDirectory)SimConnect\Build\SimConnect.vcxproj.projimport" Condition="'$(SimConnectImported)' != 'true'" />
-  </ImportGroup>
-  <PropertyGroup Label="Configuration" />
   <ItemDefinitionGroup>
-    <PostBuildEvent>
-      <Command>
-        md "$(PackagesDirectory)PackageSources\meridian-simcache\modules\"
-        copy /Y "$(TargetPath)" "$(PackagesDirectory)PackageSources\meridian-simcache\modules\$(TargetFileName)"
-      </Command>
-    </PostBuildEvent>
+    <ClCompile>
+      <AdditionalOptions>-Wno-ignored-attributes %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
   </ItemDefinitionGroup>
+  <PropertyGroup Label="Configuration" />
   <ItemGroup>
-    <ClCompile Include="..\Source\Module.cpp" />
+    <ClInclude Include="..\Inc\SimConnect\SimConnectClient.h" />
+    <ClInclude Include="..\Source\SimConnectClient.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Source\SimConnectClient.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
