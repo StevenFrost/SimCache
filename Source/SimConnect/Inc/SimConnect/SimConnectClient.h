@@ -28,7 +28,7 @@ public:
 
 // -----------------------------------------------------------------------------
 
-std::unique_ptr< ISimConnectClient > MakeSimConnectClient( const std::string& ApplicationName );
+std::shared_ptr< ISimConnectClient > MakeSimConnectClient( const std::string& ApplicationName );
 
 // -----------------------------------------------------------------------------
 

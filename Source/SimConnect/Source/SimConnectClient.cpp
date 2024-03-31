@@ -82,9 +82,9 @@ bool SimConnectClient::CloseConnection()
 
 // -----------------------------------------------------------------------------
 
-std::unique_ptr< ISimConnectClient > MakeSimConnectClient( const std::string& ApplicationName )
+std::shared_ptr< ISimConnectClient > MakeSimConnectClient( const std::string& ApplicationName )
 {
-	return std::make_unique< SimConnectClient >( ApplicationName );
+	return std::make_shared< SimConnectClient >( ApplicationName );
 }
 
 // -----------------------------------------------------------------------------
