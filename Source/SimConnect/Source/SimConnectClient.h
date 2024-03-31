@@ -38,7 +38,7 @@ private:
 
 private:
 
-	const std::string&	ApplicationName;
+	const std::string	ApplicationName;
 
 	HANDLE				SimConnectHandle;
 
