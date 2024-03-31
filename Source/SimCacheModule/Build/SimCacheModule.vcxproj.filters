@@ -4,10 +4,21 @@
     <Filter Include="Source">
       <UniqueIdentifier>{e69ee60a-a595-4153-acf0-f9c799af1401}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Module">
+      <UniqueIdentifier>{bd4f5947-6af3-4b0c-a65d-91aa6f11bbc6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Module.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Module\SimCacheModule.cpp">
+      <Filter>Source\Module</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Source\Module\SimCacheModule.h">
+      <Filter>Source\Module</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
