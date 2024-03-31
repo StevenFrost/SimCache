@@ -13,7 +13,9 @@ class SimCachePanel extends UIElement {
         this.m_subtitleElement = document.getElementById("cache-subtitle");
         this.m_annulusElement = document.getElementById("inner-annulus");
 
-        this.CommBusListener = RegisterCommBusListener(this.onCommBusListenerRegistered.bind(this));
+        Promise.all([
+            this.registerCommBusListenerAsync()
+        ]).then((values) => this.onSubsystemsInitialized());
 
         // TODO: remove placeholder when CacheDataChangedEvent is set up
         this.updateCacheTitle("Cache Title Placeholder");
@@ -35,7 +37,13 @@ class SimCachePanel extends UIElement {
         requestAnimationFrame(updateLoop);
     }
 
-    onCommBusListenerRegistered() {
+    registerCommBusListenerAsync() {
+        return new Promise((resolve) => {
+            this.CommBusListener = RegisterCommBusListener(resolve)
+        });
+    }
+
+    onSubsystemsInitialized() {
         this.CommBusListener.callWasm("SimCache.TrackerLoadedEvent", "");
     }
 
