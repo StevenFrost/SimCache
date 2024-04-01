@@ -9,6 +9,7 @@
 SimCacheModule::SimCacheModule()
 	: SimConnectClient( nullptr )
 	, JavaScriptEventDispatcher( nullptr )
+	, TrackerVM( nullptr )
 {
 }
 
@@ -34,6 +35,12 @@ bool SimCacheModule::Initialize()
 		return false;
 	}
 
+	const bool InitializeTrackerViewModelSucceeded = InitializeTrackerViewModel();
+	if ( !InitializeTrackerViewModelSucceeded )
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -41,8 +48,9 @@ bool SimCacheModule::Initialize()
 
 void SimCacheModule::Uninitialize()
 {
-	UninitializeSimConnectClient();
+	UninitializeTrackerViewModel();
 	UninitializeEventDispatchers();
+	UninitializeSimConnectClient();
 }
 
 // -----------------------------------------------------------------------------
@@ -94,6 +102,38 @@ void SimCacheModule::UninitializeEventDispatchers()
 	}
 
 	JavaScriptEventDispatcher = nullptr;
+}
+
+// -----------------------------------------------------------------------------
+
+bool SimCacheModule::InitializeTrackerViewModel()
+{
+	auto* JavaScriptEventDispatcherPtr = JavaScriptEventDispatcher.get();
+	if ( !JavaScriptEventDispatcherPtr )
+	{
+		return false;
+	}
+
+	TrackerVM = std::make_unique< TrackerViewModel >( *JavaScriptEventDispatcherPtr );
+	if ( !TrackerVM )
+	{
+		return false;
+	}
+
+	return TrackerVM->Initialize();
+}
+
+// -----------------------------------------------------------------------------
+
+void SimCacheModule::UninitializeTrackerViewModel()
+{
+	if ( !TrackerVM )
+	{
+		return;
+	}
+
+	TrackerVM->Uninitialize();
+	TrackerVM = nullptr;
 }
 
 // -----------------------------------------------------------------------------

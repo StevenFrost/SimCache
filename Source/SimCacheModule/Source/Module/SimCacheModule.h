@@ -2,8 +2,12 @@
 
 #pragma once
 
+#include "ViewModels/TrackerViewModel.h"
+
 #include <SimConnect/SimConnectClient.h>
 #include <Utils/Event/EventDispatcher.h>
+
+#include <memory>
 
 // -----------------------------------------------------------------------------
 
@@ -25,10 +29,15 @@ private:
 	bool InitializeEventDispatchers();
 	void UninitializeEventDispatchers();
 
+	bool InitializeTrackerViewModel();
+	void UninitializeTrackerViewModel();
+
 private:
 
 	std::shared_ptr< SimConnect::ISimConnectClient >	SimConnectClient;
 	std::shared_ptr< Utils::EventDispatcher >			JavaScriptEventDispatcher;
+
+	std::unique_ptr< TrackerViewModel >					TrackerVM;
 
 };
 
