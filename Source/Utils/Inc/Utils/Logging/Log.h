@@ -55,9 +55,6 @@ private:
 
 	void OutputInternal( const Level Level, const std::string& Message, va_list Args );
 
-	const std::string& GetName() const;
-	Level GetLevel() const;
-
 private:
 
 	const std::string	CategoryName;

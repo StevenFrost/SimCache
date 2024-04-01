@@ -114,20 +114,6 @@ void Category::OutputInternal( Logging::Level Level, std::string const& Message,
 
 // -----------------------------------------------------------------------------
 
-const std::string& Category::GetName() const
-{
-	return CategoryName;
-}
-
-// -----------------------------------------------------------------------------
-
-Level Category::GetLevel() const
-{
-	return CategoryLevel;
-}
-
-// -----------------------------------------------------------------------------
-
 } // namespace Logging
 } // namespace Utils
 
