@@ -25,6 +25,9 @@
     <ClInclude Include="..\Inc\Utils\Enum\EnumUtils.h">
       <Filter>Include\Utils\Enum</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Logging\Log.h">
+      <Filter>Include\Utils\Logging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -51,6 +54,12 @@
     <Filter Include="Include\Utils\Enum">
       <UniqueIdentifier>{c3d5c6a9-9f8d-4ffd-ba98-5797f060b24e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Utils\Logging">
+      <UniqueIdentifier>{fa8456e3-2c84-4d4c-8412-d8c432b7bf66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Logging">
+      <UniqueIdentifier>{e10a6db4-5d15-4eb5-8a54-73ad28ad4757}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Event\EventHandle.cpp">
@@ -58,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Event\WASMEventDispatcher.cpp">
       <Filter>Source\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Logging\Log.cpp">
+      <Filter>Source\Logging</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
