@@ -24,13 +24,13 @@ namespace Logging
 std::string GetTimestampString()
 {
 	const auto CurrentTime = std::chrono::system_clock::now();
-	const auto TimeSinceEpoch = std::chrono::system_clock::to_time_t( CurrentTime );
-	const auto* TimeComponents = gmtime( &TimeSinceEpoch );
+	const auto SecondsSinceEpoch = std::chrono::system_clock::to_time_t( CurrentTime );
+	const auto* TimeComponents = gmtime( &SecondsSinceEpoch );
 
 	std::stringstream StringStream;
 	StringStream << std::put_time( TimeComponents, "%FT%T" );
 
-	const auto TruncatedTime = std::chrono::system_clock::from_time_t( TimeSinceEpoch );
+	const auto TruncatedTime = std::chrono::system_clock::from_time_t( SecondsSinceEpoch );
 	const auto Milliseconds = std::chrono::duration_cast< std::chrono::milliseconds >( CurrentTime - TruncatedTime ).count();
 
 	StringStream << "." << std::fixed << std::setw( 3 ) << std::setfill( '0' ) << Milliseconds << "Z";
