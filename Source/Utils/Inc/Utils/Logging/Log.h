@@ -7,7 +7,7 @@
 
 // -----------------------------------------------------------------------------
 
-#if LOGGING_ENABLED
+#ifdef LOGGING_ENABLED
 #define LOG( CategoryName, CategoryLevel, Message, ... ) g_traceArea##CategoryName.Output( Utils::Logging::Level::CategoryLevel, Message, ##__VA_ARGS__ );
 
 #define DECLARE_LOG_CATEGORY( CategoryName ) extern Utils::Logging::Category g_traceArea##CategoryName;
@@ -21,7 +21,7 @@
 
 // -----------------------------------------------------------------------------
 
-#if LOGGING_ENABLED
+#ifdef LOGGING_ENABLED
 
 // -----------------------------------------------------------------------------
 
@@ -65,6 +65,8 @@ private:
 
 } // namespace Logging
 } // namespace Utils
+
+// -----------------------------------------------------------------------------
 
 #endif // LOGGING_ENABLED
 
