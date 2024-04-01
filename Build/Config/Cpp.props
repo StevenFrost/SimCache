@@ -38,6 +38,8 @@
       <Optimization Condition="'$(Configuration)' != 'Release'">Disabled</Optimization>
       <BasicRuntimeChecks Condition="'$(Configuration)' == 'Release'"></BasicRuntimeChecks>
 
+      <AdditionalIncludeDirectories>$(SourceDirectory)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
       <PreprocessorDefinitions Condition="'$(Configuration)' == 'Debug'">_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)' != 'Debug'">NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(ConfigurationType)' == 'StaticLibrary'">_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
