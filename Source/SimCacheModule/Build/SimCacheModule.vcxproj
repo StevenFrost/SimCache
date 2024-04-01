@@ -33,9 +33,14 @@
   <ItemGroup>
     <ClCompile Include="..\Source\Module.cpp" />
     <ClCompile Include="..\Source\Module\SimCacheModule.cpp" />
+    <ClCompile Include="..\Source\ViewModels\TrackerViewModel.cpp" />
+    <ClCompile Include="..\Source\ViewModels\ViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\Events\TrackerLoadedEvent.h" />
     <ClInclude Include="..\Source\Module\SimCacheModule.h" />
+    <ClInclude Include="..\Source\ViewModels\TrackerViewModel.h" />
+    <ClInclude Include="..\Source\ViewModels\ViewModel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
