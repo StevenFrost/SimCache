@@ -8,7 +8,9 @@ class SimCachePanel extends UIElement {
 
     connectedCallback() {
         this.m_connected = true;
+        this.m_timeoutID = null;
 
+        this.m_ingameUI = this.querySelector("ingame-ui");
         this.m_titleElement = document.getElementById("cache-title");
         this.m_subtitleElement = document.getElementById("cache-subtitle");
         this.m_annulusElement = document.getElementById("inner-annulus");
@@ -44,7 +46,16 @@ class SimCachePanel extends UIElement {
     }
 
     onSubsystemsInitialized() {
+        this.CommBusListener.on("SimCache.CacheFoundEvent", this.onCacheFoundEvent.bind(this));
         this.CommBusListener.callWasm("SimCache.TrackerLoadedEvent", "");
+    }
+
+    onCacheFoundEvent(data) {
+        this.m_subtitleElement.innerText = "Cache collected";
+        // TODO: if a new cache is selected in the meantime, make sure to cancel the pending close using clearTimeout
+        this.m_timeoutID = setTimeout(() => {
+            this.m_ingameUI.closePanel();
+        }, 5000);
     }
 
     updateCacheTitle(title) {
