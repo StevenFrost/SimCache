@@ -57,6 +57,7 @@ class SimCachePanel extends UIElement {
         clearInterval(this.m_timeoutID);
         this.m_greenCircleElement.setAttributeNS(null, "r", 0);
         this.m_centralElement.className = "airplane";
+        this.m_centralElement.innerHTML = "";
     }
 
     onCacheFoundEvent(data) {
