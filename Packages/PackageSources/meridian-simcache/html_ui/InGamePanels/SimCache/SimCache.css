@@ -40,11 +40,11 @@ body {
 }
 
 #simcache-container>hgroup>*:first-child {
-    margin: 0 0 0.4rem 0;
+    margin: 0 0 0.35rem 0;
 }
 
 #simcache-container>hgroup>*:last-child {
-    margin: 0.4rem 0 0 0;
+    margin: 0.35rem 0 0 0;
 }
 
 #simcache-container>*:last-child {
@@ -68,19 +68,27 @@ body {
     z-index: 1;
 }
 
-#airplane-shadow {
+#central-shadow {
     z-index: 2;
     --shadow: drop-shadow(0 0 2px rgba(0, 0, 0, 0.67));
     filter: var(--shadow);
     -webkit-filter: var(--shadow);
 }
 
-#airplane {
+#central {
     z-index: 1;
+}
+
+.airplane {
     width: 24px;
     height: 24px;
     background-color: #f8f8f8;
     --airplane: path("M22,16v-2l-8.5-5V3.5C13.5,2.67,12.83,2,12,2s-1.5,0.67-1.5,1.5V9L2,14v2l8.5-2.5V19L8,20.5L8,22l4-1l4,1l0-1.5L13.5,19 v-5.5L22,16z");
     -webkit-clip-path: var(--airplane);
     clip-path: var(--airplane);
+}
+
+.checkmark {
+    color: #f8f8f8;
+    font-size: 3rem;
 }
