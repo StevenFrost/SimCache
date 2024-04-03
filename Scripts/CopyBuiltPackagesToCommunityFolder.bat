@@ -18,7 +18,7 @@ if exist "%StoreUserConfigLocation%" (
 
 
 :CopyPackage
-for /f "tokens=1,*" %%a IN ( 'findstr /C:"InstalledPackagesPath" %UserConfigFileLocation%' ) do (
+for /f "tokens=1,*" %%a in ( 'findstr /C:"InstalledPackagesPath" "%UserConfigFileLocation%"' ) do (
     set PackagesDirectory=%%b
 )
 set PackagesDirectory=%PackagesDirectory:"=%
