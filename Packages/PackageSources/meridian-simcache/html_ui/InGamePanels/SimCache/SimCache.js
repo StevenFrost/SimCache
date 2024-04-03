@@ -8,10 +8,14 @@ class SimCachePanel extends UIElement {
 
     connectedCallback() {
         this.m_connected = true;
+        this.m_timeoutID = null;
 
+        this.m_ingameUI = this.querySelector("ingame-ui");
         this.m_titleElement = document.getElementById("cache-title");
         this.m_subtitleElement = document.getElementById("cache-subtitle");
         this.m_annulusElement = document.getElementById("inner-annulus");
+        this.m_greenCircleElement = document.getElementById("green-circle");
+        this.m_centralElement = document.getElementById("central");
 
         Promise.all([
             this.registerCommBusListenerAsync()
@@ -44,7 +48,26 @@ class SimCachePanel extends UIElement {
     }
 
     onSubsystemsInitialized() {
+        this.CommBusListener.on("SimCache.CacheFoundEvent", this.onCacheFoundEvent.bind(this));
         this.CommBusListener.callWasm("SimCache.TrackerLoadedEvent", "");
+    }
+
+    cancelPendingClose() {
+        // TODO: if a new cache is selected in the meantime, make sure to cancel the pending close
+        clearInterval(this.m_timeoutID);
+        this.m_greenCircleElement.setAttributeNS(null, "r", 0);
+        this.m_centralElement.className = "airplane";
+        this.m_centralElement.innerHTML = "";
+    }
+
+    onCacheFoundEvent(data) {
+        this.m_greenCircleElement.setAttributeNS(null, "r", 49);
+        this.m_subtitleElement.innerText = "Cache collected";
+        this.m_centralElement.className = "checkmark";
+        this.m_centralElement.innerHTML = "&#10004;";
+        this.m_timeoutID = setTimeout(() => {
+            this.m_ingameUI.closePanel();
+        }, 5000);
     }
 
     updateCacheTitle(title) {
