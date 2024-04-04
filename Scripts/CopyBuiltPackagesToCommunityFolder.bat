@@ -30,7 +30,9 @@ set SourcePackageDirectory=%cd%\Built\Packages\meridian-simcache
 set DestinationPackageDirectory=%CommunityDirectory%\meridian-simcache
 
 if exist "%SourcePackageDirectory%" (
-	rmdir /s /q "%DestinationPackageDirectory%"
+	if exist "%DestinationPackageDirectory%" (
+		rmdir /s /q "%DestinationPackageDirectory%"
+	)
 	robocopy "%SourcePackageDirectory%" "%DestinationPackageDirectory%" /E
 )
 
