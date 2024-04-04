@@ -71,6 +71,12 @@ DateTime DateTime::Now()
 
 DateTime DateTime::FromISO8601UTC( const std::string& DateTimeString )
 {
+	if ( DateTimeString.size() == 0 )
+	{
+		LOG( DateTime, Error, "FromISO8601UTC called with an empty string" );
+		return DateTime();
+	}
+
 	if ( DateTimeString[ DateTimeString.size() - 1 ] != 'Z' )
 	{
 		LOG( DateTime, Error, "FromISO8601UTC called with a non-UTC date time string" );
@@ -86,7 +92,7 @@ DateTime DateTime::FromISO8601UTC( const std::string& DateTimeString )
 	const auto SecondsSinceEpoch = std::mktime( &TimeComponents );
 	auto TimePoint = std::chrono::system_clock::from_time_t( SecondsSinceEpoch );
 
-	if ( Tail[ 0 ] == '.' )
+	if ( Tail.size() > 0 && Tail[ 0 ] == '.' )
 	{
 		const auto MillisecondsString = Tail.substr( 1, Tail.size() - 2 );
 		const auto Milliseconds = std::atoi( MillisecondsString.c_str() );
