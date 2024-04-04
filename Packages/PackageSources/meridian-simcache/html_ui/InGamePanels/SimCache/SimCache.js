@@ -3,14 +3,13 @@
 class SimCachePanel extends UIElement {
     constructor() {
         super();
-        this.m_connected = false;
     }
 
     connectedCallback() {
-        this.m_connected = true;
         this.m_timeoutID = null;
 
         this.m_ingameUI = this.querySelector("ingame-ui");
+        this.m_containerElement = document.getElementById("simcache-container");
         this.m_titleElement = document.getElementById("cache-title");
         this.m_subtitleElement = document.getElementById("cache-subtitle");
         this.m_annulusElement = document.getElementById("inner-annulus");
@@ -20,25 +19,6 @@ class SimCachePanel extends UIElement {
         Promise.all([
             this.registerCommBusListenerAsync()
         ]).then((values) => this.onSubsystemsInitialized());
-
-        // TODO: remove placeholder when CacheDataChangedEvent is set up
-        this.updateCacheTitle("Cache Title Placeholder");
-        this.updateRange(100000);
-
-        let updateLoop = () => {
-            if (!this.m_connected) {
-                return;
-            }
-
-            try {
-                this.UpdatePanel();
-            }
-            catch (Error) {
-                console.error(document.title + " : " + Error);
-            }
-            requestAnimationFrame(updateLoop);
-        };
-        requestAnimationFrame(updateLoop);
     }
 
     registerCommBusListenerAsync() {
@@ -48,13 +28,24 @@ class SimCachePanel extends UIElement {
     }
 
     onSubsystemsInitialized() {
+        this.CommBusListener.on("SimCache.TrackedCacheDataUpdatedEvent", this.onTrackedCacheDataUpdatedEvent.bind(this));
         this.CommBusListener.on("SimCache.CacheFoundEvent", this.onCacheFoundEvent.bind(this));
         this.CommBusListener.callWasm("SimCache.TrackerLoadedEvent", "");
     }
 
+    onTrackedCacheDataUpdatedEvent(eventData) {
+        if (this.m_timeoutID !== null) {
+            this.cancelPendingClose();
+        }
+        const data = JSON.parse(eventData);
+        this.m_titleElement.innerText = data.title;
+        this.updateRange(data.distance_meters);
+        this.m_containerElement.classList.remove("display-none");
+    }
+
     cancelPendingClose() {
-        // TODO: if a new cache is selected in the meantime, make sure to cancel the pending close
         clearInterval(this.m_timeoutID);
+        this.m_timeoutID = null;
         this.m_greenCircleElement.setAttributeNS(null, "r", 0);
         this.m_centralElement.className = "airplane";
         this.m_centralElement.innerHTML = "";
@@ -70,19 +61,10 @@ class SimCachePanel extends UIElement {
         }, 5000);
     }
 
-    updateCacheTitle(title) {
-        this.m_titleElement.innerText = title;
-    }
-
     updateRange(distanceMeters) {
         const piecewiseRange = this.getPiecewiseRange(distanceMeters);
-        if (this.m_currentPiecewiseRange !== piecewiseRange) {
-            this.m_currentPiecewiseRange = piecewiseRange;
-
-            // entered a new annulus; update things as necessary
-            this.m_subtitleElement.innerText = this.getSubtitle(piecewiseRange);
-            this.m_annulusElement.setAttributeNS(null, "r", this.getAnnulusInnerRadius(piecewiseRange));
-        }
+        this.m_subtitleElement.innerText = this.getSubtitle(piecewiseRange);
+        this.m_annulusElement.setAttributeNS(null, "r", this.getAnnulusInnerRadius(piecewiseRange));
     }
 
     getSubtitle(piecewiseRange) {
@@ -121,10 +103,6 @@ class SimCachePanel extends UIElement {
             default:
                 return 49;
         }
-    }
-
-    UpdatePanel() {
-        // TODO: add items to repeat within update loop
     }
 
 }
