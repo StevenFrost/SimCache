@@ -19,7 +19,7 @@ public:
 	DateTime();
 	explicit DateTime( const std::chrono::system_clock::time_point& TimePoint );
 
-	std::string ToISO8601UTC() const;
+	std::string ToISO8601UTC( const bool IncludeMilliseconds = false ) const;
 
 	static DateTime Now();
 	static DateTime FromISO8601UTC( const std::string& DateTimeString );

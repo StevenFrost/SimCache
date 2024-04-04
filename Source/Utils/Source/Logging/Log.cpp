@@ -85,7 +85,7 @@ void Category::OutputInternal( Logging::Level Level, std::string const& Message,
 
 	// [ISO-8601 DateTime UTC][SolutionName][CategoryName][Level] Message
 	std::stringstream StringStream;
-	StringStream << "[" << DateTime::Now().ToISO8601UTC() << "]";
+	StringStream << "[" << DateTime::Now().ToISO8601UTC( true ) << "]";
 	StringStream << "[" << SOLUTION_NAME << "]";
 	StringStream << "[" << CategoryName << "]";
 	StringStream << "[" << GetLevelString( Level ) << "]";
@@ -103,8 +103,6 @@ void Category::OutputInternal( Logging::Level Level, std::string const& Message,
 // -----------------------------------------------------------------------------
 
 #endif // LOGGING_ENABLED
-
-// -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
