@@ -2,6 +2,8 @@
 
 #include <Utils/Logging/Log.h>
 
+#include <Utils/Time/DateTime.h>
+
 #include <chrono>
 #include <cstdarg>
 #include <iomanip>
@@ -18,25 +20,6 @@ namespace Utils
 {
 namespace Logging
 {
-
-// -----------------------------------------------------------------------------
-
-std::string GetTimestampString()
-{
-	const auto CurrentTime = std::chrono::system_clock::now();
-	const auto SecondsSinceEpoch = std::chrono::system_clock::to_time_t( CurrentTime );
-	const auto* TimeComponents = gmtime( &SecondsSinceEpoch );
-
-	std::stringstream StringStream;
-	StringStream << std::put_time( TimeComponents, "%FT%T" );
-
-	const auto TruncatedTime = std::chrono::system_clock::from_time_t( SecondsSinceEpoch );
-	const auto Milliseconds = std::chrono::duration_cast< std::chrono::milliseconds >( CurrentTime - TruncatedTime ).count();
-
-	StringStream << "." << std::fixed << std::setw( 3 ) << std::setfill( '0' ) << Milliseconds << "Z";
-
-	return StringStream.str();
-}
 
 // -----------------------------------------------------------------------------
 
@@ -102,7 +85,7 @@ void Category::OutputInternal( Logging::Level Level, std::string const& Message,
 
 	// [ISO-8601 DateTime UTC][SolutionName][CategoryName][Level] Message
 	std::stringstream StringStream;
-	StringStream << "[" << GetTimestampString() << "]";
+	StringStream << "[" << DateTime::Now().ToISO8601UTC() << "]";
 	StringStream << "[" << SOLUTION_NAME << "]";
 	StringStream << "[" << CategoryName << "]";
 	StringStream << "[" << GetLevelString( Level ) << "]";

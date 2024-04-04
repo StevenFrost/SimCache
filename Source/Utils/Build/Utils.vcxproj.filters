@@ -28,6 +28,9 @@
     <ClInclude Include="..\Inc\Utils\Logging\Log.h">
       <Filter>Include\Utils\Logging</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Time\DateTime.h">
+      <Filter>Include\Utils\Time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -60,6 +63,12 @@
     <Filter Include="Source\Logging">
       <UniqueIdentifier>{e10a6db4-5d15-4eb5-8a54-73ad28ad4757}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Utils\Time">
+      <UniqueIdentifier>{89a58ad5-a86e-4805-937a-6fa7102d2051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Time">
+      <UniqueIdentifier>{d6775f97-4f46-4298-8eec-2fcfedaf1481}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Event\EventHandle.cpp">
@@ -70,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Logging\Log.cpp">
       <Filter>Source\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Time\DateTime.cpp">
+      <Filter>Source\Time</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
