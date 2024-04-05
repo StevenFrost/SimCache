@@ -38,9 +38,8 @@ class SimCachePanel extends UIElement {
             this.cancelPendingClose();
         }
         const data = JSON.parse(eventData);
-        this.m_titleElement.innerText = data.title;
-        this.updateRange(data.distance_meters);
-        this.m_containerElement.classList.remove("display-none");
+        this.updateUIElements(data.title, data.distance_meters);
+        this.makeVisible();
     }
 
     cancelPendingClose() {
@@ -61,7 +60,22 @@ class SimCachePanel extends UIElement {
         }, 5000);
     }
 
-    updateRange(distanceMeters) {
+    updateUIElements(title, distanceMeters) {
+        this.updateCacheTitle(title);
+        this.updateCacheRange(distanceMeters);
+    }
+
+    makeVisible() {
+        // ensure the panel is visible (since display-none is set in the html upon load)
+        // (this is done to prevent the panel from appearing before it's fully initialized)
+        this.m_containerElement.classList.remove("display-none");
+    }
+
+    updateCacheTitle(title) {
+        this.m_titleElement.innerText = title;
+    }
+
+    updateCacheRange(distanceMeters) {
         const piecewiseRange = this.getPiecewiseRange(distanceMeters);
         this.m_subtitleElement.innerText = this.getSubtitle(piecewiseRange);
         this.m_annulusElement.setAttributeNS(null, "r", this.getAnnulusInnerRadius(piecewiseRange));
