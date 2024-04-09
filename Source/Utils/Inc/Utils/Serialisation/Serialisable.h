@@ -2,11 +2,16 @@
 
 #pragma once
 
+#include <Utils/Serialisation/Reader.h>
+#include <Utils/Serialisation/Writer.h>
+
 #include <string>
 
 // -----------------------------------------------------------------------------
 
 namespace Utils
+{
+namespace Serialisation
 {
 
 // -----------------------------------------------------------------------------
@@ -15,13 +20,16 @@ class ISerialisable
 {
 public:
 
-	virtual std::string Serialise() const = 0;
-	virtual void Deserialise( const std::string& Data ) = 0;
+	virtual ~ISerialisable() = default;
+
+	virtual bool Serialise( Writer& Writer ) const = 0;
+	virtual bool Deserialise( Reader& Reader ) = 0;
 
 };
 
 // -----------------------------------------------------------------------------
 
+} // namespace Serialisation
 } // namespace Utils
 
 // -----------------------------------------------------------------------------

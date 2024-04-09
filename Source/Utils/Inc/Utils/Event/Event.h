@@ -12,7 +12,7 @@ namespace Utils
 // -----------------------------------------------------------------------------
 
 struct Event
-	: public ISerialisable
+	: public Serialisation::ISerialisable
 {
 };
 

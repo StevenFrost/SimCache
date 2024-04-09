@@ -26,15 +26,23 @@
     <ClInclude Include="..\Inc\Utils\Event\EventHandle.h" />
     <ClInclude Include="..\Inc\Utils\Event\WASMEventDispatcher.h" />
     <ClInclude Include="..\Inc\Utils\Logging\Log.h" />
+    <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONReader.h" />
+    <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONWriter.h" />
+    <ClInclude Include="..\Inc\Utils\Serialisation\Reader.h" />
     <ClInclude Include="..\Inc\Utils\Serialisation\Serialisable.h" />
+    <ClInclude Include="..\Inc\Utils\Serialisation\Writer.h" />
     <ClInclude Include="..\Inc\Utils\Time\DateTime.h" />
     <ClInclude Include="..\Inc\Utils\WASM\Macros.h" />
     <ClInclude Include="..\Source\Event\WASMEventDispatcher.h" />
+    <ClInclude Include="..\Source\Serialisation\JSON\JSONReader.h" />
+    <ClInclude Include="..\Source\Serialisation\Reader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Event\EventHandle.cpp" />
     <ClCompile Include="..\Source\Event\WASMEventDispatcher.cpp" />
     <ClCompile Include="..\Source\Logging\Log.cpp" />
+    <ClCompile Include="..\Source\Serialisation\JSON\JSONReader.cpp" />
+    <ClCompile Include="..\Source\Serialisation\JSON\JSONWriter.cpp" />
     <ClCompile Include="..\Source\Time\DateTime.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
