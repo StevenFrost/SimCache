@@ -45,8 +45,11 @@ public:
 			{
 				TEvent NewEvent;
 
-				Utils::Serialisation::JSONReader Reader( EventData );
-				NewEvent.Deserialise( Reader );
+				if ( !EventData.empty() )
+				{
+					Utils::Serialisation::JSONReader Reader( EventData );
+					NewEvent.Deserialise( Reader );
+				}
 
 				Callback( NewEvent );
 			}
