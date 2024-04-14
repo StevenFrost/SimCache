@@ -4,6 +4,7 @@
 
 #include <Utils/Event/Event.h>
 #include <Utils/Event/EventHandle.h>
+#include <Utils/Serialisation/JSON/JSONReader.h>
 #include <Utils/WASM/Macros.h>
 
 #include <functional>
@@ -43,7 +44,12 @@ public:
 			[ Callback ]( const std::string& EventData )
 			{
 				TEvent NewEvent;
-				NewEvent.Deserialise( EventData );
+
+				if ( !EventData.empty() )
+				{
+					Utils::Serialisation::JSONReader Reader( EventData );
+					NewEvent.Deserialise( Reader );
+				}
 
 				Callback( NewEvent );
 			}

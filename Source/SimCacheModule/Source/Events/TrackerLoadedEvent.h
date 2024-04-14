@@ -11,8 +11,8 @@ class TrackerLoadedEvent
 {
 public:
 
-	virtual std::string Serialise() const override final { return {}; }
-	virtual void Deserialise( const std::string& Data ) override final {}
+	virtual bool Serialise( Utils::Serialisation::Writer& Writer ) const override final { return true; }
+	virtual bool Deserialise( Utils::Serialisation::Reader& Reader ) override final { return true; }
 };
 
 // -----------------------------------------------------------------------------

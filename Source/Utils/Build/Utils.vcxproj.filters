@@ -31,6 +31,18 @@
     <ClInclude Include="..\Inc\Utils\Time\DateTime.h">
       <Filter>Include\Utils\Time</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Serialisation\Writer.h">
+      <Filter>Include\Utils\Serialisation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONWriter.h">
+      <Filter>Include\Utils\Serialisation\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Serialisation\Reader.h">
+      <Filter>Include\Utils\Serialisation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONReader.h">
+      <Filter>Include\Utils\Serialisation\JSON</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -69,6 +81,15 @@
     <Filter Include="Source\Time">
       <UniqueIdentifier>{d6775f97-4f46-4298-8eec-2fcfedaf1481}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Utils\Serialisation\JSON">
+      <UniqueIdentifier>{18ad732e-b9b3-4d2c-93c8-5414a1c8feb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Serialisation">
+      <UniqueIdentifier>{b22ba56d-2431-48b4-9946-7d2d7eb7a7d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Serialisation\JSON">
+      <UniqueIdentifier>{50ff62f3-d4a5-4dc9-8fd3-c86ee0e3f75e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Event\EventHandle.cpp">
@@ -82,6 +103,12 @@
     </ClCompile>
     <ClCompile Include="..\Source\Time\DateTime.cpp">
       <Filter>Source\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Serialisation\JSON\JSONWriter.cpp">
+      <Filter>Source\Serialisation\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Serialisation\JSON\JSONReader.cpp">
+      <Filter>Source\Serialisation\JSON</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
