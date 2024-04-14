@@ -16,18 +16,18 @@
                     "locale": "en-US",
                     "text": {
                         "title": "The Letter C",
-                        "description": "You'll find this letter nestled in the hills on north side of a small canyon named after a red fruit.",
+                        "description": "You'll find this letter nestled in the hills on the north side of a small canyon named after a red fruit.",
                         "hint": "This spot is frequented by students of a famous California public university."
                     }
                 }
             ],
             "position": {
-                "latitude": 37.874600,
-                "longitude": -122.249600,
-                "altitude": 810.0,
+                "latitude": 37.874595,
+                "longitude": -122.249617,
+                "altitude": 830.0,
                 "pitch": 0.0,
                 "bank": 0.0,
-                "heading": 0.0,
+                "heading": 56.0,
                 "altitude_is_agl": false
             },
             "tracker": {
