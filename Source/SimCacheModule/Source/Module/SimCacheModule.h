@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Subsystems/CacheManager/CacheManager.h"
 #include "ViewModels/TrackerViewModel.h"
 
 #include <SimConnect/SimConnectClient.h>
@@ -32,12 +33,17 @@ private:
 	bool InitializeTrackerViewModel();
 	void UninitializeTrackerViewModel();
 
+	bool InitializeCacheManager();
+	void UninitializeCacheManager();
+
 private:
 
 	std::shared_ptr< SimConnect::ISimConnectClient >	SimConnectClient;
 	std::shared_ptr< Utils::EventDispatcher >			JavaScriptEventDispatcher;
 
 	std::unique_ptr< TrackerViewModel >					TrackerVM;
+
+	std::unique_ptr< Subsystems::CacheManager >			CacheManager;
 
 };
 
