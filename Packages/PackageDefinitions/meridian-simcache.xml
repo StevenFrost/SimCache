@@ -19,6 +19,14 @@
 			<AssetDir>PackageDefinitions\meridian-simcache\ContentInfo\</AssetDir>
 			<OutputDir>ContentInfo\meridian-simcache\</OutputDir>
 		</AssetGroup>
+		<AssetGroup Name="Data">
+			<Type>Copy</Type>
+			<Flags>
+				<FSXCompatibility>false</FSXCompatibility>
+			</Flags>
+			<AssetDir>PackageSources\meridian-simcache\Data\</AssetDir>
+			<OutputDir>Data\</OutputDir>
+		</AssetGroup>
 		<AssetGroup Name="InGamePanelSources">
 			<Type>Copy</Type>
 			<Flags>

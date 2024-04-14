@@ -13,6 +13,15 @@
     <Filter Include="Source\Events">
       <UniqueIdentifier>{3c1401fd-5e08-4802-b1c9-dcfea427cf33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Subsystems">
+      <UniqueIdentifier>{daf3be77-78b0-4d3b-9a78-f368bcd4e73f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core">
+      <UniqueIdentifier>{3f4258bc-a3e8-4309-871f-e63d61a14651}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Subsystems\CacheManager">
+      <UniqueIdentifier>{585a5da4-1a1c-43e1-a791-9940179fe480}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Module.cpp">
@@ -27,6 +36,12 @@
     <ClCompile Include="..\Source\ViewModels\TrackerViewModel.cpp">
       <Filter>Source\ViewModels</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Subsystems\CacheManager\CacheManager.cpp">
+      <Filter>Source\Subsystems\CacheManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\CacheDefinitionCollection.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Module\SimCacheModule.h">
@@ -40,6 +55,12 @@
     </ClInclude>
     <ClInclude Include="..\Source\Events\TrackerLoadedEvent.h">
       <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\CacheDefinitionCollection.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Subsystems\CacheManager\CacheManager.h">
+      <Filter>Source\Subsystems\CacheManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

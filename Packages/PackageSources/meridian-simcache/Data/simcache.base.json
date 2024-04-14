@@ -1,0 +1,45 @@
+{
+    "version": "1.0.0",
+    "cache_definitions": [
+        {
+            "meta": {
+                "id": "5b37c963-a842-4277-b932-cc7d56b35f6e",
+                "authors": [
+                    "1a032b37-a56f-43e8-a644-c17d45d6f45c"
+                ],
+                "date_placed": "2024-04-01T02:38:00Z",
+                "difficulty": 3,
+                "simobject_title": "SimCache"
+            },
+            "loc_text": [
+                {
+                    "locale": "en-US",
+                    "text": {
+                        "title": "The Letter C",
+                        "description": "You'll find this letter nestled in the hills on north side of a small canyon named after a red fruit.",
+                        "hint": "This spot is frequented by students of a famous California public university."
+                    }
+                }
+            ],
+            "position": {
+                "latitude": 37.874600,
+                "longitude": -122.249600,
+                "altitude": 810.0,
+                "pitch": 0.0,
+                "bank": 0.0,
+                "heading": 0.0,
+                "altitude_is_agl": false
+            },
+            "tracker": {
+                "alert_distance": 500.0,
+                "acquire_distance": 50.0
+            }
+        }
+    ],
+    "authors": [
+        {
+            "id": "1a032b37-a56f-43e8-a644-c17d45d6f45c",
+            "name": "Meridian Simulations"
+        }
+    ]
+}

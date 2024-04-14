@@ -2,6 +2,8 @@
 
 #include "SimCacheModule.h"
 
+#include "Core/CacheDefinitionCollection.h"
+
 #include <Utils/Event/WASMEventDispatcher.h>
 
 // -----------------------------------------------------------------------------
@@ -10,6 +12,7 @@ SimCacheModule::SimCacheModule()
 	: SimConnectClient( nullptr )
 	, JavaScriptEventDispatcher( nullptr )
 	, TrackerVM( nullptr )
+	, CacheManager( nullptr )
 {
 }
 
@@ -41,6 +44,12 @@ bool SimCacheModule::Initialize()
 		return false;
 	}
 
+	const bool InitializeCacheManagerSucceeded = InitializeCacheManager();
+	if ( !InitializeCacheManagerSucceeded )
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -48,6 +57,7 @@ bool SimCacheModule::Initialize()
 
 void SimCacheModule::Uninitialize()
 {
+	UninitializeCacheManager();
 	UninitializeTrackerViewModel();
 	UninitializeEventDispatchers();
 	UninitializeSimConnectClient();
@@ -134,6 +144,32 @@ void SimCacheModule::UninitializeTrackerViewModel()
 
 	TrackerVM->Uninitialize();
 	TrackerVM = nullptr;
+}
+
+// -----------------------------------------------------------------------------
+
+bool SimCacheModule::InitializeCacheManager()
+{
+	CacheManager = std::make_unique< Subsystems::CacheManager >();
+	if ( !CacheManager )
+	{
+		return false;
+	}
+
+	return CacheManager->Initialize();
+}
+
+// -----------------------------------------------------------------------------
+
+void SimCacheModule::UninitializeCacheManager()
+{
+	if ( !CacheManager )
+	{
+		return;
+	}
+
+	CacheManager->Uninitialize();
+	CacheManager = nullptr;
 }
 
 // -----------------------------------------------------------------------------
