@@ -34,8 +34,6 @@
     <ClInclude Include="..\Inc\Utils\Time\DateTime.h" />
     <ClInclude Include="..\Inc\Utils\WASM\Macros.h" />
     <ClInclude Include="..\Source\Event\WASMEventDispatcher.h" />
-    <ClInclude Include="..\Source\Serialisation\JSON\JSONReader.h" />
-    <ClInclude Include="..\Source\Serialisation\Reader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Event\EventHandle.cpp" />
