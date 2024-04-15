@@ -43,6 +43,9 @@
     <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONReader.h">
       <Filter>Include\Utils\Serialisation\JSON</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Math\Vector3.h">
+      <Filter>Include\Utils\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -90,6 +93,12 @@
     <Filter Include="Source\Serialisation\JSON">
       <UniqueIdentifier>{50ff62f3-d4a5-4dc9-8fd3-c86ee0e3f75e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Utils\Math">
+      <UniqueIdentifier>{1bb0d943-634e-4bec-addc-b07616f9230a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Math">
+      <UniqueIdentifier>{bb31863b-0163-44b1-9545-fab96750fe07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Event\EventHandle.cpp">
@@ -109,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Serialisation\JSON\JSONReader.cpp">
       <Filter>Source\Serialisation\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Math\Vector3.cpp">
+      <Filter>Source\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
