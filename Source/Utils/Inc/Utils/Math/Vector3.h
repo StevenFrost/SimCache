@@ -14,7 +14,7 @@ struct Vector3
 public:
 
 	Vector3();
-	Vector3( double X, double Y, double Z );
+	Vector3( const double X, const double Y, const double Z );
 
 	Vector3( const Vector3& Other ) = default;
 	Vector3( Vector3&& Other ) = default;
@@ -31,9 +31,9 @@ public:
 	double Dot( const Vector3& RHS ) const;
 	Vector3 Cross( const Vector3& RHS ) const;
 
-	Vector3 operator +( const Vector3& RHS ) const;
-	Vector3 operator -( const Vector3& RHS ) const;
-	Vector3 operator *( double c ) const;
+	Vector3 operator+( const Vector3& RHS ) const;
+	Vector3 operator-( const Vector3& RHS ) const;
+	Vector3 operator*( double c ) const;
 
 public:
 

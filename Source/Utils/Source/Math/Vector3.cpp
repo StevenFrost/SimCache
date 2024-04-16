@@ -12,15 +12,15 @@ namespace Utils
 // -----------------------------------------------------------------------------
 
 Vector3::Vector3()
-	: X( 0 )
-	, Y( 0 )
-	, Z( 0 )
+	: X( 0.0 )
+	, Y( 0.0 )
+	, Z( 0.0 )
 {
 }
 
 // -----------------------------------------------------------------------------
 
-Vector3::Vector3( double X, double Y, double Z )
+Vector3::Vector3( const double X, const double Y, const double Z )
 	: X( X )
 	, Y( Y )
 	, Z( Z )
