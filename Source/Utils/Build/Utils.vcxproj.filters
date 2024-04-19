@@ -46,6 +46,12 @@
     <ClInclude Include="..\Inc\Utils\Math\Vector3.h">
       <Filter>Include\Utils\Math</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Geodesy\Ellipsoid.h">
+      <Filter>Include\Utils\Geodesy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Geodesy\EarthCoordinate.h">
+      <Filter>Include\Utils\Geodesy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -99,6 +105,12 @@
     <Filter Include="Source\Math">
       <UniqueIdentifier>{bb31863b-0163-44b1-9545-fab96750fe07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Utils\Geodesy">
+      <UniqueIdentifier>{d3af06a2-0b3f-49de-be16-953597b4a41b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Geodesy">
+      <UniqueIdentifier>{153001b7-6e64-4cc7-aa6f-d842eb13fdad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Event\EventHandle.cpp">
@@ -121,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Math\Vector3.cpp">
       <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Geodesy\EarthCoordinate.cpp">
+      <Filter>Source\Geodesy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
