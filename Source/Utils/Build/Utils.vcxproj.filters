@@ -43,6 +43,9 @@
     <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONReader.h">
       <Filter>Include\Utils\Serialisation\JSON</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Handle\Handle.h">
+      <Filter>Include\Utils\Handle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -90,11 +93,11 @@
     <Filter Include="Source\Serialisation\JSON">
       <UniqueIdentifier>{50ff62f3-d4a5-4dc9-8fd3-c86ee0e3f75e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Utils\Handle">
+      <UniqueIdentifier>{708f6b20-43cd-49d0-b617-dc78c6640efc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\Event\EventHandle.cpp">
-      <Filter>Source\Event</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Event\WASMEventDispatcher.cpp">
       <Filter>Source\Event</Filter>
     </ClCompile>

@@ -25,6 +25,7 @@
     <ClInclude Include="..\Inc\Utils\Event\EventDispatcher.h" />
     <ClInclude Include="..\Inc\Utils\Event\EventHandle.h" />
     <ClInclude Include="..\Inc\Utils\Event\WASMEventDispatcher.h" />
+    <ClInclude Include="..\Inc\Utils\Handle\Handle.h" />
     <ClInclude Include="..\Inc\Utils\Logging\Log.h" />
     <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONReader.h" />
     <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONWriter.h" />
@@ -36,7 +37,6 @@
     <ClInclude Include="..\Source\Event\WASMEventDispatcher.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\Event\EventHandle.cpp" />
     <ClCompile Include="..\Source\Event\WASMEventDispatcher.cpp" />
     <ClCompile Include="..\Source\Logging\Log.cpp" />
     <ClCompile Include="..\Source\Serialisation\JSON\JSONReader.cpp" />
