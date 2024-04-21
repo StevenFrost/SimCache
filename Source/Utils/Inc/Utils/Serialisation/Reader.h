@@ -47,9 +47,9 @@ public:
 	{
 		typedef typename std::underlying_type< TEnum >::type TEnumType;
 
-		TEnumType Out;
-		const bool Success = ReadProperty( Name, Out );
-		Value = static_cast< TEnum >( Out );
+		TEnumType EnumValue;
+		const bool Success = ReadProperty( Name, EnumValue );
+		Value = static_cast< TEnum >( EnumValue );
 
 		return Success;
 	}
