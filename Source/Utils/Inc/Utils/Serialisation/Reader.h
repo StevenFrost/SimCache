@@ -42,6 +42,18 @@ public:
 
 	virtual bool ReadProperty( const PropertyName& Name, std::string& Value ) = 0;
 
+	template< class TEnum >
+	auto ReadProperty( const PropertyName& Name, TEnum& Value ) -> typename std::enable_if< std::is_enum< TEnum >::value, bool >::type
+	{
+		typedef typename std::underlying_type< TEnum >::type TEnumType;
+
+		TEnumType Out;
+		const bool Success = ReadProperty( Name, Out );
+		Value = static_cast< TEnum >( Out );
+
+		return Success;
+	}
+
 	template< class TValue >
 	auto ReadProperty( const PropertyName& Name, TValue& Value ) -> typename std::enable_if< std::is_class< TValue >::value, bool >::type
 	{

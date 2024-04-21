@@ -42,6 +42,13 @@ public:
 
 	virtual bool WriteProperty( const PropertyName& Name, const std::string& Value ) = 0;
 
+	template< class TEnum >
+	auto WriteProperty( const PropertyName& Name, const TEnum Value ) -> typename std::enable_if< std::is_enum< TEnum >::value, bool >::type
+	{
+		typedef typename std::underlying_type< TEnum >::type TEnumType;
+		return WriteProperty( Name, static_cast< TEnumType >( Value ) );
+	}
+
 	template< class TValue >
 	auto WriteProperty( const PropertyName& Name, const TValue& Value ) -> typename std::enable_if< std::is_class< TValue >::value, bool >::type
 	{
