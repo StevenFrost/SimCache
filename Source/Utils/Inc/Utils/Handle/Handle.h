@@ -24,9 +24,9 @@ struct HandleParams
 {
 	static_assert( std::is_integral< T >(), "T must be an integral type" );
 
-	constexpr static T InvalidId() { return std::numeric_limits< T >::min(); }
-	constexpr static T InitialId() { return std::numeric_limits< T >::min() + 1; }
-	constexpr static T MaximumId() { return std::numeric_limits< T >::max(); }
+	static constexpr T InvalidId() { return std::numeric_limits< T >::min(); }
+	static constexpr T InitialId() { return std::numeric_limits< T >::min() + 1; }
+	static constexpr T MaximumId() { return std::numeric_limits< T >::max(); }
 };
 
 // -----------------------------------------------------------------------------
