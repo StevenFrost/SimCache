@@ -26,6 +26,9 @@
   <PropertyGroup Label="Configuration" />
   <ItemGroup>
     <ClInclude Include="..\Inc\SimConnect\SimConnectClient.h" />
+    <ClInclude Include="..\Inc\SimConnect\SimObject\SimObjectPosition.h" />
+    <ClInclude Include="..\Source\DataDefinitions\AircraftPosition.h" />
+    <ClInclude Include="..\Source\DataDefinitions\SimConnectDataDefinitionId.h" />
     <ClInclude Include="..\Source\SimConnectClient.h" />
   </ItemGroup>
   <ItemGroup>
