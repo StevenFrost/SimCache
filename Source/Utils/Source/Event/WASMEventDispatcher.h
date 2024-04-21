@@ -50,7 +50,7 @@ private:
 
 private:
 
-	typedef std::unordered_map< EventHandle, std::unique_ptr< WASMEventContext >, EventHandleHasher > EventContextMap;
+	typedef std::unordered_map< EventHandle, std::unique_ptr< WASMEventContext >, HandleHasher > EventContextMap;
 
 	FsCommBusBroadcastFlags	BroadcastFlags;
 	EventContextMap			RegisteredEvents;
