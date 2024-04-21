@@ -25,8 +25,11 @@
     <ClInclude Include="..\Inc\Utils\Event\EventDispatcher.h" />
     <ClInclude Include="..\Inc\Utils\Event\EventHandle.h" />
     <ClInclude Include="..\Inc\Utils\Event\WASMEventDispatcher.h" />
+    <ClInclude Include="..\Inc\Utils\Geodesy\EarthCoordinate.h" />
+    <ClInclude Include="..\Inc\Utils\Geodesy\Ellipsoid.h" />
     <ClInclude Include="..\Inc\Utils\Handle\Handle.h" />
     <ClInclude Include="..\Inc\Utils\Logging\Log.h" />
+    <ClInclude Include="..\Inc\Utils\Math\Vector3.h" />
     <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONReader.h" />
     <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONWriter.h" />
     <ClInclude Include="..\Inc\Utils\Serialisation\Reader.h" />
@@ -38,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Event\WASMEventDispatcher.cpp" />
+    <ClCompile Include="..\Source\Geodesy\EarthCoordinate.cpp" />
     <ClCompile Include="..\Source\Handle\Handle.cpp" />
     <ClCompile Include="..\Source\Logging\Log.cpp" />
+    <ClCompile Include="..\Source\Math\Vector3.cpp" />
     <ClCompile Include="..\Source\Serialisation\JSON\JSONReader.cpp" />
     <ClCompile Include="..\Source\Serialisation\JSON\JSONWriter.cpp" />
     <ClCompile Include="..\Source\Time\DateTime.cpp" />

@@ -43,6 +43,15 @@
     <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONReader.h">
       <Filter>Include\Utils\Serialisation\JSON</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Math\Vector3.h">
+      <Filter>Include\Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Geodesy\Ellipsoid.h">
+      <Filter>Include\Utils\Geodesy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Geodesy\EarthCoordinate.h">
+      <Filter>Include\Utils\Geodesy</Filter>
+    </ClInclude>
     <ClInclude Include="..\Inc\Utils\Handle\Handle.h">
       <Filter>Include\Utils\Handle</Filter>
     </ClInclude>
@@ -93,6 +102,18 @@
     <Filter Include="Source\Serialisation\JSON">
       <UniqueIdentifier>{50ff62f3-d4a5-4dc9-8fd3-c86ee0e3f75e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Utils\Math">
+      <UniqueIdentifier>{1bb0d943-634e-4bec-addc-b07616f9230a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Math">
+      <UniqueIdentifier>{bb31863b-0163-44b1-9545-fab96750fe07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Utils\Geodesy">
+      <UniqueIdentifier>{d3af06a2-0b3f-49de-be16-953597b4a41b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Geodesy">
+      <UniqueIdentifier>{153001b7-6e64-4cc7-aa6f-d842eb13fdad}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Include\Utils\Handle">
       <UniqueIdentifier>{708f6b20-43cd-49d0-b617-dc78c6640efc}</UniqueIdentifier>
     </Filter>
@@ -115,6 +136,12 @@
     </ClCompile>
     <ClCompile Include="..\Source\Serialisation\JSON\JSONReader.cpp">
       <Filter>Source\Serialisation\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Math\Vector3.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Geodesy\EarthCoordinate.cpp">
+      <Filter>Source\Geodesy</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Handle\Handle.cpp">
       <Filter>Source\Handle</Filter>
