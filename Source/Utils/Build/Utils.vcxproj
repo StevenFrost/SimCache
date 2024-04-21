@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Event\WASMEventDispatcher.cpp" />
+    <ClCompile Include="..\Source\Handle\Handle.cpp" />
     <ClCompile Include="..\Source\Logging\Log.cpp" />
     <ClCompile Include="..\Source\Serialisation\JSON\JSONReader.cpp" />
     <ClCompile Include="..\Source\Serialisation\JSON\JSONWriter.cpp" />

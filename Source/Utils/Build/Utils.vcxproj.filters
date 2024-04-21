@@ -96,6 +96,9 @@
     <Filter Include="Include\Utils\Handle">
       <UniqueIdentifier>{708f6b20-43cd-49d0-b617-dc78c6640efc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Handle">
+      <UniqueIdentifier>{6b22bdc0-1900-44cb-9a5c-c6d247c3b2b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Event\WASMEventDispatcher.cpp">
@@ -112,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Serialisation\JSON\JSONReader.cpp">
       <Filter>Source\Serialisation\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Handle\Handle.cpp">
+      <Filter>Source\Handle</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

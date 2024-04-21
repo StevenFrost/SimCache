@@ -2,9 +2,15 @@
 
 #pragma once
 
+#include <Utils/Logging/Log.h>
+
 #include <cstdint>
 #include <limits>
 #include <utility>
+
+// -----------------------------------------------------------------------------
+
+DECLARE_LOG_CATEGORY( Handle )
 
 // -----------------------------------------------------------------------------
 
@@ -13,7 +19,19 @@ namespace Utils
 
 // -----------------------------------------------------------------------------
 
-template< class TId >
+template< typename T >
+struct HandleParams
+{
+	static_assert( std::is_integral< T >(), "T must be an integral type" );
+
+	constexpr static T InvalidId() { return std::numeric_limits< T >::min(); }
+	constexpr static T InitialId() { return std::numeric_limits< T >::min() + 1; }
+	constexpr static T MaximumId() { return std::numeric_limits< T >::max(); }
+};
+
+// -----------------------------------------------------------------------------
+
+template< class TId, class TParams = HandleParams< TId > >
 class Handle
 {
 public:
@@ -22,8 +40,9 @@ public:
 
 	static Handle Make()
 	{
-		if ( NextId == std::numeric_limits< TId >::max() )
+		if ( NextId == TParams::MaximumId() )
 		{
+			LOG( Handle, Error, "Maximum number of valid handles reached." );
 			return Handle();
 		}
 
@@ -31,7 +50,7 @@ public:
 	}
 
 	Handle()
-		: Id( InvalidId )
+		: Id( TParams::InvalidId() )
 	{}
 
 	explicit Handle( const TId Id )
@@ -61,33 +80,31 @@ public:
 
 	bool IsValid() const
 	{
-		return Id != InvalidId;
+		return Id != TParams::InvalidId();
 	}
 
 	void Reset()
 	{
-		Id = InvalidId;
+		Id = TParams::InvalidId();
 	}
 
 private:
 
-	static TId	InvalidId;
 	static TId	NextId;
-
 	TId			Id;
 };
 
 // -----------------------------------------------------------------------------
 
-template< class TId > TId Handle< TId >::InvalidId = 0;
-template< class TId > TId Handle< TId >::NextId = 1;
+template< class TId, class TParams >
+TId Handle< TId, TParams >::NextId = TParams::InitialId();
 
 // -----------------------------------------------------------------------------
 
 struct HandleHasher
 {
-	template< class TId >
-	size_t operator()( const Handle< TId >& Handle ) const
+	template< class TId, class TParams >
+	size_t operator()( const Handle< TId, TParams >& Handle ) const
 	{
 		return std::hash< TId >()( Handle.GetId() );
 	}
