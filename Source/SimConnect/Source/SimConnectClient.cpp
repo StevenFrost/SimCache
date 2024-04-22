@@ -139,7 +139,7 @@ SimConnect::Handle SimConnectClient::CreateSimObject( const std::string& SimObje
 {
 	const auto RequestHandle = SimConnect::Handle::Make();
 
-	SIMCONNECT_DATA_INITPOSITION SimObjectPosition {
+	SIMCONNECT_DATA_INITPOSITION InitialPosition {
 		.Latitude = Position.Latitude,
 		.Longitude = Position.Longitude,
 		.Altitude = Position.Altitude,
@@ -153,7 +153,7 @@ SimConnect::Handle SimConnectClient::CreateSimObject( const std::string& SimObje
 	const auto Result = SimConnect_AICreateSimulatedObject(
 		SimConnectHandle,
 		SimObjectTitle.c_str(),
-		SimObjectPosition,
+		InitialPosition,
 		RequestHandle.GetId()
 	);
 
