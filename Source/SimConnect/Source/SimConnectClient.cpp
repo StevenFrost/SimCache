@@ -88,7 +88,7 @@ SimConnect::Handle SimConnectClient::StartReceivingUserAircraftPositionUpdates( 
 		DataRequestHandle.GetId(),
 		SimConnectDataDefinitionId::AircraftPosition,
 		SIMCONNECT_OBJECT_ID_USER,
-		SIMCONNECT_PERIOD_VISUAL_FRAME,
+		SIMCONNECT_PERIOD_SIM_FRAME,
 		SIMCONNECT_DATA_REQUEST_FLAG_CHANGED
 	);
 
@@ -138,16 +138,17 @@ bool SimConnectClient::StopReceivingUserAircraftPositionUpdates( SimConnect::Han
 SimConnect::Handle SimConnectClient::CreateSimObject( const std::string& SimObjectTitle, const SimObjectPosition& Position, SimObjectCreatedFunc&& OnSimObjectCreated )
 {
 	const auto RequestHandle = SimConnect::Handle::Make();
-	
-	SIMCONNECT_DATA_INITPOSITION SimObjectPosition;
-	SimObjectPosition.Latitude = Position.Latitude;
-	SimObjectPosition.Longitude = Position.Longitude;
-	SimObjectPosition.Altitude = Position.Altitude;
-	SimObjectPosition.Pitch = Position.Pitch;
-	SimObjectPosition.Bank = Position.Bank;
-	SimObjectPosition.Heading = Position.Heading;
-	SimObjectPosition.OnGround = 0;
-	SimObjectPosition.Airspeed = 0;
+
+	SIMCONNECT_DATA_INITPOSITION SimObjectPosition {
+		.Latitude = Position.Latitude,
+		.Longitude = Position.Longitude,
+		.Altitude = Position.Altitude,
+		.Pitch = Position.Pitch,
+		.Bank = Position.Bank,
+		.Heading = Position.Heading,
+		.OnGround = 0,
+		.Airspeed = 0
+	};
 
 	const auto Result = SimConnect_AICreateSimulatedObject(
 		SimConnectHandle,
@@ -294,7 +295,7 @@ void SimConnectClient::OnConnectionOpen( const SIMCONNECT_RECV_OPEN& Data )
 
 // -----------------------------------------------------------------------------
 
-void SimConnectClient::OnSimObjectCreated( const SIMCONNECT_RECV_ASSIGNED_OBJECT_ID& Data )
+void SimConnectClient::OnSimObjectAssignedId( const SIMCONNECT_RECV_ASSIGNED_OBJECT_ID& Data )
 {
 	const auto RequestHandle = SimConnect::Handle( Data.dwRequestID );
 
@@ -307,7 +308,12 @@ void SimConnectClient::OnSimObjectCreated( const SIMCONNECT_RECV_ASSIGNED_OBJECT
 
 	CreatedSimObjects.emplace( RequestHandle, Data.dwObjectID );
 
-	SimObjectPendingCreation->second();
+	auto& SimObjectCreatedFunc = SimObjectPendingCreation->second;
+	if ( SimObjectCreatedFunc )
+	{
+		SimObjectCreatedFunc();
+	}
+
 	SimObjectsPendingCreation.erase( SimObjectPendingCreation );
 }
 
@@ -331,18 +337,22 @@ void SimConnectClient::OnReceivedSimObjectData( const SIMCONNECT_RECV_SIMOBJECT_
 		return;
 	}
 
-	const auto CurrentPosition = Utils::EarthCoordinate::FromGeodetic(
-		AircraftPositionData->Latitude,
-		AircraftPositionData->Longitude,
-		AircraftPositionData->Altitude
-	);
+	auto& UserAircraftPositionUpdatedFunc = AircraftPositionUpdateRegistration->second;
+	if ( UserAircraftPositionUpdatedFunc )
+	{
+		const auto CurrentPosition = Utils::EarthCoordinate::FromGeodetic(
+			AircraftPositionData->Latitude,
+			AircraftPositionData->Longitude,
+			AircraftPositionData->Altitude
+		);
 
-	AircraftPositionUpdateRegistration->second( CurrentPosition );
+		UserAircraftPositionUpdatedFunc( CurrentPosition );
+	}
 }
 
 // -----------------------------------------------------------------------------
 
-void SimConnectClient::DispatchProc( SIMCONNECT_RECV* Data, DWORD DataSizeBytes, void* Context )
+void CALLBACK SimConnectClient::DispatchProc( SIMCONNECT_RECV* Data, DWORD DataSizeBytes, void* Context )
 {
 	auto* Client = static_cast< SimConnectClient* >( Context );
 	if ( !Client )
@@ -363,7 +373,7 @@ void SimConnectClient::DispatchProc( SIMCONNECT_RECV* Data, DWORD DataSizeBytes,
 		Client->OnConnectionOpen( *static_cast< SIMCONNECT_RECV_OPEN* >( Data ) );
 		break;
 	case SIMCONNECT_RECV_ID_ASSIGNED_OBJECT_ID:
-		Client->OnSimObjectCreated( *static_cast< SIMCONNECT_RECV_ASSIGNED_OBJECT_ID* >( Data ) );
+		Client->OnSimObjectAssignedId( *static_cast< SIMCONNECT_RECV_ASSIGNED_OBJECT_ID* >( Data ) );
 		break;
 	case SIMCONNECT_RECV_ID_SIMOBJECT_DATA:
 		Client->OnReceivedSimObjectData( *static_cast< SIMCONNECT_RECV_SIMOBJECT_DATA* >( Data ) );

@@ -56,7 +56,7 @@ private:
 	bool BuildAircraftPositionDataDefinition();
 
 	void OnConnectionOpen( const SIMCONNECT_RECV_OPEN& Data );
-	void OnSimObjectCreated( const SIMCONNECT_RECV_ASSIGNED_OBJECT_ID& Data );
+	void OnSimObjectAssignedId( const SIMCONNECT_RECV_ASSIGNED_OBJECT_ID& Data );
 	void OnReceivedSimObjectData( const SIMCONNECT_RECV_SIMOBJECT_DATA& Data );
 
 private:

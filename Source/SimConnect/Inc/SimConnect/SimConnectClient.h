@@ -41,10 +41,10 @@ public:
 
 	virtual bool IsConnected() const = 0;
 
-	virtual SimConnect::Handle StartReceivingUserAircraftPositionUpdates( UserAircraftPositionUpdateFunc && OnUserAircraftPositionUpdated ) = 0;
+	virtual SimConnect::Handle StartReceivingUserAircraftPositionUpdates( UserAircraftPositionUpdateFunc&& OnUserAircraftPositionUpdated ) = 0;
 	virtual bool StopReceivingUserAircraftPositionUpdates( SimConnect::Handle& Handle ) = 0;
 
-	virtual SimConnect::Handle CreateSimObject( const std::string& SimObjectTitle, const SimObjectPosition& Position, SimObjectCreatedFunc && OnSimObjectCreated = nullptr ) = 0;
+	virtual SimConnect::Handle CreateSimObject( const std::string& SimObjectTitle, const SimObjectPosition& Position, SimObjectCreatedFunc&& OnSimObjectCreated = nullptr ) = 0;
 	virtual bool DestroySimObject( SimConnect::Handle& Handle ) = 0;
 };
 
