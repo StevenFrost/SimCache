@@ -39,8 +39,8 @@ public: // ISimConnectClient
 
 	virtual bool IsConnected() const override final;
 
-	virtual SimConnect::Handle StartReceivingUserAircraftPositionUpdates( UserAircraftPositionUpdateFunc&& OnUserAircraftPositionUpdated ) override final;
-	virtual bool StopReceivingUserAircraftPositionUpdates( SimConnect::Handle& Handle ) override final;
+	virtual SimConnect::Handle RegisterUserAircraftPositionListener( UserAircraftPositionUpdateFunc&& OnUserAircraftPositionUpdated ) override final;
+	virtual bool UnregisterUserAircraftPositionListener( SimConnect::Handle& Handle ) override final;
 
 	virtual SimConnect::Handle CreateSimObject( const std::string& SimObjectTitle, const SimObjectPosition& Position, SimObjectCreatedFunc&& OnSimObjectCreated ) override final;
 	virtual bool DestroySimObject( SimConnect::Handle& Handle ) override final;
@@ -71,7 +71,7 @@ private:
 	const std::string										ApplicationName;
 	HANDLE													SimConnectHandle;
 
-	THandleMap< Handle, UserAircraftPositionUpdateFunc >	UserAircraftPositionUpdateRegistry;
+	THandleMap< Handle, UserAircraftPositionUpdateFunc >	UserAircraftPositionListeners;
 
 	THandleMap< Handle, SimObjectCreatedFunc >				SimObjectsPendingCreation;
 	THandleMap< Handle, SIMCONNECT_OBJECT_ID >				CreatedSimObjects;
