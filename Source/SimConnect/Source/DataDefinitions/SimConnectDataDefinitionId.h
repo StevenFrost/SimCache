@@ -12,7 +12,7 @@ namespace SimConnect
 
 // -----------------------------------------------------------------------------
 
-enum SimConnectDataDefinitionId : SIMCONNECT_DATA_DEFINITION_ID
+enum class SimConnectDataDefinitionId : SIMCONNECT_DATA_DEFINITION_ID
 {
 	AircraftPosition // AircraftPositionDataDefinition
 };

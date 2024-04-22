@@ -22,6 +22,14 @@ bool HasFlag( const TEnum Value, const TEnum FlagToCheck )
 
 // -----------------------------------------------------------------------------
 
+template< class TEnum >
+auto GetEnumValue( const TEnum Value ) -> typename std::underlying_type< TEnum >::type
+{
+	return static_cast< typename std::underlying_type< TEnum >::type >( Value );
+}
+
+// -----------------------------------------------------------------------------
+
 } // namespace Utils
 
 // -----------------------------------------------------------------------------

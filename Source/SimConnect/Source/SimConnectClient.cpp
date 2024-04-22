@@ -5,6 +5,7 @@
 #include "DataDefinitions/AircraftPosition.h"
 #include "DataDefinitions/SimConnectDataDefinitionId.h"
 
+#include <Utils/Enum/EnumUtils.h>
 #include <Utils/Logging/Log.h>
 
 // -----------------------------------------------------------------------------
@@ -86,7 +87,7 @@ SimConnect::Handle SimConnectClient::RegisterUserAircraftPositionListener( UserA
 	const auto Result = SimConnect_RequestDataOnSimObject(
 		SimConnectHandle,
 		DataRequestHandle.GetId(),
-		SimConnectDataDefinitionId::AircraftPosition,
+		Utils::GetEnumValue( SimConnectDataDefinitionId::AircraftPosition ),
 		SIMCONNECT_OBJECT_ID_USER,
 		SIMCONNECT_PERIOD_SIM_FRAME,
 		SIMCONNECT_DATA_REQUEST_FLAG_CHANGED
@@ -116,7 +117,7 @@ bool SimConnectClient::UnregisterUserAircraftPositionListener( SimConnect::Handl
 	const auto Result = SimConnect_RequestDataOnSimObject(
 		SimConnectHandle,
 		Handle.GetId(),
-		SimConnectDataDefinitionId::AircraftPosition,
+		Utils::GetEnumValue( SimConnectDataDefinitionId::AircraftPosition ),
 		SIMCONNECT_OBJECT_ID_USER,
 		SIMCONNECT_PERIOD_NEVER
 	);
@@ -255,19 +256,19 @@ bool SimConnectClient::BuildDataDefinitions()
 
 bool SimConnectClient::BuildAircraftPositionDataDefinition()
 {
-	if ( SimConnect_AddToDataDefinition( SimConnectHandle, SimConnectDataDefinitionId::AircraftPosition, "Plane Latitude", "degrees" ) != S_OK )
+	if ( SimConnect_AddToDataDefinition( SimConnectHandle, Utils::GetEnumValue( SimConnectDataDefinitionId::AircraftPosition ), "Plane Latitude", "degrees" ) != S_OK )
 	{
 		LOG( SimConnectClient, Error, "Failed to add 'Plane Latitude' to 'AircraftPosition' data definition." );
 		return false;
 	}
 
-	if ( SimConnect_AddToDataDefinition( SimConnectHandle, SimConnectDataDefinitionId::AircraftPosition, "Plane Longitude", "degrees" ) != S_OK )
+	if ( SimConnect_AddToDataDefinition( SimConnectHandle, Utils::GetEnumValue( SimConnectDataDefinitionId::AircraftPosition ), "Plane Longitude", "degrees" ) != S_OK )
 	{
 		LOG( SimConnectClient, Error, "Failed to add 'Plane Longitude' to 'AircraftPosition' data definition." );
 		return false;
 	}
 
-	if ( SimConnect_AddToDataDefinition( SimConnectHandle, SimConnectDataDefinitionId::AircraftPosition, "Plane Altitude", "feet" ) != S_OK )
+	if ( SimConnect_AddToDataDefinition( SimConnectHandle, Utils::GetEnumValue( SimConnectDataDefinitionId::AircraftPosition ), "Plane Altitude", "feet" ) != S_OK )
 	{
 		LOG( SimConnectClient, Error, "Failed to add 'Plane Altitude' to 'AircraftPosition' data definition." );
 		return false;
