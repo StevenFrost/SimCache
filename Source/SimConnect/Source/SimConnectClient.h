@@ -2,8 +2,14 @@
 
 #pragma once
 
-#include <MSFS/MSFS_WindowsTypes.h>
 #include <SimConnect/SimConnectClient.h>
+
+#include <Utils/Handle/Handle.h>
+
+#include <MSFS/MSFS_WindowsTypes.h>
+#include <SimConnect.h>
+
+#include <unordered_map>
 
 // -----------------------------------------------------------------------------
 
@@ -26,21 +32,49 @@ public:
 	SimConnectClient& operator=( const SimConnectClient& Other ) = delete;
 	SimConnectClient& operator=( SimConnectClient&& Other ) = delete;
 
+public: // ISimConnectClient
+
 	virtual bool Initialize() override final;
 	virtual bool Uninitialize() override final;
 
 	virtual bool IsConnected() const override final;
+
+	virtual SimConnect::Handle RegisterUserAircraftPositionListener( UserAircraftPositionUpdateFunc&& OnUserAircraftPositionUpdated ) override final;
+	virtual bool UnregisterUserAircraftPositionListener( SimConnect::Handle& Handle ) override final;
+
+	virtual SimConnect::Handle CreateSimObject( const std::string& SimObjectTitle, const SimObjectPosition& Position, SimObjectCreatedFunc&& OnSimObjectCreated ) override final;
+	virtual bool DestroySimObject( SimConnect::Handle& Handle ) override final;
 
 private:
 
 	bool OpenConnection();
 	bool CloseConnection();
 
+	bool RegisterCallbacks();
+
+	bool BuildDataDefinitions();
+	bool BuildAircraftPositionDataDefinition();
+
+	void OnConnectionOpen( const SIMCONNECT_RECV_OPEN& Data );
+	void OnSimObjectAssignedId( const SIMCONNECT_RECV_ASSIGNED_OBJECT_ID& Data );
+	void OnReceivedSimObjectData( const SIMCONNECT_RECV_SIMOBJECT_DATA& Data );
+
 private:
 
-	const std::string	ApplicationName;
+	static void CALLBACK DispatchProc( SIMCONNECT_RECV* Data, DWORD DataSizeBytes, void* Context );
 
-	HANDLE				SimConnectHandle;
+private:
+
+	template< class THandle, class TValue >
+	using THandleMap = std::unordered_map< THandle, TValue, Utils::HandleHasher >;
+
+	const std::string										ApplicationName;
+	HANDLE													SimConnectHandle;
+
+	THandleMap< Handle, UserAircraftPositionUpdateFunc >	UserAircraftPositionListeners;
+
+	THandleMap< Handle, SimObjectCreatedFunc >				SimObjectsPendingCreation;
+	THandleMap< Handle, SIMCONNECT_OBJECT_ID >				CreatedSimObjects;
 
 };
 

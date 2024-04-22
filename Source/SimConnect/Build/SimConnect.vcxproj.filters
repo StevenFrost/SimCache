@@ -10,6 +10,12 @@
     <Filter Include="Include\SimConnect">
       <UniqueIdentifier>{e8e0a3e7-faba-453e-ad54-b1525603efdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\DataDefinitions">
+      <UniqueIdentifier>{d1803497-1afe-4258-8858-a1cb6c1787f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\SimConnect\SimObject">
+      <UniqueIdentifier>{1fa6273d-b66e-46a8-9c59-283a304c6a00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Inc\SimConnect\SimConnectClient.h">
@@ -17,6 +23,15 @@
     </ClInclude>
     <ClInclude Include="..\Source\SimConnectClient.h">
       <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DataDefinitions\SimConnectDataDefinitionId.h">
+      <Filter>Source\DataDefinitions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DataDefinitions\AircraftPosition.h">
+      <Filter>Source\DataDefinitions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\SimConnect\SimObject\SimObjectPosition.h">
+      <Filter>Include\SimConnect\SimObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
