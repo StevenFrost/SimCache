@@ -82,6 +82,12 @@ bool SimConnectClient::IsConnected() const
 
 SimConnect::Handle SimConnectClient::RegisterUserAircraftPositionListener( UserAircraftPositionUpdateFunc&& OnUserAircraftPositionUpdated )
 {
+	if ( !OnUserAircraftPositionUpdated )
+	{
+		LOG( SimConnectClient, Error, "Unable to register a null user aircraft position update function." );
+		return SimConnect::Handle();
+	}
+
 	const auto DataRequestHandle = SimConnect::Handle::Make();
 
 	const auto Result = SimConnect_RequestDataOnSimObject(
