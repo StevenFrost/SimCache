@@ -21,7 +21,7 @@ namespace SimConnect
 SimConnectClient::SimConnectClient( const std::string& ApplicationName )
 	: ApplicationName( ApplicationName )
 	, SimConnectHandle( INVALID_HANDLE_VALUE )
-	, UserAircraftPositionUpdateRegistry()
+	, UserAircraftPositionListeners()
 	, SimObjectsPendingCreation()
 	, CreatedSimObjects()
 {
@@ -79,7 +79,7 @@ bool SimConnectClient::IsConnected() const
 
 // -----------------------------------------------------------------------------
 
-SimConnect::Handle SimConnectClient::StartReceivingUserAircraftPositionUpdates( UserAircraftPositionUpdateFunc&& OnUserAircraftPositionUpdated )
+SimConnect::Handle SimConnectClient::RegisterUserAircraftPositionListener( UserAircraftPositionUpdateFunc&& OnUserAircraftPositionUpdated )
 {
 	const auto DataRequestHandle = SimConnect::Handle::Make();
 
@@ -98,18 +98,18 @@ SimConnect::Handle SimConnectClient::StartReceivingUserAircraftPositionUpdates( 
 		return Handle();
 	}
 
-	UserAircraftPositionUpdateRegistry.emplace( DataRequestHandle, OnUserAircraftPositionUpdated );
+	UserAircraftPositionListeners.emplace( DataRequestHandle, OnUserAircraftPositionUpdated );
 
 	return DataRequestHandle;
 }
 
 // -----------------------------------------------------------------------------
 
-bool SimConnectClient::StopReceivingUserAircraftPositionUpdates( SimConnect::Handle& Handle )
+bool SimConnectClient::UnregisterUserAircraftPositionListener( SimConnect::Handle& Handle )
 {
-	if ( UserAircraftPositionUpdateRegistry.find( Handle ) == UserAircraftPositionUpdateRegistry.end() )
+	if ( UserAircraftPositionListeners.find( Handle ) == UserAircraftPositionListeners.end() )
 	{
-		LOG( SimConnectClient, Error, "Failed to locate a user aircraft position update registration with handle %lu.", Handle.GetId() );
+		LOG( SimConnectClient, Error, "Failed to locate a user aircraft position update listener with handle %lu.", Handle.GetId() );
 		return false;
 	}
 
@@ -121,7 +121,7 @@ bool SimConnectClient::StopReceivingUserAircraftPositionUpdates( SimConnect::Han
 		SIMCONNECT_PERIOD_NEVER
 	);
 
-	UserAircraftPositionUpdateRegistry.erase( Handle );
+	UserAircraftPositionListeners.erase( Handle );
 	Handle.Reset();
 
 	if ( Result != S_OK )
@@ -323,10 +323,10 @@ void SimConnectClient::OnReceivedSimObjectData( const SIMCONNECT_RECV_SIMOBJECT_
 {
 	const auto DataRequestHandle = SimConnect::Handle( Data.dwRequestID );
 
-	auto AircraftPositionUpdateRegistration = UserAircraftPositionUpdateRegistry.find( DataRequestHandle );
-	if ( AircraftPositionUpdateRegistration == UserAircraftPositionUpdateRegistry.end() )
+	auto AircraftPositionUpdateListener = UserAircraftPositionListeners.find( DataRequestHandle );
+	if ( AircraftPositionUpdateListener == UserAircraftPositionListeners.end() )
 	{
-		LOG( SimConnectClient, Error, "Failed to find a registered aircraft position update function with handle %lu.", DataRequestHandle.GetId() );
+		LOG( SimConnectClient, Error, "Failed to find an aircraft position update listener with handle %lu.", DataRequestHandle.GetId() );
 		return;
 	}
 
@@ -337,7 +337,7 @@ void SimConnectClient::OnReceivedSimObjectData( const SIMCONNECT_RECV_SIMOBJECT_
 		return;
 	}
 
-	auto& UserAircraftPositionUpdatedFunc = AircraftPositionUpdateRegistration->second;
+	auto& UserAircraftPositionUpdatedFunc = AircraftPositionUpdateListener->second;
 	if ( UserAircraftPositionUpdatedFunc )
 	{
 		const auto CurrentPosition = Utils::EarthCoordinate::FromGeodetic(
