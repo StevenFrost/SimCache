@@ -12,6 +12,13 @@
 
 // -----------------------------------------------------------------------------
 
+namespace Utils
+{
+	typedef EventDispatcher NativeEventDispatcher;
+}
+
+// -----------------------------------------------------------------------------
+
 class SimCacheModule
 {
 public:
@@ -37,6 +44,8 @@ private:
 	void UninitializeCacheManager();
 
 private:
+
+	std::shared_ptr< Utils::NativeEventDispatcher >		InternalEventDispatcher;
 
 	std::shared_ptr< SimConnect::ISimConnectClient >	SimConnectClient;
 	std::shared_ptr< Utils::EventDispatcher >			JavaScriptEventDispatcher;

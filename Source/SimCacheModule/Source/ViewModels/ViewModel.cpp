@@ -4,8 +4,9 @@
 
 // -----------------------------------------------------------------------------
 
-ViewModel::ViewModel( Utils::EventDispatcher& ViewEventDispatcher )
-	: ViewEventDispatcher( ViewEventDispatcher )
+ViewModel::ViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher )
+	: InternalEventDispatcher( InternalEventDispatcher )
+	, ViewEventDispatcher( ViewEventDispatcher )
 {
 }
 
@@ -26,6 +27,13 @@ bool ViewModel::Initialize()
 
 void ViewModel::Uninitialize()
 {
+}
+
+// -----------------------------------------------------------------------------
+
+Utils::NativeEventDispatcher& ViewModel::GetInternalEventDispatcher() const
+{
+	return InternalEventDispatcher;
 }
 
 // -----------------------------------------------------------------------------

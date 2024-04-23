@@ -6,11 +6,18 @@
 
 // -----------------------------------------------------------------------------
 
+namespace Utils
+{
+	typedef EventDispatcher NativeEventDispatcher;
+}
+
+// -----------------------------------------------------------------------------
+
 class ViewModel
 {
 public:
 
-	ViewModel( Utils::EventDispatcher& ViewEventDispatcher );
+	ViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher );
 
 	virtual ~ViewModel();
 
@@ -19,10 +26,12 @@ public:
 
 protected:
 
+	Utils::NativeEventDispatcher& GetInternalEventDispatcher() const;
 	Utils::EventDispatcher& GetViewEventDispatcher() const;
 
 private:
 
+	Utils::NativeEventDispatcher& InternalEventDispatcher;
 	Utils::EventDispatcher& ViewEventDispatcher;
 
 };
