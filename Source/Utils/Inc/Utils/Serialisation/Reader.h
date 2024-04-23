@@ -49,7 +49,10 @@ public:
 
 		TEnumType EnumValue;
 		const bool Success = ReadProperty( Name, EnumValue );
-		Value = static_cast< TEnum >( EnumValue );
+		if ( Success )
+		{
+			Value = static_cast< TEnum >( EnumValue );
+		}
 
 		return Success;
 	}
