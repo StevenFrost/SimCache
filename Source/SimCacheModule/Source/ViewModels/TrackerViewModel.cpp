@@ -4,8 +4,8 @@
 
 // -----------------------------------------------------------------------------
 
-TrackerViewModel::TrackerViewModel( Utils::EventDispatcher& ViewEventDispatcher )
-	: ViewModel( ViewEventDispatcher )
+TrackerViewModel::TrackerViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher )
+	: ViewModel( InternalEventDispatcher, ViewEventDispatcher )
 {
 }
 

@@ -9,12 +9,19 @@
 
 // -----------------------------------------------------------------------------
 
+namespace Utils
+{
+	typedef EventDispatcher NativeEventDispatcher;
+}
+
+// -----------------------------------------------------------------------------
+
 class TrackerViewModel
 	: public ViewModel
 {
 public:
 
-	TrackerViewModel( Utils::EventDispatcher& ViewEventDispatcher );
+	TrackerViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher );
 	virtual ~TrackerViewModel();
 
 	virtual bool Initialize() override final;
