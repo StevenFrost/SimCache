@@ -7,7 +7,7 @@ if exist "%StoreUserConfigLocation%" (
 	set UserConfigFileLocation=%StoreUserConfigLocation%
 	goto CopyPackage
 ) else (
-	if exist "%SteamUserConfigLocation%" (	
+	if exist "%SteamUserConfigLocation%" (
 		set UserConfigFileLocation=%SteamUserConfigLocation%
 		goto CopyPackage
 	) else (
@@ -19,12 +19,12 @@ if exist "%StoreUserConfigLocation%" (
 
 :CopyPackage
 for /f "tokens=1,*" %%a in ( 'findstr /C:"InstalledPackagesPath" "%UserConfigFileLocation%"' ) do (
-    set PackagesDirectory=%%b
+	set PackagesDirectory=%%b
 )
 set PackagesDirectory=%PackagesDirectory:"=%
 set CommunityDirectory=%PackagesDirectory%\Community
 
-cd ..\Packages\
+cd ..\..\Packages\
 
 set SourcePackageDirectory=%cd%\Built\Packages\meridian-simcache
 set DestinationPackageDirectory=%CommunityDirectory%\meridian-simcache
