@@ -5,7 +5,6 @@
 #include <Utils/Event/Event.h>
 #include <Utils/Event/EventHandle.h>
 #include <Utils/Serialisation/JSON/JSONReader.h>
-#include <Utils/Serialisation/JSON/JSONWriter.h>
 #include <Utils/WASM/Macros.h>
 
 #include <functional>
@@ -32,9 +31,7 @@ public:
 	{
 		static_assert( std::is_base_of< Utils::Event, TEvent >::value, "TEvent must be derived from Event" );
 
-		Utils::Serialisation::JSONWriter Writer;
-		Event.Serialise( Writer );
-		FireEvent( EventTraits< TEvent >::Id, Writer.ToString() );
+		FireEvent( EventTraits< TEvent >::Id, Event.Serialise() );
 	}
 
 	template< class TEvent >
