@@ -5,6 +5,11 @@
 #include "Core/CacheDefinitionCollection.h"
 
 #include <Utils/Event/WASMEventDispatcher.h>
+#include <Utils/Logging/Log.h>
+
+// -----------------------------------------------------------------------------
+
+DEFINE_LOG_CATEGORY( SimCacheModule, Info )
 
 // -----------------------------------------------------------------------------
 
@@ -12,8 +17,9 @@ SimCacheModule::SimCacheModule()
 	: InternalEventDispatcher( nullptr )
 	, SimConnectClient( nullptr )
 	, JavaScriptEventDispatcher( nullptr )
-	, TrackerVM( nullptr )
+	, AircraftTracker( nullptr )
 	, CacheManager( nullptr )
+	, TrackerVM( nullptr )
 {
 }
 
@@ -27,26 +33,22 @@ SimCacheModule::~SimCacheModule()
 
 bool SimCacheModule::Initialize()
 {
-	const bool InitializeSimConnectClientSucceeded = InitializeSimConnectClient();
-	if ( !InitializeSimConnectClientSucceeded )
+	if ( !InitializeSimConnectClient() )
 	{
 		return false;
 	}
 
-	const bool InitializeEventDispatchersSucceeded = InitializeEventDispatchers();
-	if ( !InitializeEventDispatchersSucceeded )
+	if ( !InitializeEventDispatchers() )
 	{
 		return false;
 	}
 
-	const bool InitializeTrackerViewModelSucceeded = InitializeTrackerViewModel();
-	if ( !InitializeTrackerViewModelSucceeded )
+	if ( !InitializeSubSystems() )
 	{
 		return false;
 	}
 
-	const bool InitializeCacheManagerSucceeded = InitializeCacheManager();
-	if ( !InitializeCacheManagerSucceeded )
+	if ( !InitializeViewModels() )
 	{
 		return false;
 	}
@@ -58,10 +60,54 @@ bool SimCacheModule::Initialize()
 
 void SimCacheModule::Uninitialize()
 {
-	UninitializeCacheManager();
-	UninitializeTrackerViewModel();
+	UninitializeViewModels();
+	UninitializeSubSystems();
 	UninitializeEventDispatchers();
 	UninitializeSimConnectClient();
+}
+
+// -----------------------------------------------------------------------------
+
+bool SimCacheModule::InitializeSubSystems()
+{
+	if ( !InitializeAircraftTracker() )
+	{
+		return false;
+	}
+
+	if ( !InitializeCacheManager() )
+	{
+		return false;
+	}
+
+	return true;
+}
+
+// -----------------------------------------------------------------------------
+
+void SimCacheModule::UninitializeSubSystems()
+{
+	UninitializeCacheManager();
+	UninitializeAircraftTracker();
+}
+
+// -----------------------------------------------------------------------------
+
+bool SimCacheModule::InitializeViewModels()
+{
+	if ( !InitializeTrackerViewModel() )
+	{
+		return false;
+	}
+
+	return true;
+}
+
+// -----------------------------------------------------------------------------
+
+void SimCacheModule::UninitializeViewModels()
+{
+	UninitializeTrackerViewModel();
 }
 
 // -----------------------------------------------------------------------------
@@ -161,6 +207,46 @@ void SimCacheModule::UninitializeTrackerViewModel()
 
 	TrackerVM->Uninitialize();
 	TrackerVM = nullptr;
+}
+
+// -----------------------------------------------------------------------------
+
+bool SimCacheModule::InitializeAircraftTracker()
+{
+	auto* InternalEventDispatcherPtr = InternalEventDispatcher.get();
+	if ( !InternalEventDispatcherPtr )
+	{
+		return false;
+	}
+
+	auto* SimConnectClientPtr = SimConnectClient.get();
+	if ( !SimConnectClientPtr )
+	{
+		LOG( SimCacheModule, Error, "Failed to initialize Aircraft Tracker - invalid SimConnect client." );
+		return false;
+	}
+
+	AircraftTracker = std::make_unique< Subsystems::AircraftTracker >( *InternalEventDispatcherPtr, *SimConnectClientPtr );
+	if ( !AircraftTracker )
+	{
+		LOG( SimCacheModule, Error, "Failed to create Aircraft Tracker." );
+		return false;
+	}
+
+	return AircraftTracker->Initialize();
+}
+
+// -----------------------------------------------------------------------------
+
+void SimCacheModule::UninitializeAircraftTracker()
+{
+	if ( !AircraftTracker )
+	{
+		return;
+	}
+
+	AircraftTracker->Uninitialize();
+	AircraftTracker = nullptr;
 }
 
 // -----------------------------------------------------------------------------

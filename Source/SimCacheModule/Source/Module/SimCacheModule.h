@@ -2,11 +2,13 @@
 
 #pragma once
 
+#include "Subsystems/AircraftTracker/AircraftTracker.h"
 #include "Subsystems/CacheManager/CacheManager.h"
 #include "ViewModels/TrackerViewModel.h"
 
 #include <SimConnect/SimConnectClient.h>
 #include <Utils/Event/EventDispatcher.h>
+#include <Utils/WASM/Macros.h>
 
 #include <memory>
 
@@ -31,6 +33,12 @@ public:
 
 private:
 
+	bool InitializeSubSystems();
+	void UninitializeSubSystems();
+
+	bool InitializeViewModels();
+	void UninitializeViewModels();
+
 	bool InitializeSimConnectClient();
 	void UninitializeSimConnectClient();
 
@@ -39,6 +47,9 @@ private:
 
 	bool InitializeTrackerViewModel();
 	void UninitializeTrackerViewModel();
+
+	bool InitializeAircraftTracker();
+	void UninitializeAircraftTracker();
 
 	bool InitializeCacheManager();
 	void UninitializeCacheManager();
@@ -50,9 +61,10 @@ private:
 	std::shared_ptr< SimConnect::ISimConnectClient >	SimConnectClient;
 	std::shared_ptr< Utils::EventDispatcher >			JavaScriptEventDispatcher;
 
-	std::unique_ptr< TrackerViewModel >					TrackerVM;
-
+	std::unique_ptr< Subsystems::AircraftTracker >		AircraftTracker;
 	std::unique_ptr< Subsystems::CacheManager >			CacheManager;
+
+	std::unique_ptr< TrackerViewModel >					TrackerVM;
 
 };
 
