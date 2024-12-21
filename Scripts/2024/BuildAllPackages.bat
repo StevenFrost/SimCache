@@ -2,7 +2,7 @@
 
 set PackageToolLocation=%MSFS2024_SDK%Tools\bin\fspackagetool.exe
 set StoreUserConfigLocation=%LOCALAPPDATA%\Packages\Microsoft.Limitless_8wekyb3d8bbwe\LocalCache\UserCfg.opt
-set SteamUserConfigLocation=%APPDATA%\Microsoft Flight Simulator\UserCfg.opt
+set SteamUserConfigLocation=%APPDATA%\Microsoft Flight Simulator 2024\UserCfg.opt
 
 cd ..\..\Packages\
 

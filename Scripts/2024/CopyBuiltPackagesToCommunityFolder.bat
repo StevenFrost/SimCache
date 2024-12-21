@@ -1,7 +1,7 @@
 @echo off
 
 set StoreUserConfigLocation=%LOCALAPPDATA%\Packages\Microsoft.Limitless_8wekyb3d8bbwe\LocalCache\UserCfg.opt
-set SteamUserConfigLocation=%APPDATA%\Microsoft Flight Simulator\UserCfg.opt
+set SteamUserConfigLocation=%APPDATA%\Microsoft Flight Simulator 2024\UserCfg.opt
 
 if exist "%StoreUserConfigLocation%" (
 	set UserConfigFileLocation=%StoreUserConfigLocation%
