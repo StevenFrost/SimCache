@@ -12,7 +12,7 @@
 	</Flags>
 	<AssetGroups>
 		<AssetGroup Name="ContentInfo">
-			<Type>ContentInfo</Type>
+			<Type Version="0">ContentInfo</Type>
 			<Flags>
 				<FSXCompatibility>false</FSXCompatibility>
 			</Flags>
@@ -20,7 +20,7 @@
 			<OutputDir>ContentInfo\meridian-simcache\</OutputDir>
 		</AssetGroup>
 		<AssetGroup Name="Data">
-			<Type>Copy</Type>
+			<Type Version="0">Copy</Type>
 			<Flags>
 				<FSXCompatibility>false</FSXCompatibility>
 			</Flags>
@@ -28,7 +28,7 @@
 			<OutputDir>Data\</OutputDir>
 		</AssetGroup>
 		<AssetGroup Name="InGamePanelSources">
-			<Type>Copy</Type>
+			<Type Version="0">Copy</Type>
 			<Flags>
 				<FSXCompatibility>false</FSXCompatibility>
 			</Flags>
@@ -36,7 +36,7 @@
 			<OutputDir>html_ui\</OutputDir>
 		</AssetGroup>
 		<AssetGroup Name="InGamePanelDefinitions">
-			<Type>SPB</Type>
+			<Type Version="0">SPB</Type>
 			<Flags>
 				<FSXCompatibility>false</FSXCompatibility>
 			</Flags>
@@ -44,7 +44,7 @@
 			<OutputDir>InGamePanels\</OutputDir>
 		</AssetGroup>
 		<AssetGroup Name="Module">
-			<Type>Copy</Type>
+			<Type Version="0">Copy</Type>
 			<Flags>
 				<FSXCompatibility>false</FSXCompatibility>
 			</Flags>
@@ -52,7 +52,7 @@
 			<OutputDir>modules\</OutputDir>
 		</AssetGroup>
 		<AssetGroup Name="SimObject">
-			<Type>SimObject</Type>
+			<Type Version="1">SimObject</Type>
 			<Flags>
 				<FSXCompatibility>false</FSXCompatibility>
 			</Flags>

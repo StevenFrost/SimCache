@@ -4,11 +4,11 @@ set PackageToolLocation=%MSFS_SDK%Tools\bin\fspackagetool.exe
 set StoreUserConfigLocation=%LOCALAPPDATA%\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\UserCfg.opt
 set SteamUserConfigLocation=%APPDATA%\Microsoft Flight Simulator\UserCfg.opt
 
-cd ..\Packages\
+cd ..\..\Packages\
 
 if not exist "%PackageToolLocation%" (
-    echo "Unable to locate fspackagetool.exe"
-    goto Exit
+	echo "Unable to locate fspackagetool.exe"
+	goto Exit
 )
 
 if exist "%StoreUserConfigLocation%" (
