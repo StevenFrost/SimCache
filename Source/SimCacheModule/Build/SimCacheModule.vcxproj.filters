@@ -22,6 +22,9 @@
     <Filter Include="Source\Subsystems\CacheManager">
       <UniqueIdentifier>{585a5da4-1a1c-43e1-a791-9940179fe480}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Subsystems\AircraftTracker">
+      <UniqueIdentifier>{ef17e26f-9503-4976-b434-7cd099052acb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Module.cpp">
@@ -42,6 +45,9 @@
     <ClCompile Include="..\Source\Core\CacheDefinitionCollection.cpp">
       <Filter>Source\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Subsystems\AircraftTracker\AircraftTracker.cpp">
+      <Filter>Source\Subsystems\AircraftTracker</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Module\SimCacheModule.h">
@@ -61,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="..\Source\Subsystems\CacheManager\CacheManager.h">
       <Filter>Source\Subsystems\CacheManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Subsystems\AircraftTracker\AircraftTracker.h">
+      <Filter>Source\Subsystems\AircraftTracker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Events\AircraftPositionUpdatedEvent.h">
+      <Filter>Source\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

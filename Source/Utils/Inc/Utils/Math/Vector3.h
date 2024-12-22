@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <Utils/Serialisation/Serialisable.h>
+
 // -----------------------------------------------------------------------------
 
 namespace Utils
@@ -10,6 +12,7 @@ namespace Utils
 // -----------------------------------------------------------------------------
 
 struct Vector3
+	: public Serialisation::ISerialisable
 {
 public:
 
@@ -34,6 +37,11 @@ public:
 	Vector3 operator+( const Vector3& RHS ) const;
 	Vector3 operator-( const Vector3& RHS ) const;
 	Vector3 operator*( double c ) const;
+
+public: // ISerialisable
+
+	virtual bool Serialise( Serialisation::Writer& Writer ) const override;
+	virtual bool Deserialise( Serialisation::Reader& Reader ) override;
 
 public:
 
