@@ -195,6 +195,8 @@ bool SimConnectClient::DestroySimObject( SimConnect::Handle& Handle )
 	const auto SimObjectId = SimObject->second;
 	const auto Result = SimConnect_AIRemoveObject( SimConnectHandle, SimObjectId, Handle.GetId() );
 
+	CreatedSimObjects.erase( SimObject );
+
 	if ( Result != S_OK )
 	{
 		LOG( SimConnectClient, Error, "Failed to destroy SimObject %lu.", SimObjectId );

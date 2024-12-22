@@ -36,16 +36,20 @@
     <ClCompile Include="..\Source\Module\SimCacheModule.cpp" />
     <ClCompile Include="..\Source\Subsystems\AircraftTracker\AircraftTracker.cpp" />
     <ClCompile Include="..\Source\Subsystems\CacheManager\CacheManager.cpp" />
+    <ClCompile Include="..\Source\Subsystems\CacheObjectManager\CacheObjectManager.cpp" />
     <ClCompile Include="..\Source\ViewModels\TrackerViewModel.cpp" />
     <ClCompile Include="..\Source\ViewModels\ViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Core\CacheDefinitionCollection.h" />
     <ClInclude Include="..\Source\Events\AircraftPositionUpdatedEvent.h" />
+    <ClInclude Include="..\Source\Events\CacheFoundEvent.h" />
+    <ClInclude Include="..\Source\Events\TrackedCacheChangedEvent.h" />
     <ClInclude Include="..\Source\Events\TrackerLoadedEvent.h" />
     <ClInclude Include="..\Source\Module\SimCacheModule.h" />
     <ClInclude Include="..\Source\Subsystems\AircraftTracker\AircraftTracker.h" />
     <ClInclude Include="..\Source\Subsystems\CacheManager\CacheManager.h" />
+    <ClInclude Include="..\Source\Subsystems\CacheObjectManager\CacheObjectManager.h" />
     <ClInclude Include="..\Source\ViewModels\TrackerViewModel.h" />
     <ClInclude Include="..\Source\ViewModels\ViewModel.h" />
   </ItemGroup>
