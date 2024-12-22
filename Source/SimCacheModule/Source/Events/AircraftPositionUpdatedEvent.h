@@ -3,6 +3,7 @@
 #pragma once
 
 #include <Utils/Event/Event.h>
+#include <Utils/Geodesy/EarthCoordinate.h>
 
 // -----------------------------------------------------------------------------
 
@@ -11,8 +12,23 @@ class AircraftPositionUpdatedEvent
 {
 public:
 
-	virtual bool Serialise( Utils::Serialisation::Writer& Writer ) const override final { return true; }
-	virtual bool Deserialise( Utils::Serialisation::Reader& Reader ) override final { return true; }
+	AircraftPositionUpdatedEvent( const Utils::EarthCoordinate& CurrentPosition )
+		: CurrentPosition( CurrentPosition )
+	{}
+
+	virtual bool Serialise( Utils::Serialisation::Writer& Writer ) const override final
+	{
+		return Writer.WriteProperty( "CurrentPosition", CurrentPosition );
+	}
+
+	virtual bool Deserialise( Utils::Serialisation::Reader& Reader ) override final
+	{
+		return Reader.ReadProperty( "CurrentPosition", CurrentPosition );
+	}
+
+public:
+
+	Utils::EarthCoordinate CurrentPosition;
 };
 
 // -----------------------------------------------------------------------------

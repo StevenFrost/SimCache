@@ -77,7 +77,7 @@ void AircraftTracker::UnregisterAircraftPositionUpdatedEvent()
 
 void AircraftTracker::OnAircraftPositionUpdated( const Utils::EarthCoordinate CurrentPosition )
 {
-	InternalEventDispatcher.FireEvent( AircraftPositionUpdatedEvent() );
+	InternalEventDispatcher.FireEvent( AircraftPositionUpdatedEvent( CurrentPosition ) );
 }
 
 // -----------------------------------------------------------------------------
