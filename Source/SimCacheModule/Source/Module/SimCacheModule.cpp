@@ -19,6 +19,7 @@ SimCacheModule::SimCacheModule()
 	, JavaScriptEventDispatcher( nullptr )
 	, AircraftTracker( nullptr )
 	, CacheManager( nullptr )
+	, CacheObjectManager( nullptr )
 	, TrackerVM( nullptr )
 {
 }
@@ -80,6 +81,11 @@ bool SimCacheModule::InitializeSubSystems()
 		return false;
 	}
 
+	if ( !InitializeCacheObjectManager() )
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -87,6 +93,7 @@ bool SimCacheModule::InitializeSubSystems()
 
 void SimCacheModule::UninitializeSubSystems()
 {
+	UninitializeCacheObjectManager();
 	UninitializeCacheManager();
 	UninitializeAircraftTracker();
 }
@@ -273,6 +280,53 @@ void SimCacheModule::UninitializeCacheManager()
 
 	CacheManager->Uninitialize();
 	CacheManager = nullptr;
+}
+
+// -----------------------------------------------------------------------------
+
+bool SimCacheModule::InitializeCacheObjectManager()
+{
+	auto* InternalEventDispatcherPtr = InternalEventDispatcher.get();
+	if ( !InternalEventDispatcherPtr )
+	{
+		LOG( SimCacheModule, Error, "Failed to initialize Cache Object Manager - invalid internal event dispatcher." );
+		return false;
+	}
+
+	auto* SimConnectClientPtr = SimConnectClient.get();
+	if ( !SimConnectClientPtr )
+	{
+		LOG( SimCacheModule, Error, "Failed to initialize Cache Object Manager - invalid SimConnect client." );
+		return false;
+	}
+
+	auto* CacheManagerPtr = CacheManager.get();
+	if ( !CacheManagerPtr )
+	{
+		LOG( SimCacheModule, Error, "Failed to initialize Cache Object Manager - invalid Cache Manager." );
+		return false;
+	}
+
+	CacheObjectManager = std::make_unique< Subsystems::CacheObjectManager >( *InternalEventDispatcherPtr, *SimConnectClientPtr, *CacheManagerPtr );
+	if ( !CacheObjectManager )
+	{
+		return false;
+	}
+
+	return CacheObjectManager->Initialize();
+}
+
+// -----------------------------------------------------------------------------
+
+void SimCacheModule::UninitializeCacheObjectManager()
+{
+	if ( !CacheObjectManager )
+	{
+		return;
+	}
+
+	CacheObjectManager->Uninitialize();
+	CacheObjectManager = nullptr;
 }
 
 // -----------------------------------------------------------------------------

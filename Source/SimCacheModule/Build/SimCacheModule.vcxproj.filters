@@ -25,6 +25,9 @@
     <Filter Include="Source\Subsystems\AircraftTracker">
       <UniqueIdentifier>{ef17e26f-9503-4976-b434-7cd099052acb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Subsystems\CacheObjectManager">
+      <UniqueIdentifier>{4ea29760-70b2-4bef-8ed5-dabdc3bead24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Module.cpp">
@@ -47,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Subsystems\AircraftTracker\AircraftTracker.cpp">
       <Filter>Source\Subsystems\AircraftTracker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Subsystems\CacheObjectManager\CacheObjectManager.cpp">
+      <Filter>Source\Subsystems\CacheObjectManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +78,15 @@
       <Filter>Source\Subsystems\AircraftTracker</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Events\AircraftPositionUpdatedEvent.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Events\TrackedCacheChangedEvent.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Subsystems\CacheObjectManager\CacheObjectManager.h">
+      <Filter>Source\Subsystems\CacheObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Events\CacheFoundEvent.h">
       <Filter>Source\Events</Filter>
     </ClInclude>
   </ItemGroup>
