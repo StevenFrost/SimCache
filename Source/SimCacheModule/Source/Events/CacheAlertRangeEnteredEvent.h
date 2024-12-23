@@ -8,16 +8,15 @@
 
 // -----------------------------------------------------------------------------
 
-class CacheFoundEvent
+class CacheAlertRangeEnteredEvent
 	: public Utils::Event
 {
 public:
-	CacheFoundEvent() {}
+	CacheAlertRangeEnteredEvent() {}
 
-	CacheFoundEvent( const CacheId& Id )
+	CacheAlertRangeEnteredEvent( const CacheId& Id )
 		: Id( Id )
-	{
-	}
+	{}
 
 public: // ISerialisable
 
@@ -40,9 +39,9 @@ public:
 // -----------------------------------------------------------------------------
 
 template<>
-struct Utils::EventTraits< CacheFoundEvent >
+struct Utils::EventTraits< CacheAlertRangeEnteredEvent >
 {
-	static constexpr char* Id = "SimCache.CacheFoundEvent";
+	static constexpr char* Id = "SimCache.CacheAlertRangeEnteredEvent";
 };
 
 // -----------------------------------------------------------------------------

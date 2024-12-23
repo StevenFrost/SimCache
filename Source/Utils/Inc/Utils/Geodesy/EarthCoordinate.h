@@ -15,6 +15,10 @@ namespace Utils
 class EarthCoordinate
 	: public Serialisation::ISerialisable
 {
+public:
+
+	EarthCoordinate() = default;
+
 private:
 
 	EarthCoordinate( const Vector3& GeocentricPosition );

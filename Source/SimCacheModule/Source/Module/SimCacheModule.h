@@ -4,6 +4,7 @@
 
 #include "Subsystems/AircraftTracker/AircraftTracker.h"
 #include "Subsystems/CacheManager/CacheManager.h"
+#include "Subsystems/CacheTracker/CacheTracker.h"
 #include "Subsystems/CacheObjectManager/CacheObjectManager.h"
 #include "ViewModels/TrackerViewModel.h"
 
@@ -55,6 +56,9 @@ private:
 	bool InitializeCacheManager();
 	void UninitializeCacheManager();
 
+	bool InitializeCacheTracker();
+	void UninitializeCacheTracker();
+
 	bool InitializeCacheObjectManager();
 	void UninitializeCacheObjectManager();
 
@@ -67,6 +71,7 @@ private:
 
 	std::unique_ptr< Subsystems::AircraftTracker >		AircraftTracker;
 	std::unique_ptr< Subsystems::CacheManager >			CacheManager;
+	std::unique_ptr< Subsystems::CacheTracker >			CacheTracker;
 	std::unique_ptr< Subsystems::CacheObjectManager >	CacheObjectManager;
 
 	std::unique_ptr< TrackerViewModel >					TrackerVM;

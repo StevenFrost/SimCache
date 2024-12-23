@@ -12,6 +12,8 @@ class AircraftPositionUpdatedEvent
 {
 public:
 
+	AircraftPositionUpdatedEvent() = default;
+
 	AircraftPositionUpdatedEvent( const Utils::EarthCoordinate& CurrentPosition )
 		: CurrentPosition( CurrentPosition )
 	{}
