@@ -8,21 +8,21 @@
 
 // -----------------------------------------------------------------------------
 
-class CacheFoundEvent
+class CacheAlertRangeEnteredEvent
 	: public Utils::Event
 {
 public:
-	CacheFoundEvent() = default;
+	CacheAlertRangeEnteredEvent() = default;
 
-	CacheFoundEvent( const CacheId& Id )
+	CacheAlertRangeEnteredEvent( const CacheId& Id )
 		: Id( Id )
-	{
-	}
+	{}
 
 public: // ISerialisable
 
 	virtual bool Serialise( Utils::Serialisation::Writer& Writer ) const override
 	{
+
 		return Writer.WriteProperty( "id", Id );
 	}
 
@@ -39,9 +39,9 @@ public:
 // -----------------------------------------------------------------------------
 
 template<>
-struct Utils::EventTraits< CacheFoundEvent >
+struct Utils::EventTraits< CacheAlertRangeEnteredEvent >
 {
-	static constexpr char* Id = "SimCache.CacheFoundEvent";
+	static constexpr char* Id = "SimCache.CacheAlertRangeEnteredEvent";
 };
 
 // -----------------------------------------------------------------------------

@@ -1,5 +1,16 @@
 //-----------------------------------------------------------------------------
 
+// matches SimCache\Source\SimCacheModule\Source\Core\TrackerState.h
+const TrackerState = Object.freeze({
+    Annulus1: 0, // innermost
+    Annulus2: 1,
+    Annulus3: 2,
+    Annulus4: 3, // outermost
+    OutOfRange: 4
+});
+
+//-----------------------------------------------------------------------------
+
 class SimCachePanel extends UIElement {
     constructor() {
         super();
@@ -28,17 +39,17 @@ class SimCachePanel extends UIElement {
     }
 
     onSubsystemsInitialized() {
-        this.CommBusListener.on("SimCache.TrackedCacheDataUpdatedEvent", this.onTrackedCacheDataUpdatedEvent.bind(this));
+        this.CommBusListener.on("SimCache.TrackerStateUpdatedEvent", this.onTrackerStateUpdatedEvent.bind(this));
         this.CommBusListener.on("SimCache.CacheFoundEvent", this.onCacheFoundEvent.bind(this));
         this.CommBusListener.callWasm("SimCache.TrackerLoadedEvent", "");
     }
 
-    onTrackedCacheDataUpdatedEvent(eventData) {
+    onTrackerStateUpdatedEvent(eventData) {
         if (this.m_timeoutID !== null) {
             this.cancelPendingClose();
         }
         const data = JSON.parse(eventData);
-        this.updateUIElements(data.title, data.distance_meters);
+        this.updateUIElements(data.id, data.state);
         this.makeVisible();
     }
 
@@ -60,9 +71,9 @@ class SimCachePanel extends UIElement {
         }, 5000);
     }
 
-    updateUIElements(title, distanceMeters) {
+    updateUIElements(title, trackerStateAnnulus) {
         this.updateCacheTitle(title);
-        this.updateCacheRange(distanceMeters);
+        this.updateCacheRange(trackerStateAnnulus);
     }
 
     makeVisible() {
@@ -75,44 +86,40 @@ class SimCachePanel extends UIElement {
         this.m_titleElement.innerText = title;
     }
 
-    updateCacheRange(distanceMeters) {
-        const piecewiseRange = this.getPiecewiseRange(distanceMeters);
+    updateCacheRange(trackerStateAnnulus) {
+        const piecewiseRange = this.getPiecewiseRange(trackerStateAnnulus);
         this.m_subtitleElement.innerText = this.getSubtitle(piecewiseRange);
-        this.m_annulusElement.setAttributeNS(null, "r", this.getAnnulusInnerRadius(piecewiseRange));
+        this.m_annulusElement.setAttributeNS(null, "r", this.getAnnulusInnerRadius(trackerStateAnnulus));
     }
 
     getSubtitle(piecewiseRange) {
         return piecewiseRange !== null ? `Less than ${piecewiseRange} nm away` : "Out of range";
     }
 
-    getPiecewiseRange(distanceMeters) {
-        if (distanceMeters < 0) {
-            throw new RangeError("Negative distances are not allowed");
+    getPiecewiseRange(trackerStateAnnulus) {
+        switch (trackerStateAnnulus) {
+            case TrackerState.Annulus1:
+                return 2;
+            case TrackerState.Annulus2:
+                return 5;
+            case TrackerState.Annulus3:
+                return 10;
+            case TrackerState.Annulus4:
+                return 25;
+            default:
+                return null;
         }
-        if (distanceMeters < 3704) {
-            return 2;
-        }
-        if (distanceMeters < 9260) {
-            return 5;
-        }
-        if (distanceMeters < 18520) {
-            return 10;
-        }
-        if (distanceMeters < 46300) {
-            return 25;
-        }
-        return null;
     }
 
-    getAnnulusInnerRadius(piecewiseRange) {
-        switch (piecewiseRange) {
-            case 2:
+    getAnnulusInnerRadius(trackerStateAnnulus) {
+        switch (trackerStateAnnulus) {
+            case TrackerState.Annulus1:
                 return 0;
-            case 5:
+            case TrackerState.Annulus2:
                 return 22;
-            case 10:
+            case TrackerState.Annulus3:
                 return 31;
-            case 25:
+            case TrackerState.Annulus4:
                 return 40;
             default:
                 return 49;

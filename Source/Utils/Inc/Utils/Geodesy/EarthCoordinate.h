@@ -15,6 +15,12 @@ namespace Utils
 class EarthCoordinate
 	: public Serialisation::ISerialisable
 {
+public:
+
+	// TODO: potentially remove default constructor
+	// (currently only required for serialization to work with placeholder NativeEventDispatcher)
+	EarthCoordinate() = default;
+
 private:
 
 	EarthCoordinate( const Vector3& GeocentricPosition );

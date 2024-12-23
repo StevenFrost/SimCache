@@ -54,6 +54,9 @@ bool SimCacheModule::Initialize()
 		return false;
 	}
 
+	// TODO: remove placeholder after we have the UI for setting current tracked cache
+	CacheTracker->SetCurrentTrackedCache( CacheManager->GetCacheDefinitions()[ 0 ].Metadata.Id );
+
 	return true;
 }
 
@@ -86,6 +89,11 @@ bool SimCacheModule::InitializeSubSystems()
 		return false;
 	}
 
+	if ( !InitializeCacheTracker() )
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -93,6 +101,7 @@ bool SimCacheModule::InitializeSubSystems()
 
 void SimCacheModule::UninitializeSubSystems()
 {
+	UninitializeCacheTracker();
 	UninitializeCacheObjectManager();
 	UninitializeCacheManager();
 	UninitializeAircraftTracker();
@@ -194,7 +203,13 @@ bool SimCacheModule::InitializeTrackerViewModel()
 		return false;
 	}
 
-	TrackerVM = std::make_unique< TrackerViewModel >( *InternalEventDispatcherPtr , *JavaScriptEventDispatcherPtr );
+	auto* CacheTrackerPtr = CacheTracker.get();
+	if ( !CacheTrackerPtr )
+	{
+		return false;
+	}
+
+	TrackerVM = std::make_unique< TrackerViewModel >( *InternalEventDispatcherPtr , *JavaScriptEventDispatcherPtr, *CacheTrackerPtr );
 	if ( !TrackerVM )
 	{
 		return false;
@@ -280,6 +295,46 @@ void SimCacheModule::UninitializeCacheManager()
 
 	CacheManager->Uninitialize();
 	CacheManager = nullptr;
+}
+
+// -----------------------------------------------------------------------------
+
+bool SimCacheModule::InitializeCacheTracker()
+{
+	auto* InternalEventDispatcherPtr = InternalEventDispatcher.get();
+	if ( !InternalEventDispatcherPtr )
+	{
+		LOG( SimCacheModule, Error, "Failed to initialize Cache Tracker - invalid internal event dispatcher." );
+		return false;
+	}
+
+	auto* CacheManagerPtr = CacheManager.get();
+	if ( !CacheManagerPtr )
+	{
+		LOG( SimCacheModule, Error, "Failed to initialize Cache Tracker - invalid Cache Manager." );
+		return false;
+	}
+
+	CacheTracker = std::make_unique< Subsystems::CacheTracker >( *InternalEventDispatcherPtr, *CacheManagerPtr );
+	if ( !CacheTracker )
+	{
+		return false;
+	}
+
+	return CacheTracker->Initialize();
+}
+
+// -----------------------------------------------------------------------------
+
+void SimCacheModule::UninitializeCacheTracker()
+{
+	if ( !CacheTracker )
+	{
+		return;
+	}
+
+	CacheTracker->Uninitialize();
+	CacheTracker = nullptr;
 }
 
 // -----------------------------------------------------------------------------
