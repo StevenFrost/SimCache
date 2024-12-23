@@ -2,10 +2,10 @@
 
 #pragma once
 
-#include "Events/AircraftPositionUpdatedEvent.h"
-
 #include "Core/CacheDefinitionCollection.h"
 #include "Core/TrackerState.h"
+
+#include "Events/AircraftPositionUpdatedEvent.h"
 
 #include "Subsystems/CacheManager/CacheManager.h"
 
@@ -28,38 +28,6 @@ namespace Subsystems
 
 // -----------------------------------------------------------------------------
 
-namespace CacheTrackerPrivate
-{
-
-// -----------------------------------------------------------------------------
-
-struct TrackedCacheState
-{
-public:
-
-	TrackedCacheState( const CacheId& Id, const CacheTrackerSettings& TrackerSettings, const Utils::EarthCoordinate& GeocentricPosition )
-		: Id( Id )
-		, TrackerSettings( TrackerSettings )
-		, GeocentricPosition( GeocentricPosition )
-		, State( TrackerState::OutOfRange )
-		, InsideAlertRange( false )
-	{}
-
-public:
-
-	const CacheId Id;
-	const CacheTrackerSettings TrackerSettings;
-	const Utils::EarthCoordinate GeocentricPosition;
-	TrackerState State;
-	bool InsideAlertRange;
-};
-
-// -----------------------------------------------------------------------------
-
-} // namespace CacheTrackerPrivate
-
-// -----------------------------------------------------------------------------
-
 class CacheTracker
 {
 public:
@@ -78,15 +46,22 @@ private:
 	void UnregisterAircraftPositionUpdatedListener();
 	void OnAircraftPositionUpdated( const AircraftPositionUpdatedEvent& Event );
 
-public:
-
-	bool ForceNextTrackerStateUpdatedEvent = false;
-
-private:
-
 	void UpdateTrackerState( const Utils::EarthCoordinate& CurrentPosition );
 
 	TrackerState GetCurrentAnnulus( const double RangeMeters ) const;
+
+private:
+
+	struct TrackedCacheState
+	{
+		TrackedCacheState( const CacheId& Id, const CacheTrackerSettings& TrackerSettings, const Utils::EarthCoordinate& GeocentricPosition );
+
+		const CacheId Id;
+		const CacheTrackerSettings TrackerSettings;
+		const Utils::EarthCoordinate GeocentricPosition;
+		TrackerState State;
+		bool InsideAlertRange;
+	};
 
 private:
 
@@ -95,7 +70,11 @@ private:
 
 	Utils::EventHandle OnAircraftPositionUpdatedEventHandle;
 
-	std::unique_ptr< CacheTrackerPrivate::TrackedCacheState > CurrentTrackedCache;
+	std::unique_ptr< TrackedCacheState > CurrentTrackedCache;
+
+public:
+
+	bool ForceNextTrackerStateUpdatedEvent;
 
 };
 

@@ -12,7 +12,7 @@ class CacheFoundEvent
 	: public Utils::Event
 {
 public:
-	CacheFoundEvent() {}
+	CacheFoundEvent() = default;
 
 	CacheFoundEvent( const CacheId& Id )
 		: Id( Id )
@@ -23,7 +23,6 @@ public: // ISerialisable
 
 	virtual bool Serialise( Utils::Serialisation::Writer& Writer ) const override
 	{
-
 		return Writer.WriteProperty( "id", Id );
 	}
 

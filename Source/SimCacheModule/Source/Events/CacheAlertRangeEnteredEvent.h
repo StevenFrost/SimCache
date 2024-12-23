@@ -12,7 +12,7 @@ class CacheAlertRangeEnteredEvent
 	: public Utils::Event
 {
 public:
-	CacheAlertRangeEnteredEvent() {}
+	CacheAlertRangeEnteredEvent() = default;
 
 	CacheAlertRangeEnteredEvent( const CacheId& Id )
 		: Id( Id )

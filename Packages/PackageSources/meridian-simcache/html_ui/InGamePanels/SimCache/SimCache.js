@@ -1,5 +1,16 @@
 //-----------------------------------------------------------------------------
 
+// matches SimCache\Source\SimCacheModule\Source\Core\TrackerState.h
+const TrackerState = Object.freeze({
+    Annulus1: 0, // innermost
+    Annulus2: 1,
+    Annulus3: 2,
+    Annulus4: 3, // outermost
+    OutOfRange: 4
+});
+
+//-----------------------------------------------------------------------------
+
 class SimCachePanel extends UIElement {
     constructor() {
         super();
@@ -87,13 +98,13 @@ class SimCachePanel extends UIElement {
 
     getPiecewiseRange(trackerStateAnnulus) {
         switch (trackerStateAnnulus) {
-            case 0:
+            case TrackerState.Annulus1:
                 return 2;
-            case 1:
+            case TrackerState.Annulus2:
                 return 5;
-            case 2:
+            case TrackerState.Annulus3:
                 return 10;
-            case 3:
+            case TrackerState.Annulus4:
                 return 25;
             default:
                 return null;
@@ -102,13 +113,13 @@ class SimCachePanel extends UIElement {
 
     getAnnulusInnerRadius(trackerStateAnnulus) {
         switch (trackerStateAnnulus) {
-            case 0:
+            case TrackerState.Annulus1:
                 return 0;
-            case 1:
+            case TrackerState.Annulus2:
                 return 22;
-            case 2:
+            case TrackerState.Annulus3:
                 return 31;
-            case 3:
+            case TrackerState.Annulus4:
                 return 40;
             default:
                 return 49;

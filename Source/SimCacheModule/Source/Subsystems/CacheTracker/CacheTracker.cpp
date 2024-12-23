@@ -20,10 +20,23 @@ namespace Subsystems
 
 // -----------------------------------------------------------------------------
 
+CacheTracker::TrackedCacheState::TrackedCacheState( const CacheId& Id, const CacheTrackerSettings& TrackerSettings, const Utils::EarthCoordinate& GeocentricPosition )
+	: Id( Id )
+	, TrackerSettings( TrackerSettings )
+	, GeocentricPosition( GeocentricPosition )
+	, State( TrackerState::OutOfRange )
+	, InsideAlertRange( false )
+{
+}
+
+// -----------------------------------------------------------------------------
+
 CacheTracker::CacheTracker( Utils::NativeEventDispatcher& InternalEventDispatcher, const Subsystems::CacheManager& CacheManager )
 	: CacheManager( CacheManager )
 	, InternalEventDispatcher( InternalEventDispatcher )
+	, OnAircraftPositionUpdatedEventHandle()
 	, CurrentTrackedCache( nullptr )
+	, ForceNextTrackerStateUpdatedEvent( false )
 {
 }
 
@@ -103,7 +116,7 @@ bool CacheTracker::SetCurrentTrackedCache( const CacheId& Id )
 		CurrentCacheDefinition->Position.Altitude
 	);
 
-	CurrentTrackedCache = std::make_unique< CacheTrackerPrivate::TrackedCacheState >( Id, CurrentCacheDefinition->Tracker, GeocentricPosition );
+	CurrentTrackedCache = std::make_unique< TrackedCacheState >( Id, CurrentCacheDefinition->Tracker, GeocentricPosition );
 
 	InternalEventDispatcher.FireEvent( TrackedCacheChangedEvent( Id ) );
 
@@ -158,7 +171,7 @@ TrackerState CacheTracker::GetCurrentAnnulus( const double RangeMeters ) const
 {
 	if ( RangeMeters < 0.0 )
 	{
-		LOG( CacheTracker, Error, "Invalid range." );
+		LOG( CacheTracker, Error, "Invalid range %f while determining current annulus.", RangeMeters );
 	}
 
 	if ( RangeMeters < 3704.0 )

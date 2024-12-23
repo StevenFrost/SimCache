@@ -7,6 +7,9 @@
 TrackerViewModel::TrackerViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher, Subsystems::CacheTracker& CacheTracker )
 	: ViewModel( InternalEventDispatcher, ViewEventDispatcher )
 	, CacheTracker( CacheTracker )
+	, OnTrackerLoadedEventHandle()
+	, OnTrackerStateUpdatedEventHandle()
+	, OnCacheFoundEventHandle()
 {
 }
 

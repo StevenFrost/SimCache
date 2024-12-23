@@ -13,7 +13,7 @@ class TrackerStateUpdatedEvent
 	: public Utils::Event
 {
 public:
-	TrackerStateUpdatedEvent() {}
+	TrackerStateUpdatedEvent() = default;
 
 	TrackerStateUpdatedEvent( const CacheId& Id, const TrackerState& State )
 		: Id( Id )
