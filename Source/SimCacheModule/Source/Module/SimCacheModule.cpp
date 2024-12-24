@@ -54,9 +54,6 @@ bool SimCacheModule::Initialize()
 		return false;
 	}
 
-	// TODO: remove placeholder after we have the UI for setting current tracked cache
-	CacheTracker->SetCurrentTrackedCache( CacheManager->GetCacheDefinitions()[ 0 ].Metadata.Id );
-
 	return true;
 }
 
@@ -135,6 +132,12 @@ bool SimCacheModule::InitializeSimConnectClient()
 	{
 		return false;
 	}
+
+	SimConnectClient->GetOnConnectionOpenFunc() = [ & ]()
+	{
+		// TODO: remove placeholder after we have the UI for setting current tracked cache
+		CacheTracker->SetCurrentTrackedCache( CacheManager->GetCacheDefinitions()[ 0 ].Metadata.Id );
+	};
 
 	return SimConnectClient->Initialize();
 }

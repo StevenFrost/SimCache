@@ -32,12 +32,16 @@ public:
 	SimConnectClient& operator=( const SimConnectClient& Other ) = delete;
 	SimConnectClient& operator=( SimConnectClient&& Other ) = delete;
 
+	std::function< void() > OnConnectionOpenFunc;
+
 public: // ISimConnectClient
 
 	virtual bool Initialize() override final;
 	virtual bool Uninitialize() override final;
 
 	virtual bool IsConnected() const override final;
+
+	virtual std::function< void() >& GetOnConnectionOpenFunc() override final;
 
 	virtual SimConnect::Handle RegisterUserAircraftPositionListener( UserAircraftPositionUpdateFunc&& OnUserAircraftPositionUpdated ) override final;
 	virtual bool UnregisterUserAircraftPositionListener( SimConnect::Handle& Handle ) override final;

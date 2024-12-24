@@ -41,6 +41,8 @@ public:
 
 	virtual bool IsConnected() const = 0;
 
+	virtual std::function< void() >& GetOnConnectionOpenFunc() = 0;
+
 	virtual SimConnect::Handle RegisterUserAircraftPositionListener( UserAircraftPositionUpdateFunc&& OnUserAircraftPositionUpdated ) = 0;
 	virtual bool UnregisterUserAircraftPositionListener( SimConnect::Handle& Handle ) = 0;
 
