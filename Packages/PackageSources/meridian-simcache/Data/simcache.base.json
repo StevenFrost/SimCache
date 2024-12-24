@@ -3,6 +3,40 @@
     "cache_definitions": [
         {
             "meta": {
+                "id": "6671cd73-7246-4dad-a6d0-d66966cd639e",
+                "authors": [
+                    "1a032b37-a56f-43e8-a644-c17d45d6f45c"
+                ],
+                "date_placed": "2024-12-24T20:53:44Z",
+                "difficulty": 1,
+                "simobject_title": "SimCache"
+            },
+            "loc_text": [
+                {
+                    "locale": "en-US",
+                    "text": {
+                        "title": "Pilot for Hire",
+                        "description": "You'll find this cache where many simmers took their first flight in Microsoft Flight Simulator X.",
+                        "hint": "Nestled in the San Juan Islands, visit the airport in a city that shares part of its name with a day of the week."
+                    }
+                }
+            ],
+            "position": {
+                "latitude": 48.521972,
+                "longitude": -123.024361,
+                "altitude": 122.0,
+                "pitch": 0.0,
+                "bank": 0.0,
+                "heading": 357.0,
+                "altitude_is_agl": false
+            },
+            "tracker": {
+                "alert_distance": 500.0,
+                "acquire_distance": 50.0
+            }
+        },
+        {
+            "meta": {
                 "id": "5b37c963-a842-4277-b932-cc7d56b35f6e",
                 "authors": [
                     "1a032b37-a56f-43e8-a644-c17d45d6f45c"
