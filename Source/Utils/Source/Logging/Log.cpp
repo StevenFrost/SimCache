@@ -92,7 +92,7 @@ void Category::OutputInternal( Logging::Level Level, std::string const& Message,
 	StringStream << " " << FormattedMessage;
 
 	auto& Output = Level == Logging::Level::Error ? std::cerr : std::cout;
-	Output << StringStream.str() << std::endl;
+	Output << StringStream.str();
 }
 
 // -----------------------------------------------------------------------------
