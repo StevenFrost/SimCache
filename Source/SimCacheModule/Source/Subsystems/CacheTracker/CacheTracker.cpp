@@ -31,8 +31,8 @@ CacheTracker::TrackedCacheState::TrackedCacheState( const CacheId& Id, const Cac
 
 // -----------------------------------------------------------------------------
 
-CacheTracker::CacheTracker( Utils::NativeEventDispatcher& InternalEventDispatcher, const Subsystems::CacheManager& CacheManager )
-	: CacheManager( CacheManager )
+CacheTracker::CacheTracker( Utils::NativeEventDispatcher& InternalEventDispatcher, const Subsystems::CacheDataStore& CacheDataStore )
+	: CacheDataStore( CacheDataStore )
 	, InternalEventDispatcher( InternalEventDispatcher )
 	, OnAircraftPositionUpdatedEventHandle()
 	, CurrentTrackedCache( nullptr )
@@ -95,7 +95,7 @@ void CacheTracker::ClearCurrentTrackedCache()
 
 bool CacheTracker::SetCurrentTrackedCache( const CacheId& Id )
 {
-	const auto* CurrentCacheDefinition = CacheManager.GetCacheDefinitionById( Id );
+	const auto* CurrentCacheDefinition = CacheDataStore.GetCacheDefinitionById( Id );
 	if ( !CurrentCacheDefinition )
 	{
 		LOG( CacheTracker, Error, "Unable to set current tracked cache: cache with ID '%s' not found.", Id.c_str() );
