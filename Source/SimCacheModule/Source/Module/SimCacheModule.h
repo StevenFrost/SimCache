@@ -3,7 +3,7 @@
 #pragma once
 
 #include "Subsystems/AircraftTracker/AircraftTracker.h"
-#include "Subsystems/CacheManager/CacheManager.h"
+#include "Subsystems/CacheDataStore/CacheDataStore.h"
 #include "Subsystems/CacheTracker/CacheTracker.h"
 #include "Subsystems/CacheObjectManager/CacheObjectManager.h"
 #include "ViewModels/TrackerViewModel.h"
@@ -53,8 +53,8 @@ private:
 	bool InitializeAircraftTracker();
 	void UninitializeAircraftTracker();
 
-	bool InitializeCacheManager();
-	void UninitializeCacheManager();
+	bool InitializeCacheDataStore();
+	void UninitializeCacheDataStore();
 
 	bool InitializeCacheTracker();
 	void UninitializeCacheTracker();
@@ -70,7 +70,7 @@ private:
 	std::shared_ptr< Utils::EventDispatcher >			JavaScriptEventDispatcher;
 
 	std::unique_ptr< Subsystems::AircraftTracker >		AircraftTracker;
-	std::unique_ptr< Subsystems::CacheManager >			CacheManager;
+	std::unique_ptr< Subsystems::CacheDataStore >		CacheDataStore;
 	std::unique_ptr< Subsystems::CacheTracker >			CacheTracker;
 	std::unique_ptr< Subsystems::CacheObjectManager >	CacheObjectManager;
 

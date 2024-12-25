@@ -7,7 +7,7 @@
 
 #include "Events/AircraftPositionUpdatedEvent.h"
 
-#include "Subsystems/CacheManager/CacheManager.h"
+#include "Subsystems/CacheDataStore/CacheDataStore.h"
 
 #include <Utils/Event/EventDispatcher.h>
 #include <Utils/Geodesy/EarthCoordinate.h>
@@ -32,7 +32,7 @@ class CacheTracker
 {
 public:
 
-	CacheTracker( Utils::NativeEventDispatcher& InternalEventDispatcher, const Subsystems::CacheManager& CacheManager );
+	CacheTracker( Utils::NativeEventDispatcher& InternalEventDispatcher, const Subsystems::CacheDataStore& CacheDataStore );
 
 	bool Initialize();
 	void Uninitialize();
@@ -65,7 +65,7 @@ private:
 
 private:
 
-	const Subsystems::CacheManager& CacheManager;
+	const Subsystems::CacheDataStore& CacheDataStore;
 	Utils::NativeEventDispatcher& InternalEventDispatcher;
 
 	Utils::EventHandle OnAircraftPositionUpdatedEventHandle;

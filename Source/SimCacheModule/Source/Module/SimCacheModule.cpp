@@ -18,7 +18,7 @@ SimCacheModule::SimCacheModule()
 	, SimConnectClient( nullptr )
 	, JavaScriptEventDispatcher( nullptr )
 	, AircraftTracker( nullptr )
-	, CacheManager( nullptr )
+	, CacheDataStore( nullptr )
 	, CacheObjectManager( nullptr )
 	, TrackerVM( nullptr )
 {
@@ -76,7 +76,7 @@ bool SimCacheModule::InitializeSubSystems()
 		return false;
 	}
 
-	if ( !InitializeCacheManager() )
+	if ( !InitializeCacheDataStore() )
 	{
 		return false;
 	}
@@ -100,7 +100,7 @@ void SimCacheModule::UninitializeSubSystems()
 {
 	UninitializeCacheTracker();
 	UninitializeCacheObjectManager();
-	UninitializeCacheManager();
+	UninitializeCacheDataStore();
 	UninitializeAircraftTracker();
 }
 
@@ -136,7 +136,7 @@ bool SimCacheModule::InitializeSimConnectClient()
 	SimConnectClient->GetOnConnectionOpenFunc() = [ & ]()
 	{
 		// TODO: remove placeholder after we have the UI for setting current tracked cache
-		CacheTracker->SetCurrentTrackedCache( CacheManager->GetCacheDefinitions()[ 0 ].Metadata.Id );
+		CacheTracker->SetCurrentTrackedCache( CacheDataStore->GetCacheDefinitions()[ 0 ].Metadata.Id );
 	};
 
 	return SimConnectClient->Initialize();
@@ -276,28 +276,28 @@ void SimCacheModule::UninitializeAircraftTracker()
 
 // -----------------------------------------------------------------------------
 
-bool SimCacheModule::InitializeCacheManager()
+bool SimCacheModule::InitializeCacheDataStore()
 {
-	CacheManager = std::make_unique< Subsystems::CacheManager >();
-	if ( !CacheManager )
+	CacheDataStore = std::make_unique< Subsystems::CacheDataStore >();
+	if ( !CacheDataStore )
 	{
 		return false;
 	}
 
-	return CacheManager->Initialize();
+	return CacheDataStore->Initialize();
 }
 
 // -----------------------------------------------------------------------------
 
-void SimCacheModule::UninitializeCacheManager()
+void SimCacheModule::UninitializeCacheDataStore()
 {
-	if ( !CacheManager )
+	if ( !CacheDataStore )
 	{
 		return;
 	}
 
-	CacheManager->Uninitialize();
-	CacheManager = nullptr;
+	CacheDataStore->Uninitialize();
+	CacheDataStore = nullptr;
 }
 
 // -----------------------------------------------------------------------------
@@ -311,14 +311,14 @@ bool SimCacheModule::InitializeCacheTracker()
 		return false;
 	}
 
-	auto* CacheManagerPtr = CacheManager.get();
-	if ( !CacheManagerPtr )
+	auto* CacheDataStorePtr = CacheDataStore.get();
+	if ( !CacheDataStorePtr )
 	{
-		LOG( SimCacheModule, Error, "Failed to initialize Cache Tracker - invalid Cache Manager." );
+		LOG( SimCacheModule, Error, "Failed to initialize Cache Tracker - invalid Cache Data Store." );
 		return false;
 	}
 
-	CacheTracker = std::make_unique< Subsystems::CacheTracker >( *InternalEventDispatcherPtr, *CacheManagerPtr );
+	CacheTracker = std::make_unique< Subsystems::CacheTracker >( *InternalEventDispatcherPtr, *CacheDataStorePtr );
 	if ( !CacheTracker )
 	{
 		return false;
@@ -358,14 +358,14 @@ bool SimCacheModule::InitializeCacheObjectManager()
 		return false;
 	}
 
-	auto* CacheManagerPtr = CacheManager.get();
-	if ( !CacheManagerPtr )
+	auto* CacheDataStorePtr = CacheDataStore.get();
+	if ( !CacheDataStorePtr )
 	{
-		LOG( SimCacheModule, Error, "Failed to initialize Cache Object Manager - invalid Cache Manager." );
+		LOG( SimCacheModule, Error, "Failed to initialize Cache Object Manager - invalid Cache Data Store." );
 		return false;
 	}
 
-	CacheObjectManager = std::make_unique< Subsystems::CacheObjectManager >( *InternalEventDispatcherPtr, *SimConnectClientPtr, *CacheManagerPtr );
+	CacheObjectManager = std::make_unique< Subsystems::CacheObjectManager >( *InternalEventDispatcherPtr, *SimConnectClientPtr, *CacheDataStorePtr );
 	if ( !CacheObjectManager )
 	{
 		return false;

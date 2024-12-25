@@ -19,9 +19,6 @@
     <Filter Include="Source\Core">
       <UniqueIdentifier>{3f4258bc-a3e8-4309-871f-e63d61a14651}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Subsystems\CacheManager">
-      <UniqueIdentifier>{585a5da4-1a1c-43e1-a791-9940179fe480}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Subsystems\CacheTracker">
       <UniqueIdentifier>{85355034-a3a0-4f6b-911f-86f2ae1695ae}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,9 @@
     </Filter>
     <Filter Include="Source\Subsystems\CacheObjectManager">
       <UniqueIdentifier>{4ea29760-70b2-4bef-8ed5-dabdc3bead24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Subsystems\CacheDataStore">
+      <UniqueIdentifier>{585a5da4-1a1c-43e1-a791-9940179fe480}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,8 +45,8 @@
     <ClCompile Include="..\Source\ViewModels\TrackerViewModel.cpp">
       <Filter>Source\ViewModels</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Subsystems\CacheManager\CacheManager.cpp">
-      <Filter>Source\Subsystems\CacheManager</Filter>
+    <ClCompile Include="..\Source\Subsystems\CacheManager\CacheDataStore.cpp">
+      <Filter>Source\Subsystems\CacheDataStore</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Core\CacheDefinitionCollection.cpp">
       <Filter>Source\Core</Filter>
@@ -77,8 +77,8 @@
     <ClInclude Include="..\Source\Core\CacheDefinitionCollection.h">
       <Filter>Source\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Subsystems\CacheManager\CacheManager.h">
-      <Filter>Source\Subsystems\CacheManager</Filter>
+    <ClInclude Include="..\Source\Subsystems\CacheManager\CacheDataStore.h">
+      <Filter>Source\Subsystems\CacheDataStore</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Subsystems\CacheTracker\CacheTracker.h">
       <Filter>Source\Subsystems\CacheTracker</Filter>
