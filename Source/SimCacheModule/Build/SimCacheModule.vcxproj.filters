@@ -45,9 +45,6 @@
     <ClCompile Include="..\Source\ViewModels\TrackerViewModel.cpp">
       <Filter>Source\ViewModels</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Subsystems\CacheManager\CacheDataStore.cpp">
-      <Filter>Source\Subsystems\CacheDataStore</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Core\CacheDefinitionCollection.cpp">
       <Filter>Source\Core</Filter>
     </ClCompile>
@@ -59,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Subsystems\CacheObjectManager\CacheObjectManager.cpp">
       <Filter>Source\Subsystems\CacheObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Subsystems\CacheDataStore\CacheDataStore.cpp">
+      <Filter>Source\Subsystems\CacheDataStore</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,9 +76,6 @@
     </ClInclude>
     <ClInclude Include="..\Source\Core\CacheDefinitionCollection.h">
       <Filter>Source\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Subsystems\CacheManager\CacheDataStore.h">
-      <Filter>Source\Subsystems\CacheDataStore</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Subsystems\CacheTracker\CacheTracker.h">
       <Filter>Source\Subsystems\CacheTracker</Filter>
@@ -106,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\Events\CacheFoundEvent.h">
       <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Subsystems\CacheDataStore\CacheDataStore.h">
+      <Filter>Source\Subsystems\CacheDataStore</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
