@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Subsystems/CacheManager/CacheManager.h"
+#include "Subsystems/CacheDataStore/CacheDataStore.h"
 
 #include <SimConnect/SimConnectClient.h>
 #include <Utils/Event/EventDispatcher.h>
@@ -29,7 +29,7 @@ public:
 	CacheObjectManager(
 		Utils::NativeEventDispatcher& InternalEventDispatcher,
 		SimConnect::ISimConnectClient& SimConnectClient,
-		Subsystems::CacheManager& CacheManager
+		Subsystems::CacheDataStore& CacheDataStore
 	);
 
 	bool Initialize();
@@ -53,7 +53,7 @@ private:
 
 	Utils::NativeEventDispatcher&	InternalEventDispatcher;
 	SimConnect::ISimConnectClient&	SimConnectClient;
-	Subsystems::CacheManager&		CacheManager;
+	Subsystems::CacheDataStore&		CacheDataStore;
 
 	Utils::EventHandle				TrackedCacheChangedHandle;
 	Utils::EventHandle				CacheFoundHandle;

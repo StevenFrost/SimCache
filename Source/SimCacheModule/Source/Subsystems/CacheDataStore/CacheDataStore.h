@@ -11,11 +11,11 @@ namespace Subsystems
 
 // -----------------------------------------------------------------------------
 
-class CacheManager
+class CacheDataStore
 {
 public:
 
-	CacheManager();
+	CacheDataStore();
 
 	bool Initialize();
 	void Uninitialize();

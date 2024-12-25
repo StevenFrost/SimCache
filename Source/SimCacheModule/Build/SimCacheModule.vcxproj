@@ -35,7 +35,7 @@
     <ClCompile Include="..\Source\Module.cpp" />
     <ClCompile Include="..\Source\Module\SimCacheModule.cpp" />
     <ClCompile Include="..\Source\Subsystems\AircraftTracker\AircraftTracker.cpp" />
-    <ClCompile Include="..\Source\Subsystems\CacheManager\CacheManager.cpp" />
+    <ClCompile Include="..\Source\Subsystems\CacheDataStore\CacheDataStore.cpp" />
     <ClCompile Include="..\Source\Subsystems\CacheTracker\CacheTracker.cpp" />
     <ClCompile Include="..\Source\Subsystems\CacheObjectManager\CacheObjectManager.cpp" />
     <ClCompile Include="..\Source\ViewModels\TrackerViewModel.cpp" />
@@ -52,7 +52,7 @@
     <ClInclude Include="..\Source\Events\TrackerLoadedEvent.h" />
     <ClInclude Include="..\Source\Module\SimCacheModule.h" />
     <ClInclude Include="..\Source\Subsystems\AircraftTracker\AircraftTracker.h" />
-    <ClInclude Include="..\Source\Subsystems\CacheManager\CacheManager.h" />
+    <ClInclude Include="..\Source\Subsystems\CacheDataStore\CacheDataStore.h" />
     <ClInclude Include="..\Source\Subsystems\CacheTracker\CacheTracker.h" />
     <ClInclude Include="..\Source\Subsystems\CacheObjectManager\CacheObjectManager.h" />
     <ClInclude Include="..\Source\ViewModels\TrackerViewModel.h" />

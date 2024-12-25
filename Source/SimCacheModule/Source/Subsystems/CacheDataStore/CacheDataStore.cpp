@@ -1,6 +1,6 @@
 // Copyright (c) 2024 Steven Frost and Orion Lyau
 
-#include "Subsystems/CacheManager/CacheManager.h"
+#include "Subsystems/CacheDataStore/CacheDataStore.h"
 
 #include <Utils/Logging/Log.h>
 #include <Utils/Serialisation/JSON/JSONReader.h>
@@ -10,7 +10,7 @@
 
 // -----------------------------------------------------------------------------
 
-DEFINE_LOG_CATEGORY( CacheManager, Info )
+DEFINE_LOG_CATEGORY( CacheDataStore, Info )
 
 // -----------------------------------------------------------------------------
 
@@ -19,18 +19,18 @@ namespace Subsystems
 
 // -----------------------------------------------------------------------------
 
-CacheManager::CacheManager()
+CacheDataStore::CacheDataStore()
 	: BaseCacheDefinitionCollection()
 {
 }
 
 // -----------------------------------------------------------------------------
 
-bool CacheManager::Initialize()
+bool CacheDataStore::Initialize()
 {
 	if ( !InitializeBaseCacheDefinitionCollection() )
 	{
-		LOG( CacheManager, Error, "Failed to initialize base cache definition collection." );
+		LOG( CacheDataStore, Error, "Failed to initialize base cache definition collection." );
 		return false;
 	}
 
@@ -39,20 +39,20 @@ bool CacheManager::Initialize()
 
 // -----------------------------------------------------------------------------
 
-void CacheManager::Uninitialize()
+void CacheDataStore::Uninitialize()
 {
 }
 
 // -----------------------------------------------------------------------------
 
-const std::vector< CacheDefinition >& CacheManager::GetCacheDefinitions() const
+const std::vector< CacheDefinition >& CacheDataStore::GetCacheDefinitions() const
 {
 	return BaseCacheDefinitionCollection.CacheDefinitions;
 }
 
 // -----------------------------------------------------------------------------
 
-const CacheDefinition* CacheManager::GetCacheDefinitionById( const CacheId Id ) const
+const CacheDefinition* CacheDataStore::GetCacheDefinitionById( const CacheId Id ) const
 {
 	for ( const auto& CacheDefinition : GetCacheDefinitions() )
 	{
@@ -67,7 +67,7 @@ const CacheDefinition* CacheManager::GetCacheDefinitionById( const CacheId Id ) 
 
 // -----------------------------------------------------------------------------
 
-bool CacheManager::InitializeBaseCacheDefinitionCollection()
+bool CacheDataStore::InitializeBaseCacheDefinitionCollection()
 {
 	std::string BaseCacheDefinitionPath = R"(.\Data\simcache.base.json)";
 	std::ifstream FileStream( BaseCacheDefinitionPath );
@@ -75,7 +75,7 @@ bool CacheManager::InitializeBaseCacheDefinitionCollection()
 
 	if ( !FileStream.is_open() )
 	{
-		LOG( CacheManager, Error, "Failed to open file '%s'.", BaseCacheDefinitionPath.c_str() );
+		LOG( CacheDataStore, Error, "Failed to open file '%s'.", BaseCacheDefinitionPath.c_str() );
 		return false;
 	}
 

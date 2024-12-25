@@ -21,11 +21,11 @@ namespace Subsystems
 CacheObjectManager::CacheObjectManager(
 	Utils::NativeEventDispatcher& InternalEventDispatcher,
 	SimConnect::ISimConnectClient& SimConnectClient,
-	Subsystems::CacheManager& CacheManager
+	Subsystems::CacheDataStore& CacheDataStore
 )
 	: InternalEventDispatcher( InternalEventDispatcher )
 	, SimConnectClient( SimConnectClient )
-	, CacheManager( CacheManager )
+	, CacheDataStore( CacheDataStore )
 	, TrackedCacheChangedHandle()
 	, CacheFoundHandle()
 	, CacheObjectHandle()
@@ -130,7 +130,7 @@ void CacheObjectManager::OnCacheFound()
 
 bool CacheObjectManager::CreateCacheObject( const CacheId& CacheId )
 {
-	auto* CacheDefinition = CacheManager.GetCacheDefinitionById( CacheId );
+	auto* CacheDefinition = CacheDataStore.GetCacheDefinitionById( CacheId );
 	if ( !CacheDefinition )
 	{
 		LOG( CacheObjectManager, Error, "Failed to find cache definition with ID '%s'", CacheId.c_str() );
