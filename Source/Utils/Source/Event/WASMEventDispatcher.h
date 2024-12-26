@@ -21,8 +21,9 @@ struct WASMEventContext
 {
 	WASMEventContext() = default;
 
-	std::string									EventId;
-	std::function< void( const std::string& ) >	Callback;
+	std::string										EventId;
+	std::function< std::unique_ptr< Event >() >		EventBuilder;
+	std::function< void( const Event& ) >			EventHandler;
 };
 
 // -----------------------------------------------------------------------------
@@ -37,9 +38,9 @@ public:
 
 private:
 
-	virtual void FireEvent( const std::string& EventId, const std::string& EventData ) override final;
+	virtual void FireEvent( const std::string& EventId, const Event& EventData ) override final;
 
-	virtual EventHandle RegisterEventListener( const std::string& EventId, std::function< void( const std::string& ) >&& Callback ) override final;
+	virtual EventHandle RegisterEventListener( const std::string& EventId, std::function< std::unique_ptr< Event >() >&& EventBuilder, std::function< void( const Event& ) >&& EventHandler ) override final;
 	virtual void UnregisterEventListener( EventHandle& Handle ) override final;
 
 private:

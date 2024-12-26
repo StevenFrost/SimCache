@@ -32,9 +32,7 @@ public:
 	{
 		static_assert( std::is_base_of< Utils::Event, TEvent >::value, "TEvent must be derived from Event" );
 
-		Utils::Serialisation::JSONWriter Writer;
-		Event.Serialise( Writer );
-		FireEvent( EventTraits< TEvent >::Id, Writer.ToString() );
+		FireEvent( typeid( TEvent ).name(), Event );
 	}
 
 	template< class TEvent >
@@ -43,18 +41,14 @@ public:
 		static_assert( std::is_default_constructible< TEvent >::value, "TEvent must be default constructible" );
 		static_assert( std::is_base_of< Utils::Event, TEvent >::value, "TEvent must be derived from Event" );
 
-		return RegisterEventListener( EventTraits< TEvent >::Id,
-			[ Callback ]( const std::string& EventData )
+		return RegisterEventListener( typeid( TEvent ).name(),
+			[]()
 			{
-				TEvent NewEvent;
-
-				if ( !EventData.empty() )
-				{
-					Utils::Serialisation::JSONReader Reader( EventData );
-					NewEvent.Deserialise( Reader );
-				}
-
-				Callback( NewEvent );
+				return std::make_unique< TEvent >();
+			},
+			[ Callback ]( const Event& EventData )
+			{
+				Callback( *dynamic_cast< const TEvent* >( &EventData ) );
 			}
 		);
 	}
@@ -63,8 +57,8 @@ public:
 
 private:
 
-	virtual void FireEvent( const std::string& EventId, const std::string& EventData ) = 0;
-	virtual EventHandle RegisterEventListener( const std::string& EventId, std::function< void( const std::string& ) >&& Callback ) = 0;
+	virtual void FireEvent( const std::string& EventId, const Event& EventData ) = 0;
+	virtual EventHandle RegisterEventListener( const std::string& EventId, std::function< std::unique_ptr< Event >() >&& EventBuilder, std::function< void( const Event& ) >&& EventHandler ) = 0;
 
 };
 

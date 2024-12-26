@@ -3,6 +3,8 @@
 #include "WASMEventDispatcher.h"
 
 #include <Utils/Enum/EnumUtils.h>
+#include <Utils/Logging/Log.h>
+#include <Utils/Serialisation/Serialisable.h>
 #include <Utils/WASM/Macros.h>
 
 #include <cstdint>
@@ -10,6 +12,10 @@
 #include <memory>
 #include <string>
 #include <type_traits>
+
+// -----------------------------------------------------------------------------
+
+DEFINE_LOG_CATEGORY( WASMEventDispatcher, Info )
 
 // -----------------------------------------------------------------------------
 
@@ -64,20 +70,32 @@ WASMEventDispatcher::~WASMEventDispatcher()
 
 // -----------------------------------------------------------------------------
 
-void WASMEventDispatcher::FireEvent( const std::string& EventId, const std::string& EventData )
+void WASMEventDispatcher::FireEvent( const std::string& EventId, const Event& EventData )
 {
-	fsCommBusCall( EventId.c_str(), EventData.c_str(), EventData.size(), BroadcastFlags );
+	const auto* SerialisableEvent = dynamic_cast< const Serialisation::ISerialisable* >( &EventData );
+	if ( !SerialisableEvent )
+	{
+		LOG( WASMEventDispatcher, Error, "Event %s does not implement ISerialisable", EventId.c_str() );
+		return;
+	}
+
+	Utils::Serialisation::JSONWriter Writer;
+	SerialisableEvent->Serialise( Writer );
+
+	const auto SerialisedEvent = Writer.ToString();
+	fsCommBusCall( EventId.c_str(), SerialisedEvent.c_str(), SerialisedEvent.size(), BroadcastFlags );
 }
 
 // -----------------------------------------------------------------------------
 
-EventHandle WASMEventDispatcher::RegisterEventListener( const std::string& EventId, std::function< void( const std::string& ) >&& Callback )
+EventHandle WASMEventDispatcher::RegisterEventListener( const std::string& EventId, std::function< std::unique_ptr< Event >() >&& EventBuilder, std::function< void( const Event& ) >&& EventHandler )
 {
 	auto Handle = EventHandle::Make();
 
 	auto Context = std::make_unique< WASMEventContext >();
 	Context->EventId = EventId;
-	Context->Callback = Callback;
+	Context->EventBuilder = EventBuilder;
+	Context->EventHandler = EventHandler;
 
 	fsCommBusRegister( EventId.c_str(), WASMEventDispatcher::ReceiveEvent, Context.get() );
 
@@ -116,8 +134,31 @@ void WASMEventDispatcher::UnregisterAllEventListeners()
 
 void WASMEventDispatcher::ReceiveEvent( const char* Buffer, unsigned int BufferSize, void* Context )
 {
+	auto* EventContext = reinterpret_cast< WASMEventContext* >( Context );
+	if ( !EventContext )
+	{
+		LOG( WASMEventDispatcher, Error, "Invalid event context" );
+		return;
+	}
+
+	auto EventInstance = EventContext->EventBuilder();
+	if ( !EventInstance )
+	{
+		LOG( WASMEventDispatcher, Error, "Failed to create event instance" );
+		return;
+	}
+
 	std::string Data( Buffer, BufferSize );
-	reinterpret_cast< WASMEventContext* >( Context )->Callback( Data );
+	if ( Data.empty() )
+	{
+		LOG( WASMEventDispatcher, Error, "Invalid event data" );
+		return;
+	}
+
+	Utils::Serialisation::JSONReader Reader( Data );
+	EventInstance->Deserialise( Reader );
+
+	EventContext->EventHandler( *EventInstance.get() );
 }
 
 // -----------------------------------------------------------------------------
