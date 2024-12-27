@@ -9,15 +9,15 @@
 // -----------------------------------------------------------------------------
 
 class CacheFoundEvent
-	: public Utils::Event
+	: public Utils::SerialisableEvent
 {
 public:
+
 	CacheFoundEvent() = default;
 
 	CacheFoundEvent( const CacheId& Id )
 		: Id( Id )
-	{
-	}
+	{}
 
 public: // ISerialisable
 

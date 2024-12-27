@@ -9,9 +9,10 @@
 // -----------------------------------------------------------------------------
 
 class CacheAlertRangeEnteredEvent
-	: public Utils::Event
+	: public Utils::SerialisableEvent
 {
 public:
+
 	CacheAlertRangeEnteredEvent() = default;
 
 	CacheAlertRangeEnteredEvent( const CacheId& Id )
@@ -22,7 +23,6 @@ public: // ISerialisable
 
 	virtual bool Serialise( Utils::Serialisation::Writer& Writer ) const override
 	{
-
 		return Writer.WriteProperty( "id", Id );
 	}
 

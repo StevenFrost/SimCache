@@ -10,7 +10,7 @@
 // -----------------------------------------------------------------------------
 
 class TrackerStateUpdatedEvent
-	: public Utils::Event
+	: public Utils::SerialisableEvent
 {
 public:
 	TrackerStateUpdatedEvent() = default;

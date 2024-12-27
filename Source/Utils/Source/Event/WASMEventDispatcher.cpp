@@ -55,8 +55,9 @@ FsCommBusBroadcastFlags DispatcherTargetToBroadcastFlags( const EWASMEventDispat
 
 // -----------------------------------------------------------------------------
 
-WASMEventDispatcher::WASMEventDispatcher( const EWASMEventDispatcherTarget Target )
-	: BroadcastFlags( WASMEventDispatcherPrivate::DispatcherTargetToBroadcastFlags( Target ) )
+WASMEventDispatcher::WASMEventDispatcher( const EventIdSourceType EventIdSource, const EWASMEventDispatcherTarget Target )
+	: EventDispatcher( EventIdSource )
+	, BroadcastFlags( WASMEventDispatcherPrivate::DispatcherTargetToBroadcastFlags( Target ) )
 	, RegisteredEvents()
 {
 }
@@ -148,6 +149,13 @@ void WASMEventDispatcher::ReceiveEvent( const char* Buffer, unsigned int BufferS
 		return;
 	}
 
+	auto* SerialisableEvent = dynamic_cast< Serialisation::ISerialisable* >( EventInstance.get() );
+	if ( !SerialisableEvent )
+	{
+		LOG( WASMEventDispatcher, Error, "Event instance does not implement ISerialisable" );
+		return;
+	}
+
 	std::string Data( Buffer, BufferSize );
 	if ( Data.empty() )
 	{
@@ -156,7 +164,7 @@ void WASMEventDispatcher::ReceiveEvent( const char* Buffer, unsigned int BufferS
 	}
 
 	Utils::Serialisation::JSONReader Reader( Data );
-	EventInstance->Deserialise( Reader );
+	SerialisableEvent->Deserialise( Reader );
 
 	EventContext->EventHandler( *EventInstance.get() );
 }
@@ -165,7 +173,7 @@ void WASMEventDispatcher::ReceiveEvent( const char* Buffer, unsigned int BufferS
 
 std::shared_ptr< EventDispatcher > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target )
 {
-	return std::make_shared< WASMEventDispatcher >( Target );
+	return std::make_shared< WASMEventDispatcher >( EventIdSourceType::EventTraits, Target );
 }
 
 // -----------------------------------------------------------------------------

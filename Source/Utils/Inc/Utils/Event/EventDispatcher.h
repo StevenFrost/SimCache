@@ -20,11 +20,22 @@ namespace Utils
 
 // -----------------------------------------------------------------------------
 
+enum class EventIdSourceType
+{
+	TypeId,
+	EventTraits
+};
+
+// -----------------------------------------------------------------------------
+
 class EventDispatcher
 {
 public:
 
-	EventDispatcher() = default;
+	EventDispatcher( const EventIdSourceType EventIdSource )
+		: EventIdSource( EventIdSource )
+	{}
+
 	virtual ~EventDispatcher() = default;
 
 	template< class TEvent >
@@ -32,7 +43,7 @@ public:
 	{
 		static_assert( std::is_base_of< Utils::Event, TEvent >::value, "TEvent must be derived from Event" );
 
-		FireEvent( typeid( TEvent ).name(), Event );
+		FireEvent( GetEventId< TEvent >(), Event );
 	}
 
 	template< class TEvent >
@@ -41,7 +52,7 @@ public:
 		static_assert( std::is_default_constructible< TEvent >::value, "TEvent must be default constructible" );
 		static_assert( std::is_base_of< Utils::Event, TEvent >::value, "TEvent must be derived from Event" );
 
-		return RegisterEventListener( typeid( TEvent ).name(),
+		return RegisterEventListener( GetEventId< TEvent >(),
 			[]()
 			{
 				return std::make_unique< TEvent >();
@@ -60,6 +71,22 @@ private:
 	virtual void FireEvent( const std::string& EventId, const Event& EventData ) = 0;
 	virtual EventHandle RegisterEventListener( const std::string& EventId, std::function< std::unique_ptr< Event >() >&& EventBuilder, std::function< void( const Event& ) >&& EventHandler ) = 0;
 
+	template< class TEvent >
+	std::string GetEventId() const
+	{
+		switch ( EventIdSource )
+		{
+		case EventIdSourceType::EventTraits:
+			return EventTraits< TEvent >::Id;
+		case EventIdSourceType::TypeId:
+		default:
+			return typeid( TEvent ).name();
+		}
+	}
+
+private:
+
+	const EventIdSourceType EventIdSource;
 };
 
 // -----------------------------------------------------------------------------

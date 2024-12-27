@@ -8,7 +8,7 @@
 // -----------------------------------------------------------------------------
 
 class AircraftPositionUpdatedEvent
-	: public Utils::Event
+	: public Utils::SerialisableEvent
 {
 public:
 

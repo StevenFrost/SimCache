@@ -9,7 +9,7 @@
 // -----------------------------------------------------------------------------
 
 class TrackedCacheChangedEvent
-	: public Utils::Event
+	: public Utils::SerialisableEvent
 {
 public:
 

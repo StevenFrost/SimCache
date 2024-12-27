@@ -12,8 +12,19 @@ namespace Utils
 // -----------------------------------------------------------------------------
 
 struct Event
-	: public Serialisation::ISerialisable
 {
+	Event() = default;
+	virtual ~Event() = default;
+};
+
+// -----------------------------------------------------------------------------
+
+struct SerialisableEvent
+	: public Event
+	, public Serialisation::ISerialisable
+{
+	SerialisableEvent() = default;
+	virtual ~SerialisableEvent() = default;
 };
 
 // -----------------------------------------------------------------------------

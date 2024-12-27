@@ -7,7 +7,7 @@
 // -----------------------------------------------------------------------------
 
 class TrackerLoadedEvent
-	: public Utils::Event
+	: public Utils::SerialisableEvent
 {
 public:
 

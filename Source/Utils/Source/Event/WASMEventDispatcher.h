@@ -33,7 +33,7 @@ class WASMEventDispatcher
 {
 public:
 
-	WASMEventDispatcher( const EWASMEventDispatcherTarget Target );
+	WASMEventDispatcher( const EventIdSourceType EventIdSource, const EWASMEventDispatcherTarget Target );
 	virtual ~WASMEventDispatcher();
 
 private:
