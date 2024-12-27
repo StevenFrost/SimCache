@@ -4,8 +4,6 @@
 
 #include <Utils/Event/Event.h>
 #include <Utils/Event/EventHandle.h>
-#include <Utils/Serialisation/JSON/JSONReader.h>
-#include <Utils/Serialisation/JSON/JSONWriter.h>
 #include <Utils/WASM/Macros.h>
 
 #include <functional>
@@ -28,14 +26,12 @@ enum class EventIdSourceType
 
 // -----------------------------------------------------------------------------
 
+template< EventIdSourceType EventIdSource = EventIdSourceType::TypeId >
 class EventDispatcher
 {
 public:
 
-	EventDispatcher( const EventIdSourceType EventIdSource )
-		: EventIdSource( EventIdSource )
-	{}
-
+	EventDispatcher() = default;
 	virtual ~EventDispatcher() = default;
 
 	template< class TEvent >
@@ -71,22 +67,17 @@ private:
 	virtual void FireEvent( const std::string& EventId, const Event& EventData ) = 0;
 	virtual EventHandle RegisterEventListener( const std::string& EventId, std::function< std::unique_ptr< Event >() >&& EventBuilder, std::function< void( const Event& ) >&& EventHandler ) = 0;
 
-	template< class TEvent >
-	std::string GetEventId() const
+	template< class TEvent, EventIdSourceType IdSource = EventIdSource >
+	auto GetEventId() const -> typename std::enable_if< ( IdSource == EventIdSourceType::EventTraits ), std::string >::type
 	{
-		switch ( EventIdSource )
-		{
-		case EventIdSourceType::EventTraits:
-			return EventTraits< TEvent >::Id;
-		case EventIdSourceType::TypeId:
-		default:
-			return typeid( TEvent ).name();
-		}
+		return EventTraits< TEvent >::Id;
 	}
 
-private:
-
-	const EventIdSourceType EventIdSource;
+	template< class TEvent, EventIdSourceType IdSource = EventIdSource >
+	auto GetEventId() const -> typename std::enable_if< ( IdSource == EventIdSourceType::TypeId ), std::string >::type
+	{
+		return typeid( TEvent ).name();
+	}
 };
 
 // -----------------------------------------------------------------------------

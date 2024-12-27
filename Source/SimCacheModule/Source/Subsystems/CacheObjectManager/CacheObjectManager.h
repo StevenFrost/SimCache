@@ -5,15 +5,8 @@
 #include "Subsystems/CacheDataStore/CacheDataStore.h"
 
 #include <SimConnect/SimConnectClient.h>
-#include <Utils/Event/EventDispatcher.h>
 #include <Utils/Event/EventHandle.h>
-
-// -----------------------------------------------------------------------------
-
-namespace Utils
-{
-	typedef EventDispatcher NativeEventDispatcher;
-}
+#include <Utils/Event/NativeEventDispatcher.h>
 
 // -----------------------------------------------------------------------------
 

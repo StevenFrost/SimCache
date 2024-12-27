@@ -2,14 +2,8 @@
 
 #pragma once
 
-#include <Utils/Event/EventDispatcher.h>
-
-// -----------------------------------------------------------------------------
-
-namespace Utils
-{
-	typedef EventDispatcher NativeEventDispatcher;
-}
+#include <Utils/Event/NativeEventDispatcher.h>
+#include <Utils/Event/WASMEventDispatcher.h>
 
 // -----------------------------------------------------------------------------
 
@@ -17,7 +11,10 @@ class ViewModel
 {
 public:
 
-	ViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher );
+	ViewModel(
+		Utils::NativeEventDispatcher& InternalEventDispatcher,
+		Utils::WASMEventDispatcher& UIEventDispatcher
+	);
 
 	virtual ~ViewModel();
 
@@ -27,13 +24,12 @@ public:
 protected:
 
 	Utils::NativeEventDispatcher& GetInternalEventDispatcher() const;
-	Utils::EventDispatcher& GetViewEventDispatcher() const;
+	Utils::WASMEventDispatcher& GetUIEventDispatcher() const;
 
 private:
 
-	Utils::NativeEventDispatcher& InternalEventDispatcher;
-	Utils::EventDispatcher& ViewEventDispatcher;
-
+	Utils::NativeEventDispatcher&	InternalEventDispatcher;
+	Utils::WASMEventDispatcher&		UIEventDispatcher;
 };
 
 // -----------------------------------------------------------------------------

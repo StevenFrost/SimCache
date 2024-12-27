@@ -4,9 +4,9 @@
 
 // -----------------------------------------------------------------------------
 
-ViewModel::ViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher )
+ViewModel::ViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::WASMEventDispatcher& UIEventDispatcher )
 	: InternalEventDispatcher( InternalEventDispatcher )
-	, ViewEventDispatcher( ViewEventDispatcher )
+	, UIEventDispatcher( UIEventDispatcher )
 {
 }
 
@@ -38,9 +38,9 @@ Utils::NativeEventDispatcher& ViewModel::GetInternalEventDispatcher() const
 
 // -----------------------------------------------------------------------------
 
-Utils::EventDispatcher& ViewModel::GetViewEventDispatcher() const
+Utils::WASMEventDispatcher& ViewModel::GetUIEventDispatcher() const
 {
-	return ViewEventDispatcher;
+	return UIEventDispatcher;
 }
 
 // -----------------------------------------------------------------------------

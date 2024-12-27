@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include <MSFS/MSFS_CommBus.h>
 #include <Utils/Event/EventDispatcher.h>
-#include <Utils/Event/WASMEventDispatcher.h>
+#include <Utils/Event/NativeEventDispatcher.h>
 #include <Utils/WASM/Macros.h>
 
 #include <memory>
 #include <unordered_map>
+#include <vector>
 
 // -----------------------------------------------------------------------------
 
@@ -19,9 +19,9 @@ namespace Internal
 
 // -----------------------------------------------------------------------------
 
-struct WASMEventContext
+struct NativeEventContext
 {
-	WASMEventContext() = default;
+	NativeEventContext() = default;
 
 	std::string										EventId;
 	std::function< std::unique_ptr< Event >() >		EventBuilder;
@@ -30,13 +30,13 @@ struct WASMEventContext
 
 // -----------------------------------------------------------------------------
 
-class WASMEventDispatcher
-	: public EventDispatcher< EventIdSourceType::EventTraits >
+class NativeEventDispatcher
+	: public EventDispatcher< EventIdSourceType::TypeId >
 {
 public:
 
-	WASMEventDispatcher( const EWASMEventDispatcherTarget Target );
-	virtual ~WASMEventDispatcher();
+	NativeEventDispatcher( const EventIdSourceType EventIdSource );
+	virtual ~NativeEventDispatcher();
 
 private:
 
@@ -47,17 +47,11 @@ private:
 
 private:
 
-	void UnregisterAllEventListeners();
+	typedef std::unordered_map< EventHandle, std::unique_ptr< NativeEventContext >, HandleHasher > EventHandleToContextMapType;
+	typedef std::unordered_map< std::string, std::vector< EventHandle > > EventIdToHandleMapType;
 
-	static void ReceiveEvent( const char* Buffer, unsigned int BufferSize, void* Context );
-
-private:
-
-	typedef std::unordered_map< EventHandle, std::unique_ptr< WASMEventContext >, HandleHasher > EventContextMap;
-
-	FsCommBusBroadcastFlags	BroadcastFlags;
-	EventContextMap			RegisteredEvents;
-
+	EventHandleToContextMapType	EventHandleToContextMap;
+	EventIdToHandleMapType EventIdToHandleMap;
 };
 
 // -----------------------------------------------------------------------------

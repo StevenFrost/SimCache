@@ -13,20 +13,9 @@ namespace Utils
 
 // -----------------------------------------------------------------------------
 
-enum class EWASMEventDispatcherTarget : int8_t
-{
-	JavaScript = 0x1,
-	WASM = 0x2,
-	Self = 0x4 | WASM,
-	JavaScriptAndWASM = JavaScript | WASM,
-	All = JavaScript | WASM | Self
-};
+typedef EventDispatcher< EventIdSourceType::TypeId > NativeEventDispatcher;
 
-// -----------------------------------------------------------------------------
-
-typedef EventDispatcher< EventIdSourceType::EventTraits > WASMEventDispatcher;
-
-std::shared_ptr< WASMEventDispatcher > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target );
+std::shared_ptr< NativeEventDispatcher > MakeNativeEventDispatcher();
 
 // -----------------------------------------------------------------------------
 

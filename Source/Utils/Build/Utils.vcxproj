@@ -24,6 +24,7 @@
     <ClInclude Include="..\Inc\Utils\Event\Event.h" />
     <ClInclude Include="..\Inc\Utils\Event\EventDispatcher.h" />
     <ClInclude Include="..\Inc\Utils\Event\EventHandle.h" />
+    <ClInclude Include="..\Inc\Utils\Event\NativeEventDispatcher.h" />
     <ClInclude Include="..\Inc\Utils\Event\WASMEventDispatcher.h" />
     <ClInclude Include="..\Inc\Utils\Geodesy\EarthCoordinate.h" />
     <ClInclude Include="..\Inc\Utils\Geodesy\Ellipsoid.h" />
@@ -37,9 +38,11 @@
     <ClInclude Include="..\Inc\Utils\Serialisation\Writer.h" />
     <ClInclude Include="..\Inc\Utils\Time\DateTime.h" />
     <ClInclude Include="..\Inc\Utils\WASM\Macros.h" />
+    <ClInclude Include="..\Source\Event\NativeEventDispatcher.h" />
     <ClInclude Include="..\Source\Event\WASMEventDispatcher.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\Event\NativeEventDispatcher.cpp" />
     <ClCompile Include="..\Source\Event\WASMEventDispatcher.cpp" />
     <ClCompile Include="..\Source\Geodesy\EarthCoordinate.cpp" />
     <ClCompile Include="..\Source\Handle\Handle.cpp" />

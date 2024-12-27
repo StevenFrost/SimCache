@@ -4,8 +4,8 @@
 
 // -----------------------------------------------------------------------------
 
-TrackerViewModel::TrackerViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher, Subsystems::CacheTracker& CacheTracker )
-	: ViewModel( InternalEventDispatcher, ViewEventDispatcher )
+TrackerViewModel::TrackerViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::WASMEventDispatcher& UIEventDispatcher, Subsystems::CacheTracker& CacheTracker )
+	: ViewModel( InternalEventDispatcher, UIEventDispatcher )
 	, CacheTracker( CacheTracker )
 	, OnTrackerLoadedEventHandle()
 	, OnTrackerStateUpdatedEventHandle()
@@ -47,7 +47,7 @@ void TrackerViewModel::Uninitialize()
 
 void TrackerViewModel::RegisterEventListeners()
 {
-	OnTrackerLoadedEventHandle = GetViewEventDispatcher().RegisterEventListener< TrackerLoadedEvent >(
+	OnTrackerLoadedEventHandle = GetUIEventDispatcher().RegisterEventListener< TrackerLoadedEvent >(
 		[ & ]( const TrackerLoadedEvent& Event )
 		{
 			OnTrackerLoaded( Event );
@@ -85,7 +85,7 @@ void TrackerViewModel::UnregisterEventListeners()
 
 	if ( OnTrackerLoadedEventHandle.IsValid() )
 	{
-		GetViewEventDispatcher().UnregisterEventListener( OnTrackerLoadedEventHandle );
+		GetUIEventDispatcher().UnregisterEventListener( OnTrackerLoadedEventHandle );
 	}
 }
 
@@ -93,7 +93,7 @@ void TrackerViewModel::UnregisterEventListeners()
 
 void TrackerViewModel::OnCacheFound( const CacheFoundEvent& Event )
 {
-	GetViewEventDispatcher().FireEvent( Event );
+	GetUIEventDispatcher().FireEvent( Event );
 }
 
 // -----------------------------------------------------------------------------
@@ -108,7 +108,7 @@ void TrackerViewModel::OnTrackerLoaded( const TrackerLoadedEvent& Event )
 
 void TrackerViewModel::OnTrackerStateUpdated( const TrackerStateUpdatedEvent& Event )
 {
-	GetViewEventDispatcher().FireEvent( Event );
+	GetUIEventDispatcher().FireEvent( Event );
 }
 
 // -----------------------------------------------------------------------------

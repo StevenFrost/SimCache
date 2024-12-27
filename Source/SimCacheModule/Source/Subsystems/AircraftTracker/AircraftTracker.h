@@ -3,14 +3,7 @@
 #pragma once
 
 #include <SimConnect/SimConnectClient.h>
-#include <Utils/Event/EventDispatcher.h>
-
-// -----------------------------------------------------------------------------
-
-namespace Utils
-{
-	typedef EventDispatcher NativeEventDispatcher;
-}
+#include <Utils/Event/NativeEventDispatcher.h>
 
 // -----------------------------------------------------------------------------
 

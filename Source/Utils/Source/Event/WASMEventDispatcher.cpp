@@ -4,6 +4,8 @@
 
 #include <Utils/Enum/EnumUtils.h>
 #include <Utils/Logging/Log.h>
+#include <Utils/Serialisation/JSON/JSONReader.h>
+#include <Utils/Serialisation/JSON/JSONWriter.h>
 #include <Utils/Serialisation/Serialisable.h>
 #include <Utils/WASM/Macros.h>
 
@@ -20,6 +22,8 @@ DEFINE_LOG_CATEGORY( WASMEventDispatcher, Info )
 // -----------------------------------------------------------------------------
 
 namespace Utils
+{
+namespace Internal
 {
 
 // -----------------------------------------------------------------------------
@@ -55,8 +59,8 @@ FsCommBusBroadcastFlags DispatcherTargetToBroadcastFlags( const EWASMEventDispat
 
 // -----------------------------------------------------------------------------
 
-WASMEventDispatcher::WASMEventDispatcher( const EventIdSourceType EventIdSource, const EWASMEventDispatcherTarget Target )
-	: EventDispatcher( EventIdSource )
+WASMEventDispatcher::WASMEventDispatcher( const EWASMEventDispatcherTarget Target )
+	: EventDispatcher()
 	, BroadcastFlags( WASMEventDispatcherPrivate::DispatcherTargetToBroadcastFlags( Target ) )
 	, RegisteredEvents()
 {
@@ -171,9 +175,13 @@ void WASMEventDispatcher::ReceiveEvent( const char* Buffer, unsigned int BufferS
 
 // -----------------------------------------------------------------------------
 
-std::shared_ptr< EventDispatcher > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target )
+} // namespace Internal
+
+// -----------------------------------------------------------------------------
+
+std::shared_ptr< EventDispatcher< EventIdSourceType::EventTraits > > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target )
 {
-	return std::make_shared< WASMEventDispatcher >( EventIdSourceType::EventTraits, Target );
+	return std::make_shared< Internal::WASMEventDispatcher >( Target );
 }
 
 // -----------------------------------------------------------------------------
