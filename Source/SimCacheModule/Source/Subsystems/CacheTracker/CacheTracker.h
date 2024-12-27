@@ -3,7 +3,7 @@
 #pragma once
 
 #include "Core/CacheDefinitionCollection.h"
-#include "Core/TrackerState.h"
+#include "Core/RangeAnnulus.h"
 
 #include "Events/AircraftPositionUpdatedEvent.h"
 
@@ -37,18 +37,11 @@ public:
 	bool Initialize();
 	void Uninitialize();
 
+	const CacheDefinition* GetCurrentTrackedCache() const;
 	bool SetCurrentTrackedCache( const CacheId& Id );
 	void ClearCurrentTrackedCache();
 
-private:
-
-	void RegisterAircraftPositionUpdatedListener();
-	void UnregisterAircraftPositionUpdatedListener();
-	void OnAircraftPositionUpdated( const AircraftPositionUpdatedEvent& Event );
-
-	void UpdateTrackerState( const Utils::EarthCoordinate& CurrentPosition );
-
-	TrackerState GetCurrentAnnulus( const double RangeMeters ) const;
+	RangeAnnulus GetLastKnownAnnulus() const;
 
 private:
 
@@ -59,9 +52,23 @@ private:
 		const CacheId Id;
 		const CacheTrackerSettings TrackerSettings;
 		const Utils::EarthCoordinate GeocentricPosition;
-		TrackerState State;
+		RangeAnnulus Annulus;
 		bool InsideAlertRange;
 	};
+
+private:
+
+	void RegisterAircraftPositionUpdatedListener();
+	void UnregisterAircraftPositionUpdatedListener();
+	void OnAircraftPositionUpdated( const AircraftPositionUpdatedEvent& Event );
+
+	void Update( const Utils::EarthCoordinate& CurrentPosition );
+
+	bool UpdateAnnulus( TrackedCacheState& CacheState, const double RangeMeters );
+	bool CheckAlertRange( TrackedCacheState& CacheState, const double RangeMeters );
+	bool CheckAcquisitionRange( TrackedCacheState& CacheState, const double RangeMeters );
+
+	RangeAnnulus GetAnnulus( const double RangeMeters ) const;
 
 private:
 
@@ -71,10 +78,6 @@ private:
 	Utils::EventHandle OnAircraftPositionUpdatedEventHandle;
 
 	std::unique_ptr< TrackedCacheState > CurrentTrackedCache;
-
-public:
-
-	bool ForceNextTrackerStateUpdatedEvent;
 
 };
 

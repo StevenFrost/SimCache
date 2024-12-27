@@ -4,7 +4,7 @@
 
 // -----------------------------------------------------------------------------
 
-enum class TrackerState : uint8_t
+enum class RangeAnnulus : uint8_t
 {
 	Annulus1, // innermost
 	Annulus2,

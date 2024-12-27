@@ -2,13 +2,19 @@
 
 #include "ViewModels/TrackerViewModel.h"
 
+#include "Events/UICacheFoundEvent.h"
+#include "Events/UIRangeAnnulusChangedEvent.h"
+#include "Events/UITrackedCacheChangedEvent.h"
+
 // -----------------------------------------------------------------------------
 
-TrackerViewModel::TrackerViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher, Subsystems::CacheTracker& CacheTracker )
+TrackerViewModel::TrackerViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher, const Subsystems::CacheDataStore& CacheDataStore, Subsystems::CacheTracker& CacheTracker )
 	: ViewModel( InternalEventDispatcher, ViewEventDispatcher )
+	, CacheDataStore( CacheDataStore )
 	, CacheTracker( CacheTracker )
 	, OnTrackerLoadedEventHandle()
-	, OnTrackerStateUpdatedEventHandle()
+	, OnTrackedCacheChangedEventHandle()
+	, OnRangeAnnulusChangedEventHandle()
 	, OnCacheFoundEventHandle()
 {
 }
@@ -47,17 +53,24 @@ void TrackerViewModel::Uninitialize()
 
 void TrackerViewModel::RegisterEventListeners()
 {
-	OnTrackerLoadedEventHandle = GetViewEventDispatcher().RegisterEventListener< TrackerLoadedEvent >(
-		[ & ]( const TrackerLoadedEvent& Event )
+	OnTrackerLoadedEventHandle = GetViewEventDispatcher().RegisterEventListener< UITrackerLoadedEvent >(
+		[ & ]( const UITrackerLoadedEvent& Event )
 		{
 			OnTrackerLoaded( Event );
 		}
 	);
 
-	OnTrackerStateUpdatedEventHandle = GetInternalEventDispatcher().RegisterEventListener< TrackerStateUpdatedEvent >(
-		[ & ]( const TrackerStateUpdatedEvent& Event )
+	OnTrackedCacheChangedEventHandle = GetInternalEventDispatcher().RegisterEventListener< TrackedCacheChangedEvent >(
+		[ & ]( const TrackedCacheChangedEvent& Event )
 		{
-			OnTrackerStateUpdated( Event );
+			OnTrackedCacheChangedEvent( Event );
+		}
+	);
+
+	OnRangeAnnulusChangedEventHandle = GetInternalEventDispatcher().RegisterEventListener< RangeAnnulusChangedEvent >(
+		[ & ]( const RangeAnnulusChangedEvent& Event )
+		{
+			OnRangeAnnulusChanged( Event );
 		}
 	);
 
@@ -73,9 +86,14 @@ void TrackerViewModel::RegisterEventListeners()
 
 void TrackerViewModel::UnregisterEventListeners()
 {
-	if ( OnTrackerStateUpdatedEventHandle.IsValid() )
+	if ( OnRangeAnnulusChangedEventHandle.IsValid() )
 	{
-		GetInternalEventDispatcher().UnregisterEventListener( OnTrackerStateUpdatedEventHandle );
+		GetInternalEventDispatcher().UnregisterEventListener( OnRangeAnnulusChangedEventHandle );
+	}
+
+	if ( OnTrackedCacheChangedEventHandle.IsValid() )
+	{
+		GetInternalEventDispatcher().UnregisterEventListener( OnTrackedCacheChangedEventHandle );
 	}
 
 	if ( OnCacheFoundEventHandle.IsValid() )
@@ -93,22 +111,45 @@ void TrackerViewModel::UnregisterEventListeners()
 
 void TrackerViewModel::OnCacheFound( const CacheFoundEvent& Event )
 {
-	GetViewEventDispatcher().FireEvent( Event );
+	GetViewEventDispatcher().FireEvent( UICacheFoundEvent() );
 }
 
 // -----------------------------------------------------------------------------
 
-void TrackerViewModel::OnTrackerLoaded( const TrackerLoadedEvent& Event )
+void TrackerViewModel::SendUITrackedCacheChangedEvent( const CacheDefinition* Cache ) const
 {
-	// TODO: remove this placeholder
-	CacheTracker.ForceNextTrackerStateUpdatedEvent = true;
+	if ( !Cache )
+	{
+		return;
+	}
+
+	const auto Annulus = CacheTracker.GetLastKnownAnnulus();
+
+	// TODO: use appropriate localized text
+	GetViewEventDispatcher().FireEvent( UITrackedCacheChangedEvent( Cache->LocText[ 0 ].Text.Title, Annulus ) );
 }
 
 // -----------------------------------------------------------------------------
 
-void TrackerViewModel::OnTrackerStateUpdated( const TrackerStateUpdatedEvent& Event )
+void TrackerViewModel::OnTrackerLoaded( const UITrackerLoadedEvent& Event )
 {
-	GetViewEventDispatcher().FireEvent( Event );
+	// the tracker InGamePanel opened; send full tracked cache data
+	SendUITrackedCacheChangedEvent( CacheTracker.GetCurrentTrackedCache() );
+}
+
+// -----------------------------------------------------------------------------
+
+void TrackerViewModel::OnTrackedCacheChangedEvent( const TrackedCacheChangedEvent& Event )
+{
+	// tracked cache changed; send full tracked cache data
+	SendUITrackedCacheChangedEvent( CacheDataStore.GetCacheDefinitionById( Event.NewCacheId ) );
+}
+
+// -----------------------------------------------------------------------------
+
+void TrackerViewModel::OnRangeAnnulusChanged( const RangeAnnulusChangedEvent& Event )
+{
+	GetViewEventDispatcher().FireEvent( UIRangeAnnulusChangedEvent( Event ) );
 }
 
 // -----------------------------------------------------------------------------
