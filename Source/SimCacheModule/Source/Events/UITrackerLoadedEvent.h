@@ -6,7 +6,7 @@
 
 // -----------------------------------------------------------------------------
 
-class TrackerLoadedEvent
+class UITrackerLoadedEvent
 	: public Utils::Event
 {
 public:
@@ -18,9 +18,9 @@ public:
 // -----------------------------------------------------------------------------
 
 template<>
-struct Utils::EventTraits< TrackerLoadedEvent >
+struct Utils::EventTraits< UITrackerLoadedEvent >
 {
-	static constexpr char* Id = "SimCache.TrackerLoadedEvent";
+	static constexpr char* Id = "SimCache.UITrackerLoadedEvent";
 };
 
 // -----------------------------------------------------------------------------

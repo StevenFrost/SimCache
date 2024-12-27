@@ -3,8 +3,9 @@
 #pragma once
 
 #include "Events/CacheFoundEvent.h"
-#include "Events/TrackerLoadedEvent.h"
-#include "Events/TrackerStateUpdatedEvent.h"
+#include "Events/RangeAnnulusChangedEvent.h"
+#include "Events/TrackedCacheChangedEvent.h"
+#include "Events/UITrackerLoadedEvent.h"
 #include "Subsystems/CacheTracker/CacheTracker.h"
 #include "ViewModels/ViewModel.h"
 
@@ -24,7 +25,7 @@ class TrackerViewModel
 {
 public:
 
-	TrackerViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher, Subsystems::CacheTracker& CacheTracker );
+	TrackerViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher, const Subsystems::CacheDataStore& CacheDataStore, Subsystems::CacheTracker& CacheTracker );
 	virtual ~TrackerViewModel();
 
 	virtual bool Initialize() override final;
@@ -35,16 +36,22 @@ private:
 	void RegisterEventListeners();
 	void UnregisterEventListeners();
 
-	void OnTrackerLoaded( const TrackerLoadedEvent& Event );
-	void OnTrackerStateUpdated( const TrackerStateUpdatedEvent& Event );
+	void OnTrackerLoaded( const UITrackerLoadedEvent& Event );
+
+	void OnTrackedCacheChangedEvent( const TrackedCacheChangedEvent& Event );
+	void OnRangeAnnulusChanged( const RangeAnnulusChangedEvent& Event );
 	void OnCacheFound( const CacheFoundEvent& Event );
+
+	void SendUITrackerDataUpdateEvent( const CacheDefinition* Cache ) const;
 
 private:
 
+	const Subsystems::CacheDataStore& CacheDataStore;
 	Subsystems::CacheTracker& CacheTracker;
 
 	Utils::EventHandle OnTrackerLoadedEventHandle;
-	Utils::EventHandle OnTrackerStateUpdatedEventHandle;
+	Utils::EventHandle OnTrackedCacheChangedEventHandle;
+	Utils::EventHandle OnRangeAnnulusChangedEventHandle;
 	Utils::EventHandle OnCacheFoundEventHandle;
 
 };

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 
-// matches SimCache\Source\SimCacheModule\Source\Core\TrackerState.h
-const TrackerState = Object.freeze({
+// matches SimCache\Source\SimCacheModule\Source\Core\RangeAnnulus.h
+const RangeAnnulus = Object.freeze({
     Annulus1: 0, // innermost
     Annulus2: 1,
     Annulus3: 2,
@@ -39,18 +39,31 @@ class SimCachePanel extends UIElement {
     }
 
     onSubsystemsInitialized() {
-        this.CommBusListener.on("SimCache.TrackerStateUpdatedEvent", this.onTrackerStateUpdatedEvent.bind(this));
-        this.CommBusListener.on("SimCache.CacheFoundEvent", this.onCacheFoundEvent.bind(this));
-        this.CommBusListener.callWasm("SimCache.TrackerLoadedEvent", "");
+        this.CommBusListener.on("SimCache.UITrackerDataUpdateEvent", this.onTrackerDataUpdateEvent.bind(this));
+        this.CommBusListener.on("SimCache.UIRangeAnnulusChangedEvent", this.onRangeAnnulusChangedEvent.bind(this));
+        this.CommBusListener.on("SimCache.UICacheFoundEvent", this.onCacheFoundEvent.bind(this));
+        this.CommBusListener.callWasm("SimCache.UITrackerLoadedEvent", "");
     }
 
-    onTrackerStateUpdatedEvent(eventData) {
+    onTrackerDataUpdateEvent(eventData) {
         if (this.m_timeoutID !== null) {
             this.cancelPendingClose();
         }
         const data = JSON.parse(eventData);
-        this.updateUIElements(data.id, data.state);
+        this.updateCacheTitle(data.name);
+        this.updateCacheRange(data.annulus);
         this.makeVisible();
+    }
+
+    onRangeAnnulusChangedEvent(eventData) {
+        if (this.m_timeoutID !== null) {
+            // if we somehow get an event while we're waiting for the timeout, just ingore the event
+            // (the timeout only gets set after the cache is collected, and if there hasn't been a new tracked cache,
+            //  it doesn't make sense to replace the "Cache collected" text)
+            return;
+        }
+        const data = JSON.parse(eventData);
+        this.updateCacheRange(data.annulus);
     }
 
     cancelPendingClose() {
@@ -71,11 +84,6 @@ class SimCachePanel extends UIElement {
         }, 5000);
     }
 
-    updateUIElements(title, trackerStateAnnulus) {
-        this.updateCacheTitle(title);
-        this.updateCacheRange(trackerStateAnnulus);
-    }
-
     makeVisible() {
         // ensure the panel is visible (since display-none is set in the html upon load)
         // (this is done to prevent the panel from appearing before it's fully initialized)
@@ -86,40 +94,40 @@ class SimCachePanel extends UIElement {
         this.m_titleElement.innerText = title;
     }
 
-    updateCacheRange(trackerStateAnnulus) {
-        const piecewiseRange = this.getPiecewiseRange(trackerStateAnnulus);
-        this.m_subtitleElement.innerText = this.getSubtitle(piecewiseRange);
-        this.m_annulusElement.setAttributeNS(null, "r", this.getAnnulusInnerRadius(trackerStateAnnulus));
+    updateCacheRange(rangeAnnulus) {
+        const rangeNauticalMiles = this.getRangeNauticalMiles(rangeAnnulus);
+        this.m_subtitleElement.innerText = this.getSubtitle(rangeNauticalMiles);
+        this.m_annulusElement.setAttributeNS(null, "r", this.getAnnulusInnerRadius(rangeAnnulus));
     }
 
-    getSubtitle(piecewiseRange) {
-        return piecewiseRange !== null ? `Less than ${piecewiseRange} nm away` : "Out of range";
+    getSubtitle(rangeNauticalMiles) {
+        return rangeNauticalMiles !== null ? `Less than ${rangeNauticalMiles} NM away` : "Out of range";
     }
 
-    getPiecewiseRange(trackerStateAnnulus) {
-        switch (trackerStateAnnulus) {
-            case TrackerState.Annulus1:
+    getRangeNauticalMiles(rangeAnnulus) {
+        switch (rangeAnnulus) {
+            case RangeAnnulus.Annulus1:
                 return 2;
-            case TrackerState.Annulus2:
+            case RangeAnnulus.Annulus2:
                 return 5;
-            case TrackerState.Annulus3:
+            case RangeAnnulus.Annulus3:
                 return 10;
-            case TrackerState.Annulus4:
+            case RangeAnnulus.Annulus4:
                 return 25;
             default:
                 return null;
         }
     }
 
-    getAnnulusInnerRadius(trackerStateAnnulus) {
-        switch (trackerStateAnnulus) {
-            case TrackerState.Annulus1:
+    getAnnulusInnerRadius(rangeAnnulus) {
+        switch (rangeAnnulus) {
+            case RangeAnnulus.Annulus1:
                 return 0;
-            case TrackerState.Annulus2:
+            case RangeAnnulus.Annulus2:
                 return 22;
-            case TrackerState.Annulus3:
+            case RangeAnnulus.Annulus3:
                 return 31;
-            case TrackerState.Annulus4:
+            case RangeAnnulus.Annulus4:
                 return 40;
             default:
                 return 49;
