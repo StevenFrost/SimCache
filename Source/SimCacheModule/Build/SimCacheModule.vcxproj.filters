@@ -113,7 +113,7 @@
     <ClInclude Include="..\Source\Events\UIRangeAnnulusChangedEvent.h">
       <Filter>Source\Events</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Events\UITrackedCacheChangedEvent.h">
+    <ClInclude Include="..\Source\Events\UITrackerDataUpdateEvent.h">
       <Filter>Source\Events</Filter>
     </ClInclude>
   </ItemGroup>

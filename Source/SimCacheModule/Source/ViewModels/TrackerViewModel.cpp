@@ -4,7 +4,7 @@
 
 #include "Events/UICacheFoundEvent.h"
 #include "Events/UIRangeAnnulusChangedEvent.h"
-#include "Events/UITrackedCacheChangedEvent.h"
+#include "Events/UITrackerDataUpdateEvent.h"
 
 // -----------------------------------------------------------------------------
 
@@ -116,7 +116,7 @@ void TrackerViewModel::OnCacheFound( const CacheFoundEvent& Event )
 
 // -----------------------------------------------------------------------------
 
-void TrackerViewModel::SendUITrackedCacheChangedEvent( const CacheDefinition* Cache ) const
+void TrackerViewModel::SendUITrackerDataUpdateEvent( const CacheDefinition* Cache ) const
 {
 	if ( !Cache )
 	{
@@ -126,7 +126,7 @@ void TrackerViewModel::SendUITrackedCacheChangedEvent( const CacheDefinition* Ca
 	const auto Annulus = CacheTracker.GetLastKnownAnnulus();
 
 	// TODO: use appropriate localized text
-	GetViewEventDispatcher().FireEvent( UITrackedCacheChangedEvent( Cache->LocText[ 0 ].Text.Title, Annulus ) );
+	GetViewEventDispatcher().FireEvent( UITrackerDataUpdateEvent( Cache->LocText[ 0 ].Text.Title, Annulus ) );
 }
 
 // -----------------------------------------------------------------------------
@@ -134,7 +134,7 @@ void TrackerViewModel::SendUITrackedCacheChangedEvent( const CacheDefinition* Ca
 void TrackerViewModel::OnTrackerLoaded( const UITrackerLoadedEvent& Event )
 {
 	// the tracker InGamePanel opened; send full tracked cache data
-	SendUITrackedCacheChangedEvent( CacheTracker.GetCurrentTrackedCache() );
+	SendUITrackerDataUpdateEvent( CacheTracker.GetCurrentTrackedCache() );
 }
 
 // -----------------------------------------------------------------------------
@@ -142,7 +142,7 @@ void TrackerViewModel::OnTrackerLoaded( const UITrackerLoadedEvent& Event )
 void TrackerViewModel::OnTrackedCacheChangedEvent( const TrackedCacheChangedEvent& Event )
 {
 	// tracked cache changed; send full tracked cache data
-	SendUITrackedCacheChangedEvent( CacheDataStore.GetCacheDefinitionById( Event.NewCacheId ) );
+	SendUITrackerDataUpdateEvent( CacheDataStore.GetCacheDefinitionById( Event.NewCacheId ) );
 }
 
 // -----------------------------------------------------------------------------

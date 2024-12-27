@@ -39,13 +39,13 @@ class SimCachePanel extends UIElement {
     }
 
     onSubsystemsInitialized() {
-        this.CommBusListener.on("SimCache.UITrackedCacheChangedEvent", this.onTrackedCacheChangedEvent.bind(this));
+        this.CommBusListener.on("SimCache.UITrackerDataUpdateEvent", this.onTrackerDataUpdateEvent.bind(this));
         this.CommBusListener.on("SimCache.UIRangeAnnulusChangedEvent", this.onRangeAnnulusChangedEvent.bind(this));
         this.CommBusListener.on("SimCache.UICacheFoundEvent", this.onCacheFoundEvent.bind(this));
         this.CommBusListener.callWasm("SimCache.UITrackerLoadedEvent", "");
     }
 
-    onTrackedCacheChangedEvent(eventData) {
+    onTrackerDataUpdateEvent(eventData) {
         if (this.m_timeoutID !== null) {
             this.cancelPendingClose();
         }

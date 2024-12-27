@@ -42,7 +42,7 @@ private:
 	void OnRangeAnnulusChanged( const RangeAnnulusChangedEvent& Event );
 	void OnCacheFound( const CacheFoundEvent& Event );
 
-	void SendUITrackedCacheChangedEvent( const CacheDefinition* Cache ) const;
+	void SendUITrackerDataUpdateEvent( const CacheDefinition* Cache ) const;
 
 private:
 

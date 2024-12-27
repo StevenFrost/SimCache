@@ -51,7 +51,7 @@
     <ClInclude Include="..\Source\Events\TrackedCacheChangedEvent.h" />
     <ClInclude Include="..\Source\Events\UICacheFoundEvent.h" />
     <ClInclude Include="..\Source\Events\UIRangeAnnulusChangedEvent.h" />
-    <ClInclude Include="..\Source\Events\UITrackedCacheChangedEvent.h" />
+    <ClInclude Include="..\Source\Events\UITrackerDataUpdateEvent.h" />
     <ClInclude Include="..\Source\Events\UITrackerLoadedEvent.h" />
     <ClInclude Include="..\Source\Module\SimCacheModule.h" />
     <ClInclude Include="..\Source\Subsystems\AircraftTracker\AircraftTracker.h" />

@@ -8,14 +8,14 @@
 
 // -----------------------------------------------------------------------------
 
-class UITrackedCacheChangedEvent
+class UITrackerDataUpdateEvent
 	: public Utils::Event
 {
 public:
 
-	UITrackedCacheChangedEvent() = default;
+	UITrackerDataUpdateEvent() = default;
 
-	UITrackedCacheChangedEvent( const std::string& CacheName, const RangeAnnulus Annulus )
+	UITrackerDataUpdateEvent( const std::string& CacheName, const RangeAnnulus Annulus )
 		: CacheName( CacheName )
 		, Annulus( Annulus )
 	{
@@ -52,9 +52,9 @@ public:
 // -----------------------------------------------------------------------------
 
 template<>
-struct Utils::EventTraits< UITrackedCacheChangedEvent >
+struct Utils::EventTraits< UITrackerDataUpdateEvent >
 {
-	static constexpr char* Id = "SimCache.UITrackedCacheChangedEvent";
+	static constexpr char* Id = "SimCache.UITrackerDataUpdateEvent";
 };
 
 // -----------------------------------------------------------------------------
