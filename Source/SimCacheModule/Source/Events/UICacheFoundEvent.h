@@ -7,7 +7,7 @@
 // -----------------------------------------------------------------------------
 
 class UICacheFoundEvent
-	: public Utils::Event
+	: public Utils::SerialisableEvent
 {
 public:
 
@@ -18,7 +18,7 @@ public:
 // -----------------------------------------------------------------------------
 
 template<>
-struct Utils::EventTraits< UICacheFoundEvent >
+struct Utils::SerialisableEventTraits< UICacheFoundEvent >
 {
 	static constexpr char* Id = "SimCache.UICacheFoundEvent";
 };

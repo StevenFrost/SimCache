@@ -92,32 +92,6 @@ Vector3 Vector3::operator*( double c ) const
 
 // -----------------------------------------------------------------------------
 
-bool Vector3::Serialise( Serialisation::Writer& Writer ) const
-{
-	bool Success = true;
-
-	Success &= Writer.WriteProperty( "X", X );
-	Success &= Writer.WriteProperty( "Y", Y );
-	Success &= Writer.WriteProperty( "Z", Z );
-
-	return Success;
-}
-
-// -----------------------------------------------------------------------------
-
-bool Vector3::Deserialise( Serialisation::Reader& Reader )
-{
-	bool Success = true;
-
-	Success &= Reader.ReadProperty( "X", X );
-	Success &= Reader.ReadProperty( "Y", Y );
-	Success &= Reader.ReadProperty( "Z", Z );
-
-	return Success;
-}
-
-// -----------------------------------------------------------------------------
-
 } // namespace Utils
 
 // -----------------------------------------------------------------------------

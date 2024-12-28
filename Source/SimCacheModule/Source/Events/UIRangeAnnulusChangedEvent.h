@@ -11,15 +11,13 @@
 // -----------------------------------------------------------------------------
 
 class UIRangeAnnulusChangedEvent
-	: public Utils::Event
+	: public Utils::SerialisableEvent
 {
 public:
-	UIRangeAnnulusChangedEvent() = default;
 
 	UIRangeAnnulusChangedEvent( const RangeAnnulusChangedEvent& Event )
 		: Annulus( Event.Annulus )
-	{
-	}
+	{}
 
 public: // ISerialisable
 
@@ -49,7 +47,7 @@ public:
 // -----------------------------------------------------------------------------
 
 template<>
-struct Utils::EventTraits< UIRangeAnnulusChangedEvent >
+struct Utils::SerialisableEventTraits< UIRangeAnnulusChangedEvent >
 {
 	static constexpr char* Id = "SimCache.UIRangeAnnulusChangedEvent";
 };

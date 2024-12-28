@@ -4,6 +4,7 @@
 
 #include "Core/CacheDefinitionCollection.h"
 
+#include <Utils/Event/NativeEventDispatcher.h>
 #include <Utils/Event/WASMEventDispatcher.h>
 #include <Utils/Logging/Log.h>
 
@@ -14,9 +15,9 @@ DEFINE_LOG_CATEGORY( SimCacheModule, Info )
 // -----------------------------------------------------------------------------
 
 SimCacheModule::SimCacheModule()
-	: InternalEventDispatcher( nullptr )
-	, SimConnectClient( nullptr )
-	, JavaScriptEventDispatcher( nullptr )
+	: SimConnectClient( nullptr )
+	, UIEventDispatcher( nullptr )
+	, InternalEventDispatcher( nullptr )
 	, AircraftTracker( nullptr )
 	, CacheDataStore( nullptr )
 	, CacheObjectManager( nullptr )
@@ -159,15 +160,14 @@ void SimCacheModule::UninitializeSimConnectClient()
 
 bool SimCacheModule::InitializeEventDispatchers()
 {
-	// TODO: replace with NativeEventDispatcher instead of using WASMEventDispatcher with WASM/self target
-	InternalEventDispatcher = Utils::MakeWASMEventDispatcher( Utils::EWASMEventDispatcherTarget::Self );
+	InternalEventDispatcher = Utils::MakeNativeEventDispatcher();
 	if ( !InternalEventDispatcher )
 	{
 		return false;
 	}
 
-	JavaScriptEventDispatcher = Utils::MakeWASMEventDispatcher( Utils::EWASMEventDispatcherTarget::JavaScript );
-	if ( !JavaScriptEventDispatcher )
+	UIEventDispatcher = Utils::MakeWASMEventDispatcher( Utils::EWASMEventDispatcherTarget::JavaScript );
+	if ( !UIEventDispatcher )
 	{
 		return false;
 	}
@@ -184,9 +184,9 @@ void SimCacheModule::UninitializeEventDispatchers()
 		InternalEventDispatcher = nullptr;
 	}
 
-	if ( JavaScriptEventDispatcher )
+	if ( UIEventDispatcher )
 	{
-		JavaScriptEventDispatcher = nullptr;
+		UIEventDispatcher = nullptr;
 	}
 }
 
@@ -200,8 +200,8 @@ bool SimCacheModule::InitializeTrackerViewModel()
 		return false;
 	}
 
-	auto* JavaScriptEventDispatcherPtr = JavaScriptEventDispatcher.get();
-	if ( !JavaScriptEventDispatcherPtr )
+	auto* UIEventDispatcherPtr = UIEventDispatcher.get();
+	if ( !UIEventDispatcherPtr )
 	{
 		return false;
 	}
@@ -218,7 +218,7 @@ bool SimCacheModule::InitializeTrackerViewModel()
 		return false;
 	}
 
-	TrackerVM = std::make_unique< TrackerViewModel >( *InternalEventDispatcherPtr , *JavaScriptEventDispatcherPtr, *CacheDataStorePtr, *CacheTrackerPtr );
+	TrackerVM = std::make_unique< TrackerViewModel >( *InternalEventDispatcherPtr , *UIEventDispatcherPtr, *CacheDataStorePtr, *CacheTrackerPtr );
 	if ( !TrackerVM )
 	{
 		return false;

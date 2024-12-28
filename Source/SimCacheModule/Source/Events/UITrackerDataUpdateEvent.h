@@ -9,17 +9,14 @@
 // -----------------------------------------------------------------------------
 
 class UITrackerDataUpdateEvent
-	: public Utils::Event
+	: public Utils::SerialisableEvent
 {
 public:
-
-	UITrackerDataUpdateEvent() = default;
 
 	UITrackerDataUpdateEvent( const std::string& CacheName, const RangeAnnulus Annulus )
 		: CacheName( CacheName )
 		, Annulus( Annulus )
-	{
-	}
+	{}
 
 public: // ISerialisable
 
@@ -52,7 +49,7 @@ public:
 // -----------------------------------------------------------------------------
 
 template<>
-struct Utils::EventTraits< UITrackerDataUpdateEvent >
+struct Utils::SerialisableEventTraits< UITrackerDataUpdateEvent >
 {
 	static constexpr char* Id = "SimCache.UITrackerDataUpdateEvent";
 };

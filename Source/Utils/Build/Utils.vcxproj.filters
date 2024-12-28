@@ -55,6 +55,12 @@
     <ClInclude Include="..\Inc\Utils\Handle\Handle.h">
       <Filter>Include\Utils\Handle</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Event\NativeEventDispatcher.h">
+      <Filter>Include\Utils\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Event\NativeEventDispatcher.h">
+      <Filter>Source\Event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -145,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Handle\Handle.cpp">
       <Filter>Source\Handle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Event\NativeEventDispatcher.cpp">
+      <Filter>Source\Event</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

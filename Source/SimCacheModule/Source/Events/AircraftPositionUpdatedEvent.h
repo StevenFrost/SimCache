@@ -12,35 +12,13 @@ class AircraftPositionUpdatedEvent
 {
 public:
 
-	// TODO: potentially remove default constructor
-	// (currently only required for serialization to work with placeholder NativeEventDispatcher)
-	AircraftPositionUpdatedEvent() = default;
-
 	AircraftPositionUpdatedEvent( const Utils::EarthCoordinate& CurrentPosition )
 		: CurrentPosition( CurrentPosition )
 	{}
 
-	virtual bool Serialise( Utils::Serialisation::Writer& Writer ) const override final
-	{
-		return Writer.WriteProperty( "CurrentPosition", CurrentPosition );
-	}
-
-	virtual bool Deserialise( Utils::Serialisation::Reader& Reader ) override final
-	{
-		return Reader.ReadProperty( "CurrentPosition", CurrentPosition );
-	}
-
 public:
 
 	Utils::EarthCoordinate CurrentPosition;
-};
-
-// -----------------------------------------------------------------------------
-
-template<>
-struct Utils::EventTraits< AircraftPositionUpdatedEvent >
-{
-	static constexpr char* Id = "SimCache.AircraftPositionUpdatedEvent";
 };
 
 // -----------------------------------------------------------------------------

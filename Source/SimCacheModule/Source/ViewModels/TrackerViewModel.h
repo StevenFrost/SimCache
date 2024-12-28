@@ -13,19 +13,12 @@
 
 // -----------------------------------------------------------------------------
 
-namespace Utils
-{
-	typedef EventDispatcher NativeEventDispatcher;
-}
-
-// -----------------------------------------------------------------------------
-
 class TrackerViewModel
 	: public ViewModel
 {
 public:
 
-	TrackerViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::EventDispatcher& ViewEventDispatcher, const Subsystems::CacheDataStore& CacheDataStore, Subsystems::CacheTracker& CacheTracker );
+	TrackerViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::WASMEventDispatcher& UIEventDispatcher, const Subsystems::CacheDataStore& CacheDataStore, Subsystems::CacheTracker& CacheTracker );
 	virtual ~TrackerViewModel();
 
 	virtual bool Initialize() override final;

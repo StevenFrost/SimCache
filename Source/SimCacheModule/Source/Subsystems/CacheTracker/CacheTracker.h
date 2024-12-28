@@ -9,17 +9,10 @@
 
 #include "Subsystems/CacheDataStore/CacheDataStore.h"
 
-#include <Utils/Event/EventDispatcher.h>
+#include <Utils/Event/NativeEventDispatcher.h>
 #include <Utils/Geodesy/EarthCoordinate.h>
 
 #include <memory>
-
-// -----------------------------------------------------------------------------
-
-namespace Utils
-{
-typedef EventDispatcher NativeEventDispatcher;
-}
 
 // -----------------------------------------------------------------------------
 
