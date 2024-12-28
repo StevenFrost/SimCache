@@ -13,13 +13,10 @@ class UITrackerDataUpdateEvent
 {
 public:
 
-	UITrackerDataUpdateEvent() = default;
-
 	UITrackerDataUpdateEvent( const std::string& CacheName, const RangeAnnulus Annulus )
 		: CacheName( CacheName )
 		, Annulus( Annulus )
-	{
-	}
+	{}
 
 public: // ISerialisable
 

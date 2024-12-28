@@ -14,12 +14,10 @@ class UIRangeAnnulusChangedEvent
 	: public Utils::SerialisableEvent
 {
 public:
-	UIRangeAnnulusChangedEvent() = default;
 
 	UIRangeAnnulusChangedEvent( const RangeAnnulusChangedEvent& Event )
 		: Annulus( Event.Annulus )
-	{
-	}
+	{}
 
 public: // ISerialisable
 

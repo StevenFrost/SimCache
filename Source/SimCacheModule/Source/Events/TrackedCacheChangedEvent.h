@@ -9,7 +9,7 @@
 // -----------------------------------------------------------------------------
 
 class TrackedCacheChangedEvent
-	: public Utils::SerialisableEvent
+	: public Utils::Event
 {
 public:
 
@@ -17,25 +17,7 @@ public:
 		: NewCacheId( NewCacheId )
 	{}
 
-	virtual bool Serialise( Utils::Serialisation::Writer& Writer ) const override final
-	{
-		return Writer.WriteProperty( "NewCacheId", NewCacheId );
-	}
-
-	virtual bool Deserialise( Utils::Serialisation::Reader& Reader ) override final
-	{
-		return Reader.ReadProperty( "NewCacheId", NewCacheId );
-	}
-
 	CacheId NewCacheId;
-};
-
-// -----------------------------------------------------------------------------
-
-template<>
-struct Utils::EventTraits< TrackedCacheChangedEvent >
-{
-	static constexpr char* Id = "SimCache.TrackedCacheChangedEvent";
 };
 
 // -----------------------------------------------------------------------------

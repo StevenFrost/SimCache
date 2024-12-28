@@ -111,7 +111,7 @@ void TrackerViewModel::UnregisterEventListeners()
 
 void TrackerViewModel::OnCacheFound( const CacheFoundEvent& Event )
 {
-	GetUIEventDispatcher().FireEvent( Event );
+	GetUIEventDispatcher().FireEvent( UICacheFoundEvent() );
 }
 
 // -----------------------------------------------------------------------------
