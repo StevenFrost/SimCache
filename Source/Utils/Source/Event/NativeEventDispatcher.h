@@ -47,10 +47,10 @@ private:
 private:
 
 	typedef std::unordered_map< EventHandle, std::unique_ptr< NativeEventContext >, HandleHasher > EventHandleToContextMapType;
-	typedef std::unordered_map< std::string, std::vector< EventHandle > > EventIdToHandleMapType;
+	typedef std::unordered_map< std::string, std::vector< EventHandle > > EventIdToHandlesMapType;
 
 	EventHandleToContextMapType	EventHandleToContextMap;
-	EventIdToHandleMapType EventIdToListenerHandlesMap;
+	EventIdToHandlesMapType EventIdToHandlesMap;
 };
 
 // -----------------------------------------------------------------------------

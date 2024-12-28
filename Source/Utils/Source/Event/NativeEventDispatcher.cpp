@@ -23,7 +23,7 @@ namespace Internal
 NativeEventDispatcher::NativeEventDispatcher()
 	: EventDispatcher()
 	, EventHandleToContextMap()
-	, EventIdToListenerHandlesMap()
+	, EventIdToHandlesMap()
 {
 }
 
@@ -31,13 +31,13 @@ NativeEventDispatcher::NativeEventDispatcher()
 
 void NativeEventDispatcher::FireEvent( const std::string& EventId, const Event& EventData )
 {
-	auto EventIdToListenerHandlesIterator = EventIdToListenerHandlesMap.find( EventId );
-	if ( EventIdToListenerHandlesIterator == EventIdToListenerHandlesMap.end() )
+	auto EventIdToHandlesIterator = EventIdToHandlesMap.find( EventId );
+	if ( EventIdToHandlesIterator == EventIdToHandlesMap.end() )
 	{
 		return;
 	}
 
-	for ( auto& EventHandle : EventIdToListenerHandlesIterator->second )
+	for ( auto& EventHandle : EventIdToHandlesIterator->second )
 	{
 		auto EventHandleToContextIterator = EventHandleToContextMap.find( EventHandle );
 		if ( EventHandleToContextIterator == EventHandleToContextMap.end() )
@@ -61,10 +61,10 @@ EventHandle NativeEventDispatcher::RegisterEventListener( const std::string& Eve
 
 	EventHandleToContextMap.emplace( Handle, std::move( Context ) );
 
-	auto Iterator = EventIdToListenerHandlesMap.find( EventId );
-	if ( Iterator == EventIdToListenerHandlesMap.end() )
+	auto Iterator = EventIdToHandlesMap.find( EventId );
+	if ( Iterator == EventIdToHandlesMap.end() )
 	{
-		EventIdToListenerHandlesMap.emplace( EventId, std::vector< EventHandle >{ Handle } );
+		EventIdToHandlesMap.emplace( EventId, std::vector< EventHandle >{ Handle } );
 	}
 	else
 	{
@@ -83,10 +83,10 @@ void NativeEventDispatcher::UnregisterEventListener( EventHandle& Handle )
 	{
 		const auto EventId = EventHandleToContextIterator->second->EventId;
 
-		auto EventIdToListenerHandlesIterator = EventIdToListenerHandlesMap.find( EventId );
-		if ( EventIdToListenerHandlesIterator != EventIdToListenerHandlesMap.end() )
+		auto EventIdToHandlesIterator = EventIdToHandlesMap.find( EventId );
+		if ( EventIdToHandlesIterator != EventIdToHandlesMap.end() )
 		{
-			EventIdToListenerHandlesMap.erase( EventIdToListenerHandlesIterator );
+			EventIdToHandlesMap.erase( EventIdToHandlesIterator );
 		}
 
 		EventHandleToContextMap.erase( EventHandleToContextIterator );
