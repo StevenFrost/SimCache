@@ -12,10 +12,6 @@ class AircraftPositionUpdatedEvent
 {
 public:
 
-	// TODO: potentially remove default constructor
-	// (currently only required for serialization to work with placeholder NativeEventDispatcher)
-	AircraftPositionUpdatedEvent() = default;
-
 	AircraftPositionUpdatedEvent( const Utils::EarthCoordinate& CurrentPosition )
 		: CurrentPosition( CurrentPosition )
 	{}

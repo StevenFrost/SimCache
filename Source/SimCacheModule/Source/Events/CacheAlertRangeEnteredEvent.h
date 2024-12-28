@@ -13,8 +13,6 @@ class CacheAlertRangeEnteredEvent
 {
 public:
 
-	CacheAlertRangeEnteredEvent() = default;
-
 	CacheAlertRangeEnteredEvent( const CacheId& Id )
 		: Id( Id )
 	{}

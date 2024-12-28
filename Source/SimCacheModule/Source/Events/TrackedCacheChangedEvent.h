@@ -13,7 +13,6 @@ class TrackedCacheChangedEvent
 {
 public:
 
-	TrackedCacheChangedEvent() = default;
 	TrackedCacheChangedEvent( const CacheId NewCacheId )
 		: NewCacheId( NewCacheId )
 	{}

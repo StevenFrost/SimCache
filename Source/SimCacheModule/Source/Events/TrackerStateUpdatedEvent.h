@@ -13,7 +13,6 @@ class TrackerStateUpdatedEvent
 	: public Utils::SerialisableEvent
 {
 public:
-	TrackerStateUpdatedEvent() = default;
 
 	TrackerStateUpdatedEvent( const CacheId& Id, const TrackerState& State )
 		: Id( Id )

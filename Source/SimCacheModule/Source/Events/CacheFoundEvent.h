@@ -13,8 +13,6 @@ class CacheFoundEvent
 {
 public:
 
-	CacheFoundEvent() = default;
-
 	CacheFoundEvent( const CacheId& Id )
 		: Id( Id )
 	{}
