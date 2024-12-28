@@ -29,6 +29,8 @@ struct WASMEventHandler
 	template< class TEvent >
 	static void FireEvent( EventDispatcher< WASMEventHandler >& Dispatcher, const TEvent& Event )
 	{
+		static_assert( std::is_base_of< Utils::SerialisableEvent, TEvent >::value, "TEvent must be derived from SerialisableEvent" );
+
 		Dispatcher.FireEvent( GetEventId< TEvent >(), Event );
 	}
 
@@ -36,6 +38,7 @@ struct WASMEventHandler
 	static EventHandle RegisterEventListener( EventDispatcher< WASMEventHandler >& Dispatcher, std::function< void( const TEvent& ) >&& Callback )
 	{
 		static_assert( std::is_default_constructible< TEvent >::value, "TEvent must be default constructible" );
+		static_assert( std::is_base_of< Utils::SerialisableEvent, TEvent >::value, "TEvent must be derived from SerialisableEvent" );
 
 		return Dispatcher.RegisterEventListener( GetEventId< TEvent >(),
 			[]()
