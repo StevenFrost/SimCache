@@ -3,7 +3,6 @@
 #pragma once
 
 #include <Utils/Math/Vector3.h>
-#include <Utils/Serialisation/Serialisable.h>
 
 // -----------------------------------------------------------------------------
 

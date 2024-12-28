@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include <Utils/Serialisation/Serialisable.h>
-
 // -----------------------------------------------------------------------------
 
 namespace Utils
