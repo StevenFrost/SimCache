@@ -31,7 +31,7 @@ struct WASMEventContext
 // -----------------------------------------------------------------------------
 
 class WASMEventDispatcher
-	: public EventDispatcher< EventIdSourceType::EventTraits >
+	: public EventDispatcher< WASMEventHandler >
 {
 public:
 

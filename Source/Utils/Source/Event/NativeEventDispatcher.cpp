@@ -4,11 +4,8 @@
 
 #include <Utils/Logging/Log.h>
 
-#include <cstdint>
-#include <iostream>
 #include <memory>
 #include <string>
-#include <type_traits>
 
 // -----------------------------------------------------------------------------
 
@@ -23,18 +20,11 @@ namespace Internal
 
 // -----------------------------------------------------------------------------
 
-NativeEventDispatcher::NativeEventDispatcher( const EventIdSourceType EventIdSource )
+NativeEventDispatcher::NativeEventDispatcher()
 	: EventDispatcher()
 	, EventHandleToContextMap()
 	, EventIdToHandleMap()
 {
-}
-
-// -----------------------------------------------------------------------------
-
-NativeEventDispatcher::~NativeEventDispatcher()
-{
-	//UnregisterAllEventListeners();
 }
 
 // -----------------------------------------------------------------------------
@@ -67,7 +57,6 @@ EventHandle NativeEventDispatcher::RegisterEventListener( const std::string& Eve
 
 	auto Context = std::make_unique< NativeEventContext >();
 	Context->EventId = EventId;
-	Context->EventBuilder = EventBuilder;
 	Context->EventHandler = EventHandler;
 
 	EventHandleToContextMap.emplace( Handle, std::move( Context ) );
@@ -114,7 +103,7 @@ void NativeEventDispatcher::UnregisterEventListener( EventHandle& Handle )
 
 std::shared_ptr< NativeEventDispatcher > MakeNativeEventDispatcher()
 {
-	return std::make_shared< Internal::NativeEventDispatcher >( EventIdSourceType::TypeId );
+	return std::make_shared< Internal::NativeEventDispatcher >();
 }
 
 // -----------------------------------------------------------------------------

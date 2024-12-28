@@ -9,11 +9,8 @@
 #include <Utils/Serialisation/Serialisable.h>
 #include <Utils/WASM/Macros.h>
 
-#include <cstdint>
-#include <iostream>
 #include <memory>
 #include <string>
-#include <type_traits>
 
 // -----------------------------------------------------------------------------
 
@@ -179,7 +176,7 @@ void WASMEventDispatcher::ReceiveEvent( const char* Buffer, unsigned int BufferS
 
 // -----------------------------------------------------------------------------
 
-std::shared_ptr< EventDispatcher< EventIdSourceType::EventTraits > > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target )
+std::shared_ptr< WASMEventDispatcher > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target )
 {
 	return std::make_shared< Internal::WASMEventDispatcher >( Target );
 }

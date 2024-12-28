@@ -13,7 +13,37 @@ namespace Utils
 
 // -----------------------------------------------------------------------------
 
-typedef EventDispatcher< EventIdSourceType::TypeId > NativeEventDispatcher;
+struct NativeEventHandler
+{
+	template< class TEvent >
+	static void FireEvent( EventDispatcher< NativeEventHandler >& Dispatcher, const TEvent& Event )
+	{
+		Dispatcher.FireEvent( GetEventId< TEvent >(), Event );
+	}
+
+	template< class TEvent >
+	static EventHandle RegisterEventListener( EventDispatcher< NativeEventHandler >& Dispatcher, std::function< void( const TEvent& ) >&& Callback )
+	{
+		return Dispatcher.RegisterEventListener( GetEventId< TEvent >(), nullptr,
+			[ Callback ]( const Event& EventData )
+			{
+				Callback( *dynamic_cast< const TEvent* >( &EventData ) );
+			}
+		);
+	}
+
+	template< class TEvent >
+	static std::string GetEventId()
+	{
+		return typeid( TEvent ).name();
+	}
+};
+
+// -----------------------------------------------------------------------------
+
+typedef EventDispatcher< NativeEventHandler > NativeEventDispatcher;
+
+// -----------------------------------------------------------------------------
 
 std::shared_ptr< NativeEventDispatcher > MakeNativeEventDispatcher();
 

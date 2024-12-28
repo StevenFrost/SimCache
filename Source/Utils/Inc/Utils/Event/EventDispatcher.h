@@ -7,7 +7,6 @@
 #include <Utils/WASM/Macros.h>
 
 #include <functional>
-#include <memory>
 #include <string>
 #include <type_traits>
 
@@ -18,15 +17,7 @@ namespace Utils
 
 // -----------------------------------------------------------------------------
 
-enum class EventIdSourceType
-{
-	TypeId,
-	EventTraits
-};
-
-// -----------------------------------------------------------------------------
-
-template< EventIdSourceType EventIdSource = EventIdSourceType::TypeId >
+template< class TEventHandler >
 class EventDispatcher
 {
 public:
@@ -38,26 +29,14 @@ public:
 	void FireEvent( const TEvent& Event )
 	{
 		static_assert( std::is_base_of< Utils::Event, TEvent >::value, "TEvent must be derived from Event" );
-
-		FireEvent( GetEventId< TEvent >(), Event );
+		TEventHandler::FireEvent( *this, Event );
 	}
 
 	template< class TEvent >
 	EventHandle RegisterEventListener( std::function< void( const TEvent& ) >&& Callback )
 	{
-		static_assert( std::is_default_constructible< TEvent >::value, "TEvent must be default constructible" );
 		static_assert( std::is_base_of< Utils::Event, TEvent >::value, "TEvent must be derived from Event" );
-
-		return RegisterEventListener( GetEventId< TEvent >(),
-			[]()
-			{
-				return std::make_unique< TEvent >();
-			},
-			[ Callback ]( const Event& EventData )
-			{
-				Callback( *dynamic_cast< const TEvent* >( &EventData ) );
-			}
-		);
+		return TEventHandler::template RegisterEventListener< TEvent >( *this, std::move( Callback ) );
 	}
 
 	virtual void UnregisterEventListener( EventHandle& Handle ) = 0;
@@ -67,17 +46,7 @@ private:
 	virtual void FireEvent( const std::string& EventId, const Event& EventData ) = 0;
 	virtual EventHandle RegisterEventListener( const std::string& EventId, std::function< std::unique_ptr< Event >() >&& EventBuilder, std::function< void( const Event& ) >&& EventHandler ) = 0;
 
-	template< class TEvent, EventIdSourceType IdSource = EventIdSource >
-	auto GetEventId() const -> typename std::enable_if< ( IdSource == EventIdSourceType::EventTraits ), std::string >::type
-	{
-		return EventTraits< TEvent >::Id;
-	}
-
-	template< class TEvent, EventIdSourceType IdSource = EventIdSource >
-	auto GetEventId() const -> typename std::enable_if< ( IdSource == EventIdSourceType::TypeId ), std::string >::type
-	{
-		return typeid( TEvent ).name();
-	}
+	friend TEventHandler;
 };
 
 // -----------------------------------------------------------------------------

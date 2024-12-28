@@ -23,20 +23,19 @@ struct NativeEventContext
 {
 	NativeEventContext() = default;
 
-	std::string										EventId;
-	std::function< std::unique_ptr< Event >() >		EventBuilder;
-	std::function< void( const Event& ) >			EventHandler;
+	std::string								EventId;
+	std::function< void( const Event& ) >	EventHandler;
 };
 
 // -----------------------------------------------------------------------------
 
 class NativeEventDispatcher
-	: public EventDispatcher< EventIdSourceType::TypeId >
+	: public EventDispatcher< NativeEventHandler >
 {
 public:
 
-	NativeEventDispatcher( const EventIdSourceType EventIdSource );
-	virtual ~NativeEventDispatcher();
+	NativeEventDispatcher();
+	virtual ~NativeEventDispatcher() = default;
 
 private:
 
