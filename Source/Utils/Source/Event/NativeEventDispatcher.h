@@ -50,7 +50,7 @@ private:
 	typedef std::unordered_map< std::string, std::vector< EventHandle > > EventIdToHandleMapType;
 
 	EventHandleToContextMapType	EventHandleToContextMap;
-	EventIdToHandleMapType EventIdToHandleMap;
+	EventIdToHandleMapType EventIdToListenerHandlesMap;
 };
 
 // -----------------------------------------------------------------------------
