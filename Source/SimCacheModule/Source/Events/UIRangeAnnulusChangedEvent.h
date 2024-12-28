@@ -47,7 +47,7 @@ public:
 // -----------------------------------------------------------------------------
 
 template<>
-struct Utils::EventTraits< UIRangeAnnulusChangedEvent >
+struct Utils::SerialisableEventTraits< UIRangeAnnulusChangedEvent >
 {
 	static constexpr char* Id = "SimCache.UIRangeAnnulusChangedEvent";
 };

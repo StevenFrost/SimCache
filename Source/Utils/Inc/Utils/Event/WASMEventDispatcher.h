@@ -55,7 +55,7 @@ struct WASMEventHandler
 	template< class TEvent >
 	static std::string GetEventId()
 	{
-		return EventTraits< TEvent >::Id;
+		return SerialisableEventTraits< TEvent >::Id;
 	}
 };
 

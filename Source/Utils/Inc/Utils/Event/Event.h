@@ -30,9 +30,9 @@ struct SerialisableEvent
 // -----------------------------------------------------------------------------
 
 template< class TEvent >
-struct EventTraits
+struct SerialisableEventTraits
 {
-	static_assert( std::is_base_of< Event, TEvent >::value, "TEvent must be derived from Event" );
+	static_assert( std::is_base_of< SerialisableEvent, TEvent >::value, "TEvent must be derived from SerialisableEvent" );
 };
 
 // -----------------------------------------------------------------------------

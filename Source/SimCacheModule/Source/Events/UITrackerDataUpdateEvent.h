@@ -49,7 +49,7 @@ public:
 // -----------------------------------------------------------------------------
 
 template<>
-struct Utils::EventTraits< UITrackerDataUpdateEvent >
+struct Utils::SerialisableEventTraits< UITrackerDataUpdateEvent >
 {
 	static constexpr char* Id = "SimCache.UITrackerDataUpdateEvent";
 };
