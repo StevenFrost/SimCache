@@ -41,6 +41,11 @@ bool CacheObjectManager::Initialize()
 		return false;
 	}
 
+	if ( !RegisterCacheFoundEvent() )
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -49,6 +54,7 @@ bool CacheObjectManager::Initialize()
 void CacheObjectManager::Uninitialize()
 {
 	UnregisterTrackedCacheChangedEvent();
+	UnregisterCacheFoundEvent();
 
 	if ( CacheObjectHandle.IsValid() )
 	{
