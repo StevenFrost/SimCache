@@ -176,9 +176,9 @@ void WASMEventDispatcher::ReceiveEvent( const char* Buffer, unsigned int BufferS
 
 // -----------------------------------------------------------------------------
 
-std::shared_ptr< WASMEventDispatcher > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target )
+std::unique_ptr< WASMEventDispatcher > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target )
 {
-	return std::make_shared< Internal::WASMEventDispatcher >( Target );
+	return std::make_unique< Internal::WASMEventDispatcher >( Target );
 }
 
 // -----------------------------------------------------------------------------

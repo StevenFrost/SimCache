@@ -59,8 +59,8 @@ private:
 
 	std::shared_ptr< SimConnect::ISimConnectClient >	SimConnectClient;
 
-	std::shared_ptr< Utils::WASMEventDispatcher >		UIEventDispatcher;
-	std::shared_ptr< Utils::NativeEventDispatcher >		InternalEventDispatcher;
+	std::unique_ptr< Utils::WASMEventDispatcher >		UIEventDispatcher;
+	std::unique_ptr< Utils::NativeEventDispatcher >		InternalEventDispatcher;
 
 	std::unique_ptr< Subsystems::AircraftTracker >		AircraftTracker;
 	std::unique_ptr< Subsystems::CacheDataStore >		CacheDataStore;

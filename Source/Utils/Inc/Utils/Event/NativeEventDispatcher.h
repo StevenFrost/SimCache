@@ -45,7 +45,7 @@ typedef EventDispatcher< NativeEventHandler > NativeEventDispatcher;
 
 // -----------------------------------------------------------------------------
 
-std::shared_ptr< NativeEventDispatcher > MakeNativeEventDispatcher();
+std::unique_ptr< NativeEventDispatcher > MakeNativeEventDispatcher();
 
 // -----------------------------------------------------------------------------
 

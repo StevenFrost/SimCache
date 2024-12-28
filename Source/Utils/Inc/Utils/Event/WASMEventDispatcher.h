@@ -62,7 +62,7 @@ typedef EventDispatcher< WASMEventHandler > WASMEventDispatcher;
 
 // -----------------------------------------------------------------------------
 
-std::shared_ptr< WASMEventDispatcher > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target );
+std::unique_ptr< WASMEventDispatcher > MakeWASMEventDispatcher( const EWASMEventDispatcherTarget Target );
 
 // -----------------------------------------------------------------------------
 

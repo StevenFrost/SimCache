@@ -101,9 +101,9 @@ void NativeEventDispatcher::UnregisterEventListener( EventHandle& Handle )
 
 // -----------------------------------------------------------------------------
 
-std::shared_ptr< NativeEventDispatcher > MakeNativeEventDispatcher()
+std::unique_ptr< NativeEventDispatcher > MakeNativeEventDispatcher()
 {
-	return std::make_shared< Internal::NativeEventDispatcher >();
+	return std::make_unique< Internal::NativeEventDispatcher >();
 }
 
 // -----------------------------------------------------------------------------
