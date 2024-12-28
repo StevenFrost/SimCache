@@ -81,20 +81,6 @@ double EarthCoordinate::DistanceTo( const EarthCoordinate& Other ) const
 
 // -----------------------------------------------------------------------------
 
-bool EarthCoordinate::Serialise( Utils::Serialisation::Writer& Writer ) const
-{
-	return Writer.WriteProperty( "Geocentric", Geocentric );
-}
-
-// -----------------------------------------------------------------------------
-
-bool EarthCoordinate::Deserialise( Utils::Serialisation::Reader& Reader )
-{
-	return Reader.ReadProperty( "Geocentric", Geocentric );
-}
-
-// -----------------------------------------------------------------------------
-
 } // namespace Utils
 
 // -----------------------------------------------------------------------------
