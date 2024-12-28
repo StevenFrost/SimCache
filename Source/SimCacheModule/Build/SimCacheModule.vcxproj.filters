@@ -71,7 +71,7 @@
     <ClInclude Include="..\Source\ViewModels\ViewModel.h">
       <Filter>Source\ViewModels</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Events\TrackerLoadedEvent.h">
+    <ClInclude Include="..\Source\Events\UITrackerLoadedEvent.h">
       <Filter>Source\Events</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Core\CacheDefinitionCollection.h">
@@ -80,10 +80,10 @@
     <ClInclude Include="..\Source\Subsystems\CacheTracker\CacheTracker.h">
       <Filter>Source\Subsystems\CacheTracker</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core\TrackerState.h">
+    <ClInclude Include="..\Source\Core\RangeAnnulus.h">
       <Filter>Source\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Events\TrackerStateUpdatedEvent.h">
+    <ClInclude Include="..\Source\Events\RangeAnnulusChangedEvent.h">
       <Filter>Source\Events</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Events\CacheAlertRangeEnteredEvent.h">
@@ -106,6 +106,15 @@
     </ClInclude>
     <ClInclude Include="..\Source\Subsystems\CacheDataStore\CacheDataStore.h">
       <Filter>Source\Subsystems\CacheDataStore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Events\UICacheFoundEvent.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Events\UIRangeAnnulusChangedEvent.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Events\UITrackerDataUpdateEvent.h">
+      <Filter>Source\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

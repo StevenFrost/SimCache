@@ -206,13 +206,19 @@ bool SimCacheModule::InitializeTrackerViewModel()
 		return false;
 	}
 
+	auto* CacheDataStorePtr = CacheDataStore.get();
+	if ( !CacheDataStorePtr )
+	{
+		return false;
+	}
+
 	auto* CacheTrackerPtr = CacheTracker.get();
 	if ( !CacheTrackerPtr )
 	{
 		return false;
 	}
 
-	TrackerVM = std::make_unique< TrackerViewModel >( *InternalEventDispatcherPtr , *UIEventDispatcherPtr, *CacheTrackerPtr );
+	TrackerVM = std::make_unique< TrackerViewModel >( *InternalEventDispatcherPtr , *UIEventDispatcherPtr, *CacheDataStorePtr, *CacheTrackerPtr );
 	if ( !TrackerVM )
 	{
 		return false;

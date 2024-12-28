@@ -3,8 +3,8 @@
 #include "Events/AircraftPositionUpdatedEvent.h"
 #include "Events/CacheAlertRangeEnteredEvent.h"
 #include "Events/CacheFoundEvent.h"
+#include "Events/RangeAnnulusChangedEvent.h"
 #include "Events/TrackedCacheChangedEvent.h"
-#include "Events/TrackerStateUpdatedEvent.h"
 #include "Subsystems/CacheTracker/CacheTracker.h"
 
 #include <Utils/Logging/Log.h>
@@ -24,7 +24,7 @@ CacheTracker::TrackedCacheState::TrackedCacheState( const CacheId& Id, const Cac
 	: Id( Id )
 	, TrackerSettings( TrackerSettings )
 	, GeocentricPosition( GeocentricPosition )
-	, State( TrackerState::OutOfRange )
+	, Annulus( RangeAnnulus::OutOfRange )
 	, InsideAlertRange( false )
 {
 }
@@ -36,7 +36,6 @@ CacheTracker::CacheTracker( Utils::NativeEventDispatcher& InternalEventDispatche
 	, InternalEventDispatcher( InternalEventDispatcher )
 	, OnAircraftPositionUpdatedEventHandle()
 	, CurrentTrackedCache( nullptr )
-	, ForceNextTrackerStateUpdatedEvent( false )
 {
 }
 
@@ -81,7 +80,7 @@ void CacheTracker::UnregisterAircraftPositionUpdatedListener()
 
 void CacheTracker::OnAircraftPositionUpdated( const AircraftPositionUpdatedEvent& Event )
 {
-	UpdateTrackerState( Event.CurrentPosition );
+	Update( Event.CurrentPosition );
 }
 
 // -----------------------------------------------------------------------------
@@ -89,6 +88,30 @@ void CacheTracker::OnAircraftPositionUpdated( const AircraftPositionUpdatedEvent
 void CacheTracker::ClearCurrentTrackedCache()
 {
 	CurrentTrackedCache = nullptr;
+}
+
+// -----------------------------------------------------------------------------
+
+RangeAnnulus CacheTracker::GetLastKnownAnnulus() const
+{
+	if ( !CurrentTrackedCache )
+	{
+		return RangeAnnulus::OutOfRange;
+	}
+
+	return CurrentTrackedCache->Annulus;
+}
+
+// -----------------------------------------------------------------------------
+
+const CacheDefinition* CacheTracker::GetCurrentTrackedCache() const
+{
+	if ( !CurrentTrackedCache )
+	{
+		return nullptr;
+	}
+
+	return CacheDataStore.GetCacheDefinitionById( CurrentTrackedCache->Id );
 }
 
 // -----------------------------------------------------------------------------
@@ -125,49 +148,73 @@ bool CacheTracker::SetCurrentTrackedCache( const CacheId& Id )
 
 // -----------------------------------------------------------------------------
 
-void CacheTracker::UpdateTrackerState( const Utils::EarthCoordinate& CurrentPosition )
+void CacheTracker::Update( const Utils::EarthCoordinate& CurrentPosition )
 {
 	if ( !CurrentTrackedCache )
 	{
 		return;
 	}
 
-	const auto Range = CurrentPosition.DistanceTo( CurrentTrackedCache->GeocentricPosition );
+	auto& CacheState = *CurrentTrackedCache;
+	const auto Range = CurrentPosition.DistanceTo( CacheState.GeocentricPosition );
 
-	const auto NewState = GetCurrentAnnulus( Range );
-	if ( ForceNextTrackerStateUpdatedEvent || NewState != CurrentTrackedCache->State )
-	{
-		ForceNextTrackerStateUpdatedEvent = false;
-
-		CurrentTrackedCache->State = NewState;
-
-		// fires the event every time the annulus (TrackerState enum) changes
-		InternalEventDispatcher.FireEvent( TrackerStateUpdatedEvent( CurrentTrackedCache->Id, NewState ) );
-	}
-
-	// TODO: handle range re-entry causing multiple alerts
-	const auto InsideAlertRange = Range < CurrentTrackedCache->TrackerSettings.AlertDistance;
-	if ( InsideAlertRange != CurrentTrackedCache->InsideAlertRange )
-	{
-		CurrentTrackedCache->InsideAlertRange = Range;
-		if ( InsideAlertRange )
-		{
-			// fires the event every time the user enters the alert range (but not when exiting)
-			InternalEventDispatcher.FireEvent( CacheAlertRangeEnteredEvent( CurrentTrackedCache->Id ) );
-		}
-	}
-
-	if ( Range < CurrentTrackedCache->TrackerSettings.AcquireDistance )
-	{
-		// one-shot event (since CurrentTrackedCache gets nulled out)
-		InternalEventDispatcher.FireEvent( CacheFoundEvent( CurrentTrackedCache->Id ) );
-		ClearCurrentTrackedCache();
-	}
+	UpdateAnnulus( CacheState, Range );
+	CheckAlertRange( CacheState, Range );
+	CheckAcquisitionRange( CacheState, Range );
 }
 
 // -----------------------------------------------------------------------------
 
-TrackerState CacheTracker::GetCurrentAnnulus( const double RangeMeters ) const
+bool CacheTracker::UpdateAnnulus( TrackedCacheState& CacheState, const double RangeMeters )
+{
+	const auto NewAnnulus = GetAnnulus( RangeMeters );
+	if ( NewAnnulus != CacheState.Annulus )
+	{
+		CacheState.Annulus = NewAnnulus;
+
+		// fires the event every time the annulus changes
+		InternalEventDispatcher.FireEvent( RangeAnnulusChangedEvent( CacheState.Id, NewAnnulus ) );
+		return true;
+	}
+	return false;
+}
+
+// -----------------------------------------------------------------------------
+
+bool CacheTracker::CheckAlertRange( TrackedCacheState& CacheState, const double RangeMeters )
+{
+	// TODO: handle range re-entry causing multiple alerts
+	const auto InsideAlertRange = RangeMeters < CacheState.TrackerSettings.AlertDistance;
+	if ( InsideAlertRange != CacheState.InsideAlertRange )
+	{
+		CacheState.InsideAlertRange = InsideAlertRange;
+		if ( InsideAlertRange )
+		{
+			// fires the event every time the user enters the alert range (but not when exiting)
+			InternalEventDispatcher.FireEvent( CacheAlertRangeEnteredEvent( CacheState.Id ) );
+			return true;
+		}
+	}
+	return false;
+}
+
+// -----------------------------------------------------------------------------
+
+bool CacheTracker::CheckAcquisitionRange( TrackedCacheState& CacheState, const double RangeMeters )
+{
+	if ( RangeMeters < CacheState.TrackerSettings.AcquireDistance )
+	{
+		// one-shot event (since CurrentTrackedCache gets nulled out)
+		InternalEventDispatcher.FireEvent( CacheFoundEvent( CacheState.Id ) );
+		ClearCurrentTrackedCache();
+		return true;
+	}
+	return false;
+}
+
+// -----------------------------------------------------------------------------
+
+RangeAnnulus CacheTracker::GetAnnulus( const double RangeMeters ) const
 {
 	if ( RangeMeters < 0.0 )
 	{
@@ -176,25 +223,25 @@ TrackerState CacheTracker::GetCurrentAnnulus( const double RangeMeters ) const
 
 	if ( RangeMeters < 3704.0 )
 	{
-		return TrackerState::Annulus1;
+		return RangeAnnulus::Annulus1;
 	}
 
 	if ( RangeMeters < 9260.0 )
 	{
-		return TrackerState::Annulus2;
+		return RangeAnnulus::Annulus2;
 	}
 
 	if ( RangeMeters < 18520.0 )
 	{
-		return TrackerState::Annulus3;
+		return RangeAnnulus::Annulus3;
 	}
 
 	if ( RangeMeters < 46300.0 )
 	{
-		return TrackerState::Annulus4;
+		return RangeAnnulus::Annulus4;
 	}
 
-	return TrackerState::OutOfRange;
+	return RangeAnnulus::OutOfRange;
 }
 
 // -----------------------------------------------------------------------------

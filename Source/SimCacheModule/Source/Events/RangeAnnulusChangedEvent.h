@@ -3,20 +3,21 @@
 #pragma once
 
 #include "Core/CacheDefinitionCollection.h"
-#include "Core/TrackerState.h"
+#include "Core/RangeAnnulus.h"
 
 #include <Utils/Event/Event.h>
 
 // -----------------------------------------------------------------------------
 
-class TrackerStateUpdatedEvent
+class RangeAnnulusChangedEvent
 	: public Utils::SerialisableEvent
 {
 public:
+	RangeAnnulusChangedEvent() = default;
 
-	TrackerStateUpdatedEvent( const CacheId& Id, const TrackerState& State )
+	RangeAnnulusChangedEvent( const CacheId& Id, const RangeAnnulus& Annulus )
 		: Id( Id )
-		, State( State )
+		, Annulus( Annulus )
 	{}
 
 public: // ISerialisable
@@ -26,7 +27,7 @@ public: // ISerialisable
 		bool Success = true;
 
 		Success &= Writer.WriteProperty( "id", Id );
-		Success &= Writer.WriteProperty( "state", State );
+		Success &= Writer.WriteProperty( "annulus", Annulus );
 
 		return Success;
 	}
@@ -36,7 +37,7 @@ public: // ISerialisable
 		bool Success = true;
 
 		Success &= Reader.ReadProperty( "id", Id );
-		Success &= Reader.ReadProperty( "state", State );
+		Success &= Reader.ReadProperty( "annulus", Annulus );
 
 		return Success;
 	}
@@ -44,15 +45,15 @@ public: // ISerialisable
 public:
 
 	CacheId Id;
-	TrackerState State;
+	RangeAnnulus Annulus;
 };
 
 // -----------------------------------------------------------------------------
 
 template<>
-struct Utils::EventTraits< TrackerStateUpdatedEvent >
+struct Utils::EventTraits< RangeAnnulusChangedEvent >
 {
-	static constexpr char* Id = "SimCache.TrackerStateUpdatedEvent";
+	static constexpr char* Id = "SimCache.RangeAnnulusChangedEvent";
 };
 
 // -----------------------------------------------------------------------------
