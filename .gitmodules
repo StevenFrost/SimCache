@@ -1,0 +1,4 @@
+[submodule "Third Party/Optional/Source"]
+	path = Third Party/Optional/Source
+	url = https://github.com/StevenFrost/optional
+	branch = stevenfrost-no-exceptions

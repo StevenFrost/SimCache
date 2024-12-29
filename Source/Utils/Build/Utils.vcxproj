@@ -31,6 +31,7 @@
     <ClInclude Include="..\Inc\Utils\Handle\Handle.h" />
     <ClInclude Include="..\Inc\Utils\Logging\Log.h" />
     <ClInclude Include="..\Inc\Utils\Math\Vector3.h" />
+    <ClInclude Include="..\Inc\Utils\Optional\Optional.h" />
     <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONReader.h" />
     <ClInclude Include="..\Inc\Utils\Serialisation\JSON\JSONWriter.h" />
     <ClInclude Include="..\Inc\Utils\Serialisation\Reader.h" />

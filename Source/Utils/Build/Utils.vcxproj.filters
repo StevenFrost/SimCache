@@ -61,6 +61,9 @@
     <ClInclude Include="..\Source\Event\NativeEventDispatcher.h">
       <Filter>Source\Event</Filter>
     </ClInclude>
+    <ClInclude Include="..\Inc\Utils\Optional\Optional.h">
+      <Filter>Include\Utils\Optional</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -125,6 +128,9 @@
     </Filter>
     <Filter Include="Source\Handle">
       <UniqueIdentifier>{6b22bdc0-1900-44cb-9a5c-c6d247c3b2b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Utils\Optional">
+      <UniqueIdentifier>{4bb511d3-f83e-4f05-bcbd-12a91e4a5002}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
