@@ -35,7 +35,7 @@ CacheTracker::CacheTracker( Utils::NativeEventDispatcher& InternalEventDispatche
 	: CacheDataStore( CacheDataStore )
 	, InternalEventDispatcher( InternalEventDispatcher )
 	, OnAircraftPositionUpdatedEventHandle()
-	, CurrentTrackedCache( nullptr )
+	, CurrentTrackedCache()
 {
 }
 
@@ -87,7 +87,7 @@ void CacheTracker::OnAircraftPositionUpdated( const AircraftPositionUpdatedEvent
 
 void CacheTracker::ClearCurrentTrackedCache()
 {
-	CurrentTrackedCache = nullptr;
+	CurrentTrackedCache = Utils::nullopt;
 }
 
 // -----------------------------------------------------------------------------
@@ -139,7 +139,7 @@ bool CacheTracker::SetCurrentTrackedCache( const CacheId& Id )
 		CurrentCacheDefinition->Position.Altitude
 	);
 
-	CurrentTrackedCache = std::make_unique< TrackedCacheState >( Id, CurrentCacheDefinition->Tracker, GeocentricPosition );
+	CurrentTrackedCache.emplace( Id, CurrentCacheDefinition->Tracker, GeocentricPosition );
 
 	InternalEventDispatcher.FireEvent( TrackedCacheChangedEvent( Id ) );
 

@@ -11,8 +11,7 @@
 
 #include <Utils/Event/NativeEventDispatcher.h>
 #include <Utils/Geodesy/EarthCoordinate.h>
-
-#include <memory>
+#include <Utils/Optional/Optional.h>
 
 // -----------------------------------------------------------------------------
 
@@ -70,7 +69,7 @@ private:
 
 	Utils::EventHandle OnAircraftPositionUpdatedEventHandle;
 
-	std::unique_ptr< TrackedCacheState > CurrentTrackedCache;
+	Utils::Optional< TrackedCacheState > CurrentTrackedCache;
 
 };
 
