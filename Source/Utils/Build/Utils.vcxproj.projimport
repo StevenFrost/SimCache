@@ -7,6 +7,10 @@
   <PropertyGroup Condition="'$(ProjectName)' != 'Utils'">
     <UtilsImported>true</UtilsImported>
   </PropertyGroup>
+
+  <ImportGroup Label="Dependencies">
+    <Import Project="$(ThirdPartyDirectory)Optional\Build\Optional.vcxproj.projimport" Condition="'$(OptionalImported)' != 'true'" />
+  </ImportGroup>
   
   <ItemDefinitionGroup>
     <ClCompile>
