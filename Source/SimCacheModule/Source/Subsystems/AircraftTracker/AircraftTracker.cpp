@@ -50,6 +50,13 @@ void AircraftTracker::Uninitialize()
 
 // -----------------------------------------------------------------------------
 
+const Utils::Optional< Utils::EarthCoordinate >& AircraftTracker::GetLastKnownPosition() const
+{
+	return LastKnownPosition;
+}
+
+// -----------------------------------------------------------------------------
+
 bool AircraftTracker::RegisterAircraftPositionUpdatedEvent()
 {
 	auto Callback = std::bind( &AircraftTracker::OnAircraftPositionUpdated, this, std::placeholders::_1 );

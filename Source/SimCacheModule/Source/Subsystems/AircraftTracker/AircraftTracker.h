@@ -25,6 +25,8 @@ public:
 	bool Initialize();
 	void Uninitialize();
 
+	const Utils::Optional< Utils::EarthCoordinate >& GetLastKnownPosition() const;
+
 private:
 
 	bool RegisterAircraftPositionUpdatedEvent();
