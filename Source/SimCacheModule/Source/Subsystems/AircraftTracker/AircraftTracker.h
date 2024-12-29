@@ -4,6 +4,7 @@
 
 #include <SimConnect/SimConnectClient.h>
 #include <Utils/Event/NativeEventDispatcher.h>
+#include <Utils/Optional/Optional.h>
 
 // -----------------------------------------------------------------------------
 
@@ -33,10 +34,12 @@ private:
 
 private:
 
-	Utils::NativeEventDispatcher&	InternalEventDispatcher;
-	SimConnect::ISimConnectClient&	SimConnectClient;
+	Utils::NativeEventDispatcher&				InternalEventDispatcher;
+	SimConnect::ISimConnectClient&				SimConnectClient;
 
-	SimConnect::Handle				UserAircraftPositionUpdatedHandle;
+	SimConnect::Handle							UserAircraftPositionUpdatedHandle;
+
+	Utils::Optional< Utils::EarthCoordinate >	LastKnownPosition;
 };
 
 // -----------------------------------------------------------------------------

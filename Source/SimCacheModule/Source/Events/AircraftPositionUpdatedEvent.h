@@ -4,6 +4,7 @@
 
 #include <Utils/Event/Event.h>
 #include <Utils/Geodesy/EarthCoordinate.h>
+#include <Utils/Optional/Optional.h>
 
 // -----------------------------------------------------------------------------
 
@@ -12,13 +13,15 @@ class AircraftPositionUpdatedEvent
 {
 public:
 
-	AircraftPositionUpdatedEvent( const Utils::EarthCoordinate& CurrentPosition )
-		: CurrentPosition( CurrentPosition )
+	AircraftPositionUpdatedEvent( const Utils::Optional< Utils::EarthCoordinate >& PreviousPosition, const Utils::EarthCoordinate& CurrentPosition )
+		: PreviousPosition( PreviousPosition )
+		, CurrentPosition( CurrentPosition )
 	{}
 
 public:
 
-	Utils::EarthCoordinate CurrentPosition;
+	Utils::Optional< Utils::EarthCoordinate >	PreviousPosition;
+	Utils::EarthCoordinate						CurrentPosition;
 };
 
 // -----------------------------------------------------------------------------

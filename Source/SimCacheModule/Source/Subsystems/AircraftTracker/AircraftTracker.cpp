@@ -24,6 +24,7 @@ AircraftTracker::AircraftTracker(
 	: InternalEventDispatcher( InternalEventDispatcher )
 	, SimConnectClient( SimConnectClient )
 	, UserAircraftPositionUpdatedHandle()
+	, LastKnownPosition()
 {
 }
 
@@ -77,7 +78,8 @@ void AircraftTracker::UnregisterAircraftPositionUpdatedEvent()
 
 void AircraftTracker::OnAircraftPositionUpdated( const Utils::EarthCoordinate CurrentPosition )
 {
-	InternalEventDispatcher.FireEvent( AircraftPositionUpdatedEvent( CurrentPosition ) );
+	InternalEventDispatcher.FireEvent( AircraftPositionUpdatedEvent( LastKnownPosition, CurrentPosition ) );
+	LastKnownPosition = CurrentPosition;
 }
 
 // -----------------------------------------------------------------------------
