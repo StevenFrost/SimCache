@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><style>
+.base-style { 
+    fill:#ffffff;
+    fill-rule:evenodd;
+}
+</style><g transform="matrix(1.0682 0 0 1.0682 -15.981 -16.076)"><path id="middle" class="base-style" d="m255 210-96.5 56.25v112.5l96.5 56.25 96.5-56.25v-112.5zm0 25.064 75 43.719v87.434l-75 43.719-75-43.719v-87.434z"/><path id="arrow-north" class="base-style" d="m335 234-80-45-80 45 80-183.85z"/><path id="arrow-southeast" class="base-style" d="m293.87 436.63 78.31-47.88-0.25272-91.787 121.46 159.53z"/><path id="arrow-southwest" class="base-style " d="m138.06 296.95-0.25272 91.787 78.31 47.88-199.52 19.861z"/></g></svg>
