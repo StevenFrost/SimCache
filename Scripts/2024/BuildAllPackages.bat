@@ -4,7 +4,17 @@ set PackageToolLocation=%MSFS2024_SDK%Tools\bin\fspackagetool.exe
 set StoreUserConfigLocation=%LOCALAPPDATA%\Packages\Microsoft.Limitless_8wekyb3d8bbwe\LocalCache\UserCfg.opt
 set SteamUserConfigLocation=%APPDATA%\Microsoft Flight Simulator 2024\UserCfg.opt
 
-cd ..\..\Packages\
+cd ..\..
+set RootDirectory=%cd%
+
+
+:: Build the EFB app
+cd %RootDirectory%\Packages\PackageSources\meridian-simcache\EFB\SimCache
+call npm run build
+
+
+:: Build the MSFS Package
+cd %RootDirectory%\Packages\
 
 if not exist "%PackageToolLocation%" (
 	echo "Unable to locate fspackagetool.exe"
