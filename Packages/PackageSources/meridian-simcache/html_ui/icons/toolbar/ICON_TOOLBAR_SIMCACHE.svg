@@ -1,11 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #fff;
-        fill-rule: evenodd;
-      }
-    </style>
-  </defs>
-  <path id="Color_Fill_1" data-name="Color Fill 1" class="cls-1" d="M243,75c128.588-1.688,237.222,116.411,181,250-26.476,62.911-76.944,99.92-155,112C145.411,456.127,39.095,311.713,86,192A185.107,185.107,0,0,1,192,86C207.349,80,226.29,81.58,243,75Zm0,25-41,9c-43.457,17.013-76.073,49.468-93,93C68.618,305.854,161.009,429.25,269,412c62.089-9.918,107.334-40.258,129-90C449.6,203.54,361.341,99.109,243,100Z"/>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><style>
+.base-style { 
+    fill:#ffffff;
+    fill-rule:evenodd;
+}
+</style><g transform="matrix(.80885 0 0 .80885 48.743 48.422)"><path class="base-style" d="m255 210-96.5 56.25v112.5l96.5 56.25 96.5-56.25v-112.5zm0 25.064 75 43.719v87.434l-75 43.719-75-43.719v-87.434z"/><path class="base-style" d="m335 234-80-45-80 45 80-183.85z"/><path class="base-style" d="m293.87 436.63 78.31-47.88-0.25272-91.787 121.46 159.53z"/><path class="base-style" d="m138.06 296.95-0.25272 91.787 78.31 47.88-199.52 19.861z"/></g></svg>
