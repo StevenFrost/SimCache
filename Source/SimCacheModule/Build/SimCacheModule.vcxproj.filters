@@ -31,6 +31,9 @@
     <Filter Include="Source\Subsystems\CacheDataStore">
       <UniqueIdentifier>{585a5da4-1a1c-43e1-a791-9940179fe480}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Subsystems\Progression">
+      <UniqueIdentifier>{7382e262-3ba5-4e4d-9dc5-fd1e99427076}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Module.cpp">
@@ -59,6 +62,12 @@
     </ClCompile>
     <ClCompile Include="..\Source\Subsystems\CacheDataStore\CacheDataStore.cpp">
       <Filter>Source\Subsystems\CacheDataStore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Subsystems\Progression\Progression.cpp">
+      <Filter>Source\Subsystems\Progression</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\ProgressionData.cpp">
+      <Filter>Source\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="..\Source\Events\UITrackerDataUpdateEvent.h">
       <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Subsystems\Progression\Progression.h">
+      <Filter>Source\Subsystems\Progression</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\ProgressionData.h">
+      <Filter>Source\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -87,6 +87,11 @@ bool SimCacheModule::InitializeSubSystems()
 		return false;
 	}
 
+	if ( !InitializeProgression() )
+	{
+		return false;
+	}
+
 	if ( !InitializeCacheTracker() )
 	{
 		return false;
@@ -100,6 +105,7 @@ bool SimCacheModule::InitializeSubSystems()
 void SimCacheModule::UninitializeSubSystems()
 {
 	UninitializeCacheTracker();
+	UninitializeProgression();
 	UninitializeCacheObjectManager();
 	UninitializeCacheDataStore();
 	UninitializeAircraftTracker();
@@ -391,6 +397,39 @@ void SimCacheModule::UninitializeCacheObjectManager()
 
 	CacheObjectManager->Uninitialize();
 	CacheObjectManager = nullptr;
+}
+
+// -----------------------------------------------------------------------------
+
+bool SimCacheModule::InitializeProgression()
+{
+	auto* InternalEventDispatcherPtr = InternalEventDispatcher.get();
+	if ( !InternalEventDispatcherPtr )
+	{
+		LOG( SimCacheModule, Error, "Failed to initialize Progression system - invalid internal event dispatcher." );
+		return false;
+	}
+
+	Progression = std::make_unique< Subsystems::Progression >( *InternalEventDispatcherPtr );
+	if ( !Progression )
+	{
+		return false;
+	}
+
+	return Progression->Initialize();
+}
+
+// -----------------------------------------------------------------------------
+
+void SimCacheModule::UninitializeProgression()
+{
+	if ( !Progression )
+	{
+		return;
+	}
+
+	Progression->Uninitialize();
+	Progression = nullptr;
 }
 
 // -----------------------------------------------------------------------------
