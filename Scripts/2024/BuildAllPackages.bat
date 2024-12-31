@@ -9,7 +9,7 @@ set RootDirectory=%cd%
 
 
 :: Build the EFB app
-cd %RootDirectory%\Packages\PackageSources\meridian-simcache\EFB\SimCache
+cd %RootDirectory%\Packages\PackageSources\meridian-simcache\EFB\SimCache\
 call npm run build
 
 
