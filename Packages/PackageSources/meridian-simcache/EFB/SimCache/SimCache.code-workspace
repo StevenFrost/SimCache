@@ -1,0 +1,55 @@
+{
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "usernamehw.errorlens",
+      "PKief.material-icon-theme",
+      "Gruntfuggly.todo-tree"
+    ]
+  },
+  "folders": [
+    {
+      "name": "SimCache EFB App",
+      "path": "."
+    },
+    {
+      "name": "EFB API",
+      "path": "../efb_api"
+    }
+  ],
+  "settings": {
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "package-lock.json": true,
+      ".npmrc": true,
+      ".prettierrc": false,
+      ".eslintrc": false,
+      ".eslintignore": false,
+      "**/.vscode/**": true
+    },
+    "files.exclude": {
+      "**/node_modules/": false,
+      "**/dist": false,
+      "package-lock.json": true,
+      ".npmrc": true,
+      ".prettierrc": true,
+      ".eslintrc": true,
+      ".eslintignore": true
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.addMissingImports": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "files.autoSave": "onFocusChange",
+    "files.defaultLanguage": "tsx",
+    "editor.semanticTokenColorCustomizations": {
+      "rules": {
+        "interface": "#e58e26"
+      }
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

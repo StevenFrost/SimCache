@@ -59,5 +59,13 @@
 			<AssetDir>PackageSources\meridian-simcache\SimObjects\Misc\SimCache\</AssetDir>
 			<OutputDir>SimObjects\Misc\SimCache\</OutputDir>
 		</AssetGroup>
+		<AssetGroup Name="EFBApps">
+			<Type Version="0">Copy</Type>
+			<Flags>
+				<FSXCompatibility>false</FSXCompatibility>
+			</Flags>
+			<AssetDir>PackageSources\meridian-simcache\EFB\SimCache\dist\</AssetDir>
+			<OutputDir>.\html_ui\efb_ui\efb_apps\SimCache\</OutputDir>
+		</AssetGroup>
 	</AssetGroups>
 </AssetPackage>

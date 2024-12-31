@@ -10,3 +10,8 @@ Built/
 
 # WASM output
 *.wasm
+
+# Node.js & NPM
+node_modules/
+dist/
+package-lock.json
