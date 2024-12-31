@@ -1,11 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #fff;
-        fill-rule: evenodd;
-      }
-    </style>
-  </defs>
-  <path id="Color_Fill_1" data-name="Color Fill 1" class="cls-1" d="M243,75c128.588-1.688,237.222,116.411,181,250-26.476,62.911-76.944,99.92-155,112C145.411,456.127,39.095,311.713,86,192A185.107,185.107,0,0,1,192,86C207.349,80,226.29,81.58,243,75Zm0,25-41,9c-43.457,17.013-76.073,49.468-93,93C68.618,305.854,161.009,429.25,269,412c62.089-9.918,107.334-40.258,129-90C449.6,203.54,361.341,99.109,243,100Z"/>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><style>.base-style { fill:#ffffff;    fill-rule:evenodd; }
+</style><path id="inner" class="base-style" transform="matrix(.878 0 0 .878 32.013 32.052)" d="m255 166.17a88.835 88.835 0 0 0-88.835 88.835 88.835 88.835 0 0 0 88.835 88.835 88.835 88.835 0 0 0 88.835-88.835 88.835 88.835 0 0 0-88.835-88.835zm-5.7716 20.004h11.463l14.299 48.768 48.799 14.239v11.463l-48.777 14.304-14.23 48.795h-11.463l-14.31-48.777-48.788-14.23v-11.463l48.768-14.306z" style="stroke-width:1.1504"/><path id="outer-west" class="base-style " transform="matrix(.62084 .62084 -.62084 .62084 255.9 -60.686)" d="m255.16 379.84a125 125 45 0 1-125-125v125z" style="stroke-width:1.5296"/><path id="outer-south" class="base-style " transform="matrix(.62084 .62084 -.62084 .62084 255.9 -60.686)" d="m379.77 254.77a125 125 0 0 1-125 125h125z" style="stroke-width:1.5296"/><path id="outer-east" class="base-style " transform="matrix(.62084 .62084 -.62084 .62084 255.9 -60.686)" d="m254.87 130.13a125 125 0 0 1 125 125v-125z" style="stroke-width:1.5296"/><path id="outer-north" class="base-style " transform="matrix(.62084 .62084 -.62084 .62084 255.9 -60.686)" d="m130.16 130.16v125a125 125 66.821 0 1 125-125z" style="stroke-width:1.5296"/><path id="outer-northwest" class="base-style " transform="matrix(.878 0 0 .878 32.013 32.052)" d="m140 206.55a125 125 0 0 1 66.549-66.549h-66.549z" style="stroke-width:1.0673"/><path id="outer-southwest" class="base-style " transform="matrix(.878 0 0 .878 32.013 32.052)" d="m206.55 370a125 125 0 0 1-66.549-66.549v66.549z" style="stroke-width:1.0673"/><path id="outer-southeast" class="base-style " transform="matrix(.878 0 0 .878 32.013 32.052)" d="m370 303.45a125 125 0 0 1-66.549 66.549h66.549z" style="stroke-width:1.0673"/><path id="outer-northeast" class="base-style " transform="matrix(.878 0 0 .878 32.013 32.052)" d="m303.93 140a125 125 0 0 1 66.07 66.07v-66.07z" style="stroke-width:1.0673"/></svg>
