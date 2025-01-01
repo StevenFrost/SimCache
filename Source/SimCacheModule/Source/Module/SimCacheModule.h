@@ -6,6 +6,7 @@
 #include "Subsystems/CacheDataStore/CacheDataStore.h"
 #include "Subsystems/CacheTracker/CacheTracker.h"
 #include "Subsystems/CacheObjectManager/CacheObjectManager.h"
+#include "Subsystems/Progression/Progression.h"
 #include "ViewModels/TrackerViewModel.h"
 
 #include <SimConnect/SimConnectClient.h>
@@ -55,6 +56,9 @@ private:
 	bool InitializeCacheObjectManager();
 	void UninitializeCacheObjectManager();
 
+	bool InitializeProgression();
+	void UninitializeProgression();
+
 private:
 
 	std::shared_ptr< SimConnect::ISimConnectClient >	SimConnectClient;
@@ -66,6 +70,7 @@ private:
 	std::unique_ptr< Subsystems::CacheDataStore >		CacheDataStore;
 	std::unique_ptr< Subsystems::CacheTracker >			CacheTracker;
 	std::unique_ptr< Subsystems::CacheObjectManager >	CacheObjectManager;
+	std::unique_ptr< Subsystems::Progression >			Progression;
 
 	std::unique_ptr< TrackerViewModel >					TrackerVM;
 
