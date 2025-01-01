@@ -4,14 +4,6 @@
 
 // -----------------------------------------------------------------------------
 
-AcquiredCacheMetadata::AcquiredCacheMetadata()
-	: Id()
-	, TimeAcquired()
-{
-}
-
-// -----------------------------------------------------------------------------
-
 AcquiredCacheMetadata::AcquiredCacheMetadata( const CacheId& Id, const Utils::DateTime& TimeAcquired )
 	: Id( Id )
 	, TimeAcquired( TimeAcquired )
@@ -43,14 +35,6 @@ bool AcquiredCacheMetadata::Deserialise( Utils::Serialisation::Reader& Reader )
 	TimeAcquired = Utils::DateTime::FromISO8601UTC( TimeAcquiredString );
 
 	return Success;
-}
-
-// -----------------------------------------------------------------------------
-
-ProgressionData::ProgressionData()
-	: AcquiredCaches()
-	, CacheIdToMetadataLookup()
-{
 }
 
 // -----------------------------------------------------------------------------

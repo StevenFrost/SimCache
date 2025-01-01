@@ -406,7 +406,7 @@ bool SimCacheModule::InitializeProgression()
 	auto* InternalEventDispatcherPtr = InternalEventDispatcher.get();
 	if ( !InternalEventDispatcherPtr )
 	{
-		LOG( SimCacheModule, Error, "Failed to initialize Progression system - invalid internal event dispatcher." );
+		LOG( SimCacheModule, Error, "Failed to initialize Progression subsystem - invalid internal event dispatcher." );
 		return false;
 	}
 

@@ -27,7 +27,8 @@ public:
 	bool Initialize();
 	void Uninitialize();
 
-	const Utils::DateTime* GetCacheAcquisitionTime( const CacheId& Id ) const;
+	bool HasAcquiredCache( const CacheId& Id ) const;
+	Utils::Optional< Utils::DateTime > GetCacheAcquisitionTime( const CacheId& Id ) const;
 
 private:
 

@@ -47,14 +47,21 @@ void Progression::Uninitialize()
 
 // -----------------------------------------------------------------------------
 
-const Utils::DateTime* Progression::GetCacheAcquisitionTime( const CacheId& Id ) const
+bool Progression::HasAcquiredCache( const CacheId& Id ) const
+{
+	return ProgressionData.GetAcquiredCacheMetadata( Id ) != nullptr;
+}
+
+// -----------------------------------------------------------------------------
+
+Utils::Optional< Utils::DateTime > Progression::GetCacheAcquisitionTime( const CacheId& Id ) const
 {
 	const auto* CacheMetadata = ProgressionData.GetAcquiredCacheMetadata( Id );
 	if ( CacheMetadata )
 	{
-		return &CacheMetadata->TimeAcquired;
+		return CacheMetadata->TimeAcquired;
 	}
-	return nullptr;
+	return Utils::nullopt;
 }
 
 // -----------------------------------------------------------------------------

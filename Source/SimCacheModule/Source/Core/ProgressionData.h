@@ -16,7 +16,7 @@ struct AcquiredCacheMetadata
 {
 public:
 
-	AcquiredCacheMetadata();
+	AcquiredCacheMetadata() = default;
 	AcquiredCacheMetadata( const CacheId& Id, const Utils::DateTime& TimeAcquired );
 
 public: // ISerialisable
@@ -35,10 +35,6 @@ public:
 struct ProgressionData
 	: public Utils::Serialisation::ISerialisable
 {
-public:
-
-	ProgressionData();
-
 public:
 
 	bool AddAcquiredCacheMetadata( const AcquiredCacheMetadata& CacheMetadata );
