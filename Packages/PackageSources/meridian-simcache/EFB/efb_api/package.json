@@ -1,6 +1,6 @@
 {
 	"name": "@efb/efb-api",
-	"version": "1.0.0",
+	"version": "1.0.3",
 	"author": "AsoboStudio",
 	"license": "MIT",
 	"type": "module",
@@ -18,6 +18,6 @@
 		}
 	},
 	"dependencies": {
-		"@microsoft/msfs-sdk": "^2.0.5"
+		"@microsoft/msfs-sdk": "^2.1.1"
 	}
 }
