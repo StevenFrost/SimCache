@@ -80,13 +80,6 @@ bool SimConnectClient::IsConnected() const
 
 // -----------------------------------------------------------------------------
 
-std::function< void() >& SimConnectClient::GetOnConnectionOpenFunc()
-{
-	return OnConnectionOpenFunc;
-}
-
-// -----------------------------------------------------------------------------
-
 SimConnect::Handle SimConnectClient::RegisterUserAircraftPositionListener( UserAircraftPositionUpdateFunc&& OnUserAircraftPositionUpdated )
 {
 	if ( !OnUserAircraftPositionUpdated )
@@ -307,8 +300,6 @@ void SimConnectClient::OnConnectionOpen( const SIMCONNECT_RECV_OPEN& Data )
 		Data.dwSimConnectBuildMajor,
 		Data.dwSimConnectBuildMinor
 	);
-
-	OnConnectionOpenFunc();
 }
 
 // -----------------------------------------------------------------------------

@@ -20,6 +20,8 @@ public:
 	bool Initialize();
 	void Uninitialize();
 
+	const std::string& GetVersion() const;
+	const std::vector< CacheAuthor >& GetAuthors() const;
 	const std::vector< CacheDefinition >& GetCacheDefinitions() const;
 	const CacheDefinition* GetCacheDefinitionById( const CacheId Id ) const;
 

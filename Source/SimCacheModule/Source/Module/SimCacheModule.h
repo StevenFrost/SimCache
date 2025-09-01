@@ -7,6 +7,7 @@
 #include "Subsystems/CacheTracker/CacheTracker.h"
 #include "Subsystems/CacheObjectManager/CacheObjectManager.h"
 #include "Subsystems/Progression/Progression.h"
+#include "ViewModels/FrontEndViewModel.h"
 #include "ViewModels/TrackerViewModel.h"
 
 #include <SimConnect/SimConnectClient.h>
@@ -44,6 +45,9 @@ private:
 	bool InitializeTrackerViewModel();
 	void UninitializeTrackerViewModel();
 
+	bool InitializeFrontEndViewModel();
+	void UninitializeFrontEndViewModel();
+
 	bool InitializeAircraftTracker();
 	void UninitializeAircraftTracker();
 
@@ -73,6 +77,7 @@ private:
 	std::unique_ptr< Subsystems::Progression >			Progression;
 
 	std::unique_ptr< TrackerViewModel >					TrackerVM;
+	std::unique_ptr< FrontEndViewModel >				FrontEndVM;
 
 };
 

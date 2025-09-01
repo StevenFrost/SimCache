@@ -22,6 +22,7 @@ SimCacheModule::SimCacheModule()
 	, CacheDataStore( nullptr )
 	, CacheObjectManager( nullptr )
 	, TrackerVM( nullptr )
+	, FrontEndVM( nullptr )
 {
 }
 
@@ -120,6 +121,11 @@ bool SimCacheModule::InitializeViewModels()
 		return false;
 	}
 
+	if ( !InitializeFrontEndViewModel() )
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -127,6 +133,7 @@ bool SimCacheModule::InitializeViewModels()
 
 void SimCacheModule::UninitializeViewModels()
 {
+	UninitializeFrontEndViewModel();
 	UninitializeTrackerViewModel();
 }
 
@@ -139,12 +146,6 @@ bool SimCacheModule::InitializeSimConnectClient()
 	{
 		return false;
 	}
-
-	SimConnectClient->GetOnConnectionOpenFunc() = [ & ]()
-	{
-		// TODO: remove placeholder after we have the UI for setting current tracked cache
-		CacheTracker->SetCurrentTrackedCache( CacheDataStore->GetCacheDefinitions()[ 0 ].Metadata.Id );
-	};
 
 	return SimConnectClient->Initialize();
 }
@@ -244,6 +245,56 @@ void SimCacheModule::UninitializeTrackerViewModel()
 
 	TrackerVM->Uninitialize();
 	TrackerVM = nullptr;
+}
+
+// -----------------------------------------------------------------------------
+
+bool SimCacheModule::InitializeFrontEndViewModel()
+{
+	auto* InternalEventDispatcherPtr = InternalEventDispatcher.get();
+	if ( !InternalEventDispatcherPtr )
+	{
+		return false;
+	}
+
+	auto* UIEventDispatcherPtr = UIEventDispatcher.get();
+	if ( !UIEventDispatcherPtr )
+	{
+		return false;
+	}
+
+	auto* CacheDataStorePtr = CacheDataStore.get();
+	if ( !CacheDataStorePtr )
+	{
+		return false;
+	}
+
+	auto* CacheTrackerPtr = CacheTracker.get();
+	if ( !CacheTrackerPtr )
+	{
+		return false;
+	}
+
+	FrontEndVM = std::make_unique< FrontEndViewModel >( *InternalEventDispatcherPtr, *UIEventDispatcherPtr, *CacheDataStorePtr, *CacheTrackerPtr );
+	if ( !FrontEndVM )
+	{
+		return false;
+	}
+
+	return FrontEndVM->Initialize();
+}
+
+// -----------------------------------------------------------------------------
+
+void SimCacheModule::UninitializeFrontEndViewModel()
+{
+	if ( !FrontEndVM )
+	{
+		return;
+	}
+
+	FrontEndVM->Uninitialize();
+	FrontEndVM = nullptr;
 }
 
 // -----------------------------------------------------------------------------

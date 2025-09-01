@@ -33,6 +33,7 @@
   <ItemGroup>
     <ClCompile Include="..\Source\Core\CacheDefinitionCollection.cpp" />
     <ClCompile Include="..\Source\Core\ProgressionData.cpp" />
+    <ClCompile Include="..\Source\Core\UICacheDefinitionCollection.cpp" />
     <ClCompile Include="..\Source\Module.cpp" />
     <ClCompile Include="..\Source\Module\SimCacheModule.cpp" />
     <ClCompile Include="..\Source\Subsystems\AircraftTracker\AircraftTracker.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="..\Source\Subsystems\CacheTracker\CacheTracker.cpp" />
     <ClCompile Include="..\Source\Subsystems\CacheObjectManager\CacheObjectManager.cpp" />
     <ClCompile Include="..\Source\Subsystems\Progression\Progression.cpp" />
+    <ClCompile Include="..\Source\ViewModels\FrontEndViewModel.cpp" />
     <ClCompile Include="..\Source\ViewModels\TrackerViewModel.cpp" />
     <ClCompile Include="..\Source\ViewModels\ViewModel.cpp" />
   </ItemGroup>
@@ -47,13 +49,18 @@
     <ClInclude Include="..\Source\Core\CacheDefinitionCollection.h" />
     <ClInclude Include="..\Source\Core\ProgressionData.h" />
     <ClInclude Include="..\Source\Core\RangeAnnulus.h" />
+    <ClInclude Include="..\Source\Core\UICacheDefinitionCollection.h" />
     <ClInclude Include="..\Source\Events\CacheAlertRangeEnteredEvent.h" />
     <ClInclude Include="..\Source\Events\RangeAnnulusChangedEvent.h" />
     <ClInclude Include="..\Source\Events\AircraftPositionUpdatedEvent.h" />
     <ClInclude Include="..\Source\Events\CacheFoundEvent.h" />
     <ClInclude Include="..\Source\Events\TrackedCacheChangedEvent.h" />
     <ClInclude Include="..\Source\Events\UICacheFoundEvent.h" />
+    <ClInclude Include="..\Source\Events\UICacheListChangedEvent.h" />
+    <ClInclude Include="..\Source\Events\UICacheSelectedEvent.h" />
+    <ClInclude Include="..\Source\Events\UIRequestAvailableCachesEvent.h" />
     <ClInclude Include="..\Source\Events\UIRangeAnnulusChangedEvent.h" />
+    <ClInclude Include="..\Source\Events\UITrackedCacheChangedEvent.h" />
     <ClInclude Include="..\Source\Events\UITrackerDataUpdateEvent.h" />
     <ClInclude Include="..\Source\Events\UITrackerLoadedEvent.h" />
     <ClInclude Include="..\Source\Module\SimCacheModule.h" />
@@ -62,6 +69,7 @@
     <ClInclude Include="..\Source\Subsystems\CacheTracker\CacheTracker.h" />
     <ClInclude Include="..\Source\Subsystems\CacheObjectManager\CacheObjectManager.h" />
     <ClInclude Include="..\Source\Subsystems\Progression\Progression.h" />
+    <ClInclude Include="..\Source\ViewModels\FrontEndViewModel.h" />
     <ClInclude Include="..\Source\ViewModels\TrackerViewModel.h" />
     <ClInclude Include="..\Source\ViewModels\ViewModel.h" />
   </ItemGroup>
