@@ -8,6 +8,7 @@
 #include "Events/UICacheSelectedEvent.h"
 #include "Events/UIRequestAvailableCachesEvent.h"
 #include "Subsystems/CacheTracker/CacheTracker.h"
+#include "Subsystems/Progression/Progression.h"
 #include "ViewModels/ViewModel.h"
 
 #include <Utils/Event/EventHandle.h>
@@ -19,7 +20,7 @@ class FrontEndViewModel
 {
 public:
 
-	FrontEndViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::WASMEventDispatcher& UIEventDispatcher, const Subsystems::CacheDataStore& CacheDataStore, Subsystems::CacheTracker& CacheTracker );
+	FrontEndViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::WASMEventDispatcher& UIEventDispatcher, const Subsystems::CacheDataStore& CacheDataStore, const Subsystems::Progression& Progression, Subsystems::CacheTracker& CacheTracker );
 	virtual ~FrontEndViewModel();
 
 	virtual bool Initialize() override final;
@@ -42,6 +43,7 @@ private:
 private:
 
 	const Subsystems::CacheDataStore& CacheDataStore;
+	const Subsystems::Progression& Progression;
 	Subsystems::CacheTracker& CacheTracker;
 
 	Utils::EventHandle OnUIRequestAvailableCachesEventHandle;

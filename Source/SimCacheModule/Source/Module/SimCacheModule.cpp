@@ -269,13 +269,19 @@ bool SimCacheModule::InitializeFrontEndViewModel()
 		return false;
 	}
 
+	auto* ProgressionPtr = Progression.get();
+	if ( !ProgressionPtr )
+	{
+		return false;
+	}
+
 	auto* CacheTrackerPtr = CacheTracker.get();
 	if ( !CacheTrackerPtr )
 	{
 		return false;
 	}
 
-	FrontEndVM = std::make_unique< FrontEndViewModel >( *InternalEventDispatcherPtr, *UIEventDispatcherPtr, *CacheDataStorePtr, *CacheTrackerPtr );
+	FrontEndVM = std::make_unique< FrontEndViewModel >( *InternalEventDispatcherPtr, *UIEventDispatcherPtr, *CacheDataStorePtr, *ProgressionPtr, *CacheTrackerPtr );
 	if ( !FrontEndVM )
 	{
 		return false;

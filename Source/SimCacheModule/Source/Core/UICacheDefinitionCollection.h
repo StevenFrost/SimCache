@@ -4,12 +4,15 @@
 
 #include "Core/CacheDefinitionCollection.h"
 
+#include <Utils/Optional/Optional.h>
+
 // -----------------------------------------------------------------------------
 
 struct UICacheMetadata
 	: public Utils::Serialisation::ISerialisable
 {
 	UICacheMetadata();
+	UICacheMetadata( const CacheMetadata& Metadata, Utils::Optional< Utils::DateTime > DateCollected );
 
 public: // ISerialisable
 
@@ -18,12 +21,12 @@ public: // ISerialisable
 
 public:
 
-	CacheId							Id;
-	std::vector< CacheAuthorId >	Authors;
-	Utils::DateTime					DatePlaced;
-	Utils::DateTime					DateCollected;
+	CacheId									Id;
+	std::vector< CacheAuthorId >			Authors;
+	Utils::DateTime							DatePlaced;
+	Utils::Optional < Utils::DateTime >		DateCollected;
 
-	uint8_t							Difficulty;
+	uint8_t									Difficulty;
 };
 
 // -----------------------------------------------------------------------------
@@ -40,7 +43,7 @@ public: // ISerialisable
 
 public:
 
-	CacheMetadata				Metadata;
+	UICacheMetadata				Metadata;
 	CacheLocText				LocText;
 };
 

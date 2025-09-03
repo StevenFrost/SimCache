@@ -13,9 +13,10 @@
 
 // -----------------------------------------------------------------------------
 
-FrontEndViewModel::FrontEndViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::WASMEventDispatcher& UIEventDispatcher, const Subsystems::CacheDataStore& CacheDataStore, Subsystems::CacheTracker& CacheTracker )
+FrontEndViewModel::FrontEndViewModel( Utils::NativeEventDispatcher& InternalEventDispatcher, Utils::WASMEventDispatcher& UIEventDispatcher, const Subsystems::CacheDataStore& CacheDataStore, const Subsystems::Progression& Progression, Subsystems::CacheTracker& CacheTracker )
 	: ViewModel( InternalEventDispatcher, UIEventDispatcher )
 	, CacheDataStore( CacheDataStore )
+	, Progression( Progression )
 	, CacheTracker( CacheTracker )
 	, OnUIRequestAvailableCachesEventHandle()
 	, OnUICacheSelectedEventHandle()
@@ -153,10 +154,10 @@ UICacheDefinitionCollection FrontEndViewModel::BuildUICacheDefinitions() const
 		CacheDataStore.GetCacheDefinitions().cbegin(),
 		CacheDataStore.GetCacheDefinitions().cend(),
 		std::back_inserter( Caches.CacheDefinitions ),
-		[]( const CacheDefinition& Cache ) {
+		[ & ]( const CacheDefinition& Cache ) {
 			auto UICache = UICacheDefinition();
 			UICache.LocText = Cache.LocText[ 0 ]; // TODO: use localization subsystem
-			UICache.Metadata = Cache.Metadata;
+			UICache.Metadata = UICacheMetadata( Cache.Metadata, Progression.GetCacheAcquisitionTime( Cache.Metadata.Id ) );
 			return UICache;
 		}
 	);

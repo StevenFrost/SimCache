@@ -15,6 +15,17 @@ UICacheMetadata::UICacheMetadata()
 
 // -----------------------------------------------------------------------------
 
+UICacheMetadata::UICacheMetadata( const CacheMetadata& Metadata, Utils::Optional<Utils::DateTime> DateCollected )
+	: Id( Metadata.Id )
+	, Authors( Metadata.Authors )
+	, DatePlaced( Metadata.DatePlaced )
+	, DateCollected( DateCollected )
+	, Difficulty( Metadata.Difficulty )
+{
+}
+
+// -----------------------------------------------------------------------------
+
 bool UICacheMetadata::Serialise( Utils::Serialisation::Writer& Writer ) const
 {
 	bool Success = true;
@@ -22,7 +33,15 @@ bool UICacheMetadata::Serialise( Utils::Serialisation::Writer& Writer ) const
 	Success &= Writer.WriteProperty( "id", Id );
 	Success &= Writer.WriteProperty( "authors", Authors );
 	Success &= Writer.WriteProperty( "date_placed", DatePlaced.ToISO8601UTC() );
-	Success &= Writer.WriteProperty( "date_collected", DatePlaced.ToISO8601UTC() );
+	// TODO: make writer handle Utils::Optional< T > correctly
+	if ( DateCollected.has_value() )
+	{
+		Success &= Writer.WriteProperty( "date_collected", DateCollected->ToISO8601UTC() );
+	}
+	else
+	{
+		Success &= Writer.WriteProperty( "date_collected", false );
+	}
 	Success &= Writer.WriteProperty( "difficulty", Difficulty );
 
 	return Success;
@@ -43,7 +62,7 @@ bool UICacheMetadata::Deserialise( Utils::Serialisation::Reader& Reader )
 
 	std::string DateCollectedString;
 	Success &= Reader.ReadProperty( "date_collected", DateCollectedString );
-	DatePlaced = Utils::DateTime::FromISO8601UTC( DateCollectedString );
+	DateCollected = Utils::DateTime::FromISO8601UTC( DateCollectedString );
 
 	Success &= Reader.ReadProperty( "difficulty", Difficulty );
 
