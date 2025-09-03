@@ -1,0 +1,16 @@
+.card-list-item {
+    flex: 1 1 calc(60px * var(--panel-height) / var(--base-height, 716));
+    position: relative;
+    width: 100%;
+    background: linear-gradient(125deg, #1e2836 35%, #185784);
+    border: 1px rgba(255, 255, 255, .1) solid;
+    border-left: 1px #2d3542 solid;
+    border-radius: 2px 0 0 2px;
+    margin-bottom: calc(5px * var(--panel-height) / var(--base-height, 716));
+}
+
+@media (max-height: 716px) {
+    .card-list-item {
+        margin-bottom: 5px
+    }
+}
