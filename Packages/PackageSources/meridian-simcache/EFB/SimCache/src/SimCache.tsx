@@ -38,15 +38,12 @@ class SimCacheView extends AppView<RequiredProps<AppViewProps, "bus">> {
   }
 
   public onOpen(): void {
-    // TODO: find out if this is redundant if I have onResume (check commbus debug)
     this.dataContext.requestAvailableCaches();
   }
 
   public onClose(): void {}
 
-  public onResume(): void {
-    this.dataContext.requestAvailableCaches();
-  }
+  public onResume(): void {}
 
   public onPause(): void {}
 

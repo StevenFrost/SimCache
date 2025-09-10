@@ -1,5 +1,5 @@
-import { TTButton, GamepadUiView, RequiredProps, TVNode, UiViewProps } from "@efb/efb-api";
-import { FSComponent, Subscribable, VNode, SubscribableArrayEventType } from "@microsoft/msfs-sdk";
+import { GamepadUiView, RequiredProps, TVNode, UiViewProps } from "@efb/efb-api";
+import { FSComponent, Subscribable, VNode, SubscribableMapEventType } from "@microsoft/msfs-sdk";
 import { SimCacheDataManager, CacheData } from "../utils/SimCacheDataManager";
 import { CacheListItem } from "./CacheListItem";
 import "../Common.scss";
@@ -14,32 +14,20 @@ export class ListPage extends GamepadUiView<HTMLDivElement, ListPageProps> {
   private readonly listRef = FSComponent.createRef<HTMLUListElement>();
 
   addItem(item: CacheData): void {
-    const newListItem = document.createElement("li");
-    this.listRef.instance.insertAdjacentElement("beforeend", newListItem);
-    FSComponent.render(<CacheListItem appViewService={this.props.appViewService} itemContext={item} dataContext={this.props.dataContext} />, newListItem);
-  }
-
-  addItems(items: readonly CacheData[] | undefined): void {
-    if (!items) {
-      return;
-    }
-    for (const item of items) {
-      this.addItem(item);
-    }
+    FSComponent.render(<CacheListItem appViewService={this.props.appViewService} itemContext={item} dataContext={this.props.dataContext} />, this.listRef.instance);
   }
 
   onAfterRender(node: VNode): void {
     super.onAfterRender(node);
-    this.props.dataContext.caches.sub((index: number, type: SubscribableArrayEventType, item: CacheData | readonly CacheData[] | undefined, array: readonly CacheData[]) => {
-      // TODO: handle SubscribableArrayEventType.Removed (also see if updates are different than adding?)
+    this.props.dataContext.caches.sub((map: ReadonlyMap<string, CacheData>, type: SubscribableMapEventType, key: string, value: CacheData) => {
       switch (type) {
-        case SubscribableArrayEventType.Added:
-          Array.isArray(item) ? this.addItems(item) : this.addItem(item!);
+        case SubscribableMapEventType.Added:
+          this.addItem(value);
           break;
-        case SubscribableArrayEventType.Removed:
-          break;
-        case SubscribableArrayEventType.Cleared:
-          this.listRef.instance.innerHTML = "";
+        case SubscribableMapEventType.Changed:
+        case SubscribableMapEventType.Deleted:
+          // TODO: handle these cases if we ever modify or remove entries in `this.props.dataContext.caches`
+          console.error(`SimCache ListPage: SubscribableMapEventType ${type} not supported`);
           break;
       }
     });
@@ -49,7 +37,7 @@ export class ListPage extends GamepadUiView<HTMLDivElement, ListPageProps> {
     return (
       <div ref={this.gamepadUiViewRef} class="simcache-page">
         <div class="efb-header"></div>
-        <div class="efb-body">
+        <div class="efb-body scroll-container">
           <div class="content">
             <header>
               <h1>Welcome to SimCache</h1>

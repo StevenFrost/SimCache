@@ -1,4 +1,4 @@
-import { TTButton, GamepadUiView, RequiredProps, TVNode, UiViewProps } from "@efb/efb-api";
+import { Button, IconElement, TT, GamepadUiView, RequiredProps, TVNode, UiViewProps } from "@efb/efb-api";
 import { FSComponent, Subscribable } from "@microsoft/msfs-sdk";
 import { CacheDetails } from "./CacheDetails";
 import { SimCacheDataManager } from "../utils/SimCacheDataManager";
@@ -16,18 +16,19 @@ export class DetailsPage extends GamepadUiView<HTMLDivElement, DetailsPageProps>
     return (
       <div ref={this.gamepadUiViewRef} class="simcache-page">
         <div class="efb-header"></div>
-        <div class="efb-body">
+        <div class="efb-body scroll-container">
           <div class="content">
             <header>
-              <h1>Cache Details</h1>
               <nav>
-                <TTButton
-                  key="Go back"
-                  type="secondary"
+                <Button
+                  class="back-button"
                   callback={(): void => {
                     this.props.appViewService.goBack();
                   }}
-                />
+                >
+                  <IconElement url="coui://html_ui/efb_ui/efb_apps/PilotBookApp/Assets/icons/Arrow.svg" />
+                  <TT key="@fs-base-efb,TT:EFB.COMMON.BACK" format="uppercase" />
+                </Button>
               </nav>
             </header>
             <main>

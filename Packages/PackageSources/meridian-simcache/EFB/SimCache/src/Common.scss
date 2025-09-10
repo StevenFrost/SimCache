@@ -5,8 +5,7 @@
   flex-direction: column;
   background-color: rgb(var(--efb-full-page-background));
   color: var(--efb-content);
-  // font-family: Roboto-Bold, Meiryobui, NotoSansSC, Malgun, Arial;
-  // font-family: Roboto-Light, Meiryobui, NotoSansSC, Malgun, Arial;
+  --header-padding: calc(15px * var(--panel-height) / var(--base-height, 716));
 }
 
 .efb-header {
@@ -40,7 +39,7 @@
 }
 
 section h1, section h2, section h3, section h4, section h5, section h6 {
-    padding: calc(15px * var(--panel-height) / var(--base-height, 716)) 0 calc(15px * var(--panel-height) / var(--base-height, 716)) 0;
+    padding: var(--header-padding) 0;
     font-family: Roboto-Bold, Meiryobui, NotoSansSC, Malgun, Arial;
     font-size: calc(16px * var(--panel-height) / var(--base-height, 716));
 }
@@ -51,14 +50,14 @@ section h1, section h2, section h3, section h4, section h5, section h6 {
     }
 }
 
-header h1, header h2, header h3, header h4, header h5, header h6 {
-    padding: calc(15px * var(--panel-height) / var(--base-height, 716)) 0 calc(15px * var(--panel-height) / var(--base-height, 716)) 0;
-    font-family: Roboto-Bold, Meiryobui, NotoSansSC, Malgun, Arial;    
+header h1, header h2, header h3, header h4, header h5, header h6, caption h1 {
+    padding: var(--header-padding) 0;
+    font-family: Roboto-Bold, Meiryobui, NotoSansSC, Malgun, Arial;
     font-size: calc(20px * var(--panel-height) / var(--base-height, 716));
 }
 
 @media (max-height: 716px) {
-    header h1, header h2, header h3, header h4, header h5, header h6 {
+    header h1, header h2, header h3, header h4, header h5, header h6, caption h1 {
         font-size: 20px;
     }
 }

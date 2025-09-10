@@ -1,0 +1,17 @@
+.star-rating {
+  --star-size: calc(18px * var(--panel-height) / var(--base-height, 716));
+  height: var(--star-size);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.star-rating>* {
+  width: var(--star-size);
+  margin-right: calc(3px * var(--panel-height) / var(--base-height, 716));
+}
+
+.star-rating>:last-child {
+  margin-right: 0;
+}
