@@ -14,23 +14,13 @@ table tr:nth-of-type(odd) {
 }
 
 table td {
-  font-size: calc(13px * var(--panel-height) / var(--base-height, 716));
-}
-
-table td .star-rating {
-  font-size: calc(14px * var(--panel-height) / var(--base-height, 716));
-}
-
-@media (max-height: 716px) {
-  table td {
-    font-size: 13px;
-  }
+  font-size: var(--vsize-13);
 }
 
 details > summary {
   padding: calc(15px * var(--panel-height) / var(--base-height, 716)) 0;
   font-family: Roboto-Bold, Meiryobui, NotoSansSC, Malgun, Arial;
-  font-size: calc(16px * var(--panel-height) / var(--base-height, 716));
+  font-size: var(--vsize-16);
 }
 
 table td:first-child {

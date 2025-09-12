@@ -59,7 +59,7 @@ export class CacheDetails extends DisplayComponent<CacheDetailsProps> {
         <main>
           <section>
             <table>
-              <caption><h1>{this.cache_title}</h1></caption>
+              <caption><h1 class="main-heading">{this.cache_title}</h1></caption>
               {/* <tr>
                 <td>ID</td>
                 <td>{this.cache_id}</td>

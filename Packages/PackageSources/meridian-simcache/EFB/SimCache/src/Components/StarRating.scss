@@ -9,7 +9,7 @@
 
 .star-rating>* {
   width: var(--star-size);
-  margin-right: calc(3px * var(--panel-height) / var(--base-height, 716));
+  margin-right: calc(3px * var(--panel-width) / var(--base-width, 516));
 }
 
 .star-rating>:last-child {

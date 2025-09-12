@@ -6,8 +6,8 @@
     border: 1px rgba(255, 255, 255, .1) solid;
     border-left: 1px #2d3542 solid;
     border-radius: 2px 0 0 2px;
-    margin-bottom: calc(10px * var(--panel-height) / var(--base-height, 716));
-    padding: calc(16px * var(--panel-height) / var(--base-height, 716));
+    margin-bottom: var(--vsize-10);
+    padding: var(--vsize-16);
     box-sizing: border-box;
 }
 
@@ -19,14 +19,7 @@
 }
 
 .card-list-item h2 {
-    font-family: Roboto-Bold, Meiryobui, NotoSansSC, Malgun, Arial;
-    font-size: calc(16px * var(--panel-height) / var(--base-height, 716));
-}
-
-@media (max-height: 716px) {
-    .card-list-item h2 {
-        font-size: 16px
-    }
+    font-size: var(--vsize-16);
 }
 
 .card-list-item a {
@@ -58,22 +51,10 @@
     text-decoration: none;
 }
 
-@media (max-height: 716px) {
-    .card-list-item {
-        margin-bottom: 5px
-    }
-}
-
 .card-list-item .star-rating {
-    font-size: calc(20px * var(--panel-height) / var(--base-height, 716));
+    font-size: var(--vsize-20);
     grid-column-start: 1;
     grid-row-start: 2;
-}
-
-@media (max-height: 716px) {
-    .card-list-item .star-rating {
-        font-size: 20px;
-    }
 }
 
 .card-list-item .container-check {
