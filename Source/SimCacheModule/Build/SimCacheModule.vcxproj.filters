@@ -69,6 +69,12 @@
     <ClCompile Include="..\Source\Core\ProgressionData.cpp">
       <Filter>Source\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\ViewModels\FrontEndViewModel.cpp">
+      <Filter>Source\ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\UICacheDefinitionCollection.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Module\SimCacheModule.h">
@@ -130,6 +136,24 @@
     </ClInclude>
     <ClInclude Include="..\Source\Core\ProgressionData.h">
       <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ViewModels\FrontEndViewModel.h">
+      <Filter>Source\ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Events\UICacheSelectedEvent.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Events\UIRequestAvailableCachesEvent.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\UICacheDefinitionCollection.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Events\UICacheListChangedEvent.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Events\UITrackedCacheChangedEvent.h">
+      <Filter>Source\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

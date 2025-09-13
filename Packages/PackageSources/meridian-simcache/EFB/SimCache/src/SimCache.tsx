@@ -10,13 +10,36 @@ import {
   TVNode,
 } from "@efb/efb-api";
 import { FSComponent, VNode } from "@microsoft/msfs-sdk";
+import { ListPage } from "./Components/ListPage";
+import { DetailsPage } from "./Components/DetailsPage";
+import { SimCacheDataManager } from "./utils/SimCacheDataManager";
 
 import "./SimCache.scss";
 
 declare const BASE_URL: string;
 
 class SimCacheView extends AppView<RequiredProps<AppViewProps, "bus">> {
-  public onOpen(): void {}
+  protected defaultView = "ListPage";
+  private dataContext: SimCacheDataManager;
+
+  constructor(params: any) {
+    super(params);
+    this.dataContext = new SimCacheDataManager();
+  }
+
+  protected registerViews(): void {
+    this.appViewService.registerPage("ListPage", () => (
+      <ListPage appViewService={this.appViewService} dataContext={this.dataContext} />
+    ));
+
+    this.appViewService.registerPage("DetailsPage", () => (
+      <DetailsPage appViewService={this.appViewService} dataContext={this.dataContext} />
+    ));
+  }
+
+  public onOpen(): void {
+    this.dataContext.requestAvailableCaches();
+  }
 
   public onClose(): void {}
 

@@ -45,6 +45,20 @@ void CacheDataStore::Uninitialize()
 
 // -----------------------------------------------------------------------------
 
+const std::string& CacheDataStore::GetVersion() const
+{
+	return BaseCacheDefinitionCollection.Version;
+}
+
+// -----------------------------------------------------------------------------
+
+const std::vector< CacheAuthor >& CacheDataStore::GetAuthors() const
+{
+	return BaseCacheDefinitionCollection.Authors;
+}
+
+// -----------------------------------------------------------------------------
+
 const std::vector< CacheDefinition >& CacheDataStore::GetCacheDefinitions() const
 {
 	return BaseCacheDefinitionCollection.CacheDefinitions;
